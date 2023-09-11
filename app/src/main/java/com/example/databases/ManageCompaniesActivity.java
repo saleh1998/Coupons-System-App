@@ -3,7 +3,7 @@ package com.example.databases;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-//second comment attempt
+//comment attempt
 public class ManageCompaniesActivity extends AppCompatActivity {
 
     @Override
