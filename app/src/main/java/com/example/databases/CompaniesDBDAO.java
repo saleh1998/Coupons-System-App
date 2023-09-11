@@ -15,7 +15,7 @@ public class CompaniesDBDAO implements CompaniesDAO{
     }
 
     @Override
-    public void addCompany(Company company) {
+    public void addCompany(Company company) throws myException {
     mydb.addCompany(company);
 
     }
