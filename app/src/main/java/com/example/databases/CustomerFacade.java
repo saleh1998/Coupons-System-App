@@ -9,13 +9,13 @@ public class CustomerFacade {
 
     }
     public ArrayList<Coupon> getCustomerCoupons() {
-
+        return null;
     }
     public ArrayList<Coupon> getCustomerCoupons(Category category) {
-
+        return null;
     }
     public ArrayList<Coupon> getCustomerCoupons(double maxPrice) {
-
+        return null;
     }
     public void getCompanyDetails(Company company) {
 
