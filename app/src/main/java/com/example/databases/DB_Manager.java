@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DB_Manager extends SQLiteOpenHelper  {
+public class DB_Manager extends SQLiteOpenHelper {
 
     private final static String DB_NAME = "DB_1";
     private final static int DB_VER = 1;
@@ -23,17 +23,16 @@ public class DB_Manager extends SQLiteOpenHelper  {
     ArrayList<Coupon> coupons;
 
     private final static String TBL_COMPANIES = "companies";
-    final static String COMPANY_ID = "id";
+    private final static String  COMPANY_ID = "id";
     private final static String COMPANY_NAME = "name";
     private final static String COMPANY_EMAIL = "email";
     private final static String COMPANY_PASSWORD = "password";
 
 
-
     private final static String CREATE_TABLE_COMPANIES =
             "CREATE TABLE IF NOT EXISTS " + TBL_COMPANIES +
-                    " (" + COMPANY_ID + " text primary key, " +
-                    COMPANY_NAME + " text, "+
+                    " (" + COMPANY_ID + " integer primary key autoincrement, " +
+                    COMPANY_NAME + " text, " +
                     COMPANY_EMAIL + " text, " +
                     COMPANY_PASSWORD + " text)";
 
@@ -61,12 +60,15 @@ public class DB_Manager extends SQLiteOpenHelper  {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_COMPANIES);
         db.execSQL(CREATE_TABLE_CUSTOMERS);
+        db.execSQL(CREATE_TABLE_COUPONS);
+
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TBL_COMPANIES);
         db.execSQL("DROP TABLE IF EXISTS " + TBL_CUSTOMERS);
+        db.execSQL("DROP TABLE IF EXISTS " + TBL_COUPONS);
 
         onCreate(db);
     }
@@ -91,30 +93,19 @@ public class DB_Manager extends SQLiteOpenHelper  {
             throw e;
         }
     }
+
     public SQLiteDatabase getWritableDB() {
         return getWritableDatabase();
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
     //_______________________Companies _________________________
 
-    public boolean isCompanyExists(String email, String password)
-    {
+    public boolean isCompanyExists(String email, String password) {
         companies = getAllCompanies();
         for (Company c : companies) {
             if (c.getEmail().equals(email))
-                if(c.getPassword().equals(password))
+                if (c.getPassword().equals(password))
                     return true;
         }
         return false;
@@ -136,17 +127,16 @@ public class DB_Manager extends SQLiteOpenHelper  {
 
     public void updateCompany(Company company) throws myException {
         companies = getAllCompanies();
-        boolean flag =false;
-            for (Company c : companies) {
-                if (c.getId()== (company.getId())) {
-                    c.setName(company.getName());
-                    c.setEmail(company.getEmail());
-                    c.setPassword(company.getPassword());
-                    flag = true;
-                }
+        boolean flag = false;
+        for (Company c : companies) {
+            if (c.getId() == (company.getId())) {
+                c.setName(company.getName());
+                c.setEmail(company.getEmail());
+                c.setPassword(company.getPassword());
+                flag = true;
             }
-            if(flag)
-            {
+        }
+        if (flag) {
             ContentValues cv = new ContentValues();
             cv.put(COMPANY_NAME, company.getName());
             cv.put(COMPANY_EMAIL, company.getEmail());
@@ -155,34 +145,33 @@ public class DB_Manager extends SQLiteOpenHelper  {
             SQLiteDatabase db = getWritableDatabase();
             db.update(TBL_COMPANIES, cv, COMPANY_ID + "=" + company.getId(), null);
         } else
-            throw new myException("User not exists!");
+            throw new myException("Company not exists!");
 
     }
 
     public void deleteCompany(int companyID) throws myException {
         Company tobeDeleted = null;
-      boolean flag =false;
-            for (Company c : companies) {
-                if (c.getId() == (companyID) ){
-                    tobeDeleted = c;
-                    flag = true;
-                    break;
-                }
+        boolean flag = false;
+        for (Company c : companies) {
+            if (c.getId() == (companyID)) {
+                tobeDeleted = c;
+                flag = true;
+                break;
             }
-            if(flag) {
+        }
+        if (flag) {
             companies.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are refrences
             SQLiteDatabase db = getWritableDatabase();
             db.delete(TBL_COMPANIES, COMPANY_ID + "= ?", new String[]{(Integer.toString(companyID))});
 
-        }
-            else throw new myException("Delete failed No company found with id ="+ companyID +"!");
+        } else throw new myException("Delete failed No company found with id =" + companyID + "!");
 
     }
 
     public ArrayList<Company> getAllCompanies() {
         ArrayList<Company> companies = new ArrayList<>();
-        String[] fields = {COMPANY_ID, COMPANY_NAME, COMPANY_EMAIL,COMPANY_PASSWORD};
-        String id ,name,email,password;
+        String[] fields = {COMPANY_ID, COMPANY_NAME, COMPANY_EMAIL, COMPANY_PASSWORD};
+        String id, name, email, password;
         try {
             Cursor cr = getCursor(TBL_COMPANIES, fields, null);
             if (cr.moveToFirst())
@@ -191,7 +180,7 @@ public class DB_Manager extends SQLiteOpenHelper  {
                     name = cr.getString(1);
                     email = cr.getString(2);
                     password = cr.getString(3);
-                    companies.add(new Company(Integer.parseInt(id),name,email,password));
+                    companies.add(new Company(Integer.parseInt(id), name, email, password));
                 } while (cr.moveToNext());
             return companies;
         } catch (Exception e) {
@@ -204,36 +193,13 @@ public class DB_Manager extends SQLiteOpenHelper  {
         companies = getAllCompanies();
         for (Company c : companies) {
             if (c.getId() == CompanyID)
-                    return c;
+                return c;
         }
         return null;
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     //___________________________________Customers___________________________________
-
-
-
 
 
     private final static String TBL_CUSTOMERS = "customers";
@@ -244,30 +210,24 @@ public class DB_Manager extends SQLiteOpenHelper  {
     private final static String CUSTOMER_PASSWORD = "password";
 
 
-
     private final static String CREATE_TABLE_CUSTOMERS =
             "CREATE TABLE IF NOT EXISTS " + TBL_CUSTOMERS +
-                    " (" + CUSTOMER_ID + " text primary key, " +
-                    CUSTOMER_FNAME + " text, "+
-                    CUSTOMER_LNAME + " text, "+
+                    " (" + CUSTOMER_ID + " integer primary key autoincrement, " +
+                    CUSTOMER_FNAME + " text, " +
+                    CUSTOMER_LNAME + " text, " +
                     CUSTOMER_EMAIL + " text, " +
                     CUSTOMER_PASSWORD + " text)";
-
-
-
-
-
-
 
 
     public boolean isCustomerExists(String email, String password) {
         customers = getAllCustomers();
         for (Customer c : customers) {
             if (c.getEmail().equals(email))
-                if(c.getPassword().equals(password))
+                if (c.getPassword().equals(password))
                     return true;
         }
-        return false;    }
+        return false;
+    }
 
 
     public void addCustomer(Customer customer) {
@@ -286,9 +246,9 @@ public class DB_Manager extends SQLiteOpenHelper  {
 
     public void updateCustomer(Customer customer) throws myException {
         customers = getAllCustomers();
-        boolean flag =false;
+        boolean flag = false;
         for (Customer c : customers) {
-            if (c.getId()== (customer.getId())) {
+            if (c.getId() == (customer.getId())) {
                 c.setLastName(customer.getFirstName());
                 c.setFirstName(customer.getLastName());
                 c.setEmail(customer.getEmail());
@@ -296,8 +256,8 @@ public class DB_Manager extends SQLiteOpenHelper  {
                 flag = true;
             }
         }
-        if(flag)
-        {ContentValues cv = new ContentValues();
+        if (flag) {
+            ContentValues cv = new ContentValues();
             cv.put(CUSTOMER_FNAME, customer.getFirstName());
             cv.put(CUSTOMER_LNAME, customer.getLastName());
             cv.put(COMPANY_EMAIL, customer.getEmail());
@@ -313,28 +273,28 @@ public class DB_Manager extends SQLiteOpenHelper  {
 
     public void deleteCustomer(int customerID) throws myException {
         Customer tobeDeleted = null;
-        boolean flag =false;
+        boolean flag = false;
         for (Customer c : customers) {
-            if (c.getId() == (customerID) ){
+            if (c.getId() == (customerID)) {
                 tobeDeleted = c;
                 flag = true;
                 break;
             }
         }
-        if(flag) {
+        if (flag) {
             customers.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are refrences
             SQLiteDatabase db = getWritableDatabase();
             db.delete(TBL_CUSTOMERS, CUSTOMER_ID + "= ?", new String[]{(Integer.toString(customerID))});
 
-        }
-        else throw new myException("Delete failed No customer found with id ="+ customerID +"!");
+        } else
+            throw new myException("Delete failed No customer found with id =" + customerID + "!");
     }
 
 
     public ArrayList<Customer> getAllCustomers() {
         ArrayList<Customer> customers = new ArrayList<>();
-        String[] fields = {CUSTOMER_ID, CUSTOMER_FNAME, CUSTOMER_LNAME,CUSTOMER_EMAIL,CUSTOMER_PASSWORD};
-        String id ,fname,lname,email,password;
+        String[] fields = {CUSTOMER_ID, CUSTOMER_FNAME, CUSTOMER_LNAME, CUSTOMER_EMAIL, CUSTOMER_PASSWORD};
+        String id, fname, lname, email, password;
         try {
             Cursor cr = getCursor(TBL_CUSTOMERS, fields, null);
             if (cr.moveToFirst())
@@ -344,7 +304,7 @@ public class DB_Manager extends SQLiteOpenHelper  {
                     lname = cr.getString(2);
                     email = cr.getString(3);
                     password = cr.getString(4);
-                    customers.add(new Customer(Integer.parseInt(id),fname,lname,email,password));
+                    customers.add(new Customer(Integer.parseInt(id), fname, lname, email, password));
                 } while (cr.moveToNext());
             return customers;
         } catch (Exception e) {
@@ -353,12 +313,9 @@ public class DB_Manager extends SQLiteOpenHelper  {
     }
 
 
-
-    public Customer getOneCustomer(int CustomerID)
-    {
+    public Customer getOneCustomer(int CustomerID) {
         customers = getAllCustomers();
-        for (Customer c : customers)
-        {
+        for (Customer c : customers) {
             if (c.getId() == CustomerID)
                 return c;
         }
@@ -367,11 +324,10 @@ public class DB_Manager extends SQLiteOpenHelper  {
     //+_________________________________________Coupons_____________________________________________________
 
 
-
     private final static String TBL_COUPONS = "coupons";
     final static String COUPON_ID = "id";
-    private final static String COUPON_COMPANY_ID= "companyID";
-    private final static String COUPONS_CATEGORY = "category";
+    private static final String  COUPON_COMPANY_ID = "companyID";
+    private static final String  COUPONS_CATEGORY = "category";
     private final static String COUPONS_TITLE = "title";
     private final static String COUPONS_DESC = "description";
     private final static String COUPONS_START_DATE = "startDate";
@@ -381,24 +337,22 @@ public class DB_Manager extends SQLiteOpenHelper  {
     private final static String COUPONS_IMAGE = "image";
 
 
-
     private final static String CREATE_TABLE_COUPONS =
-            "CREATE TABLE IF NOT EXISTS " + COUPON_ID +
-                    " (" + COUPON_COMPANY_ID + " text primary key, " +
-                    COUPONS_CATEGORY + " text, "+
-                    COUPONS_TITLE + " text, "+
-                    COUPONS_DESC + " text, "+
-                    COUPONS_START_DATE + " text, " +
-                    COUPONS_END_DATE + " text, " +
-                    COUPONS_AMOUNT + " text, " +
-                    COUPONS_PRICE + " text, " +
+            "CREATE TABLE IF NOT EXISTS " + TBL_COUPONS +
+                    " (" + COUPON_ID + "integer primary key autoincrement," +
+                    COUPON_COMPANY_ID + " integer, " +
+                    COUPONS_CATEGORY + " integer, " +
+                    COUPONS_TITLE + " text, " +
+                    COUPONS_DESC + " text, " +
+                    COUPONS_START_DATE + " date, " +
+                    COUPONS_END_DATE + " date, " +
+                    COUPONS_AMOUNT + " integer, " +
+                    COUPONS_PRICE + " double, " +
                     COUPONS_IMAGE + " text)";
 
 
-
-   public void addCoupon(Coupon coupon)
-    {
-Date startDate = coupon.getStartDate();
+    public void addCoupon(Coupon coupon) {
+        Date startDate = coupon.getStartDate();
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String start = dateFormat.format(startDate);
 
@@ -428,9 +382,9 @@ Date startDate = coupon.getStartDate();
     public void updateCoupon(Coupon coupon) throws myException, ParseException {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         coupons = getAllCoupons();
-        boolean flag =false;
+        boolean flag = false;
         for (Coupon c : coupons) {
-            if (c.getId()== (coupon.getId())) {
+            if (c.getId() == (coupon.getId())) {
                 c.setCompanyID(coupon.getCompanyID());
                 c.setCategory(coupon.getCategory());
                 c.setTitle(coupon.getTitle());
@@ -445,8 +399,8 @@ Date startDate = coupon.getStartDate();
                 break;
             }
         }
-        if(flag)
-        {ContentValues values = new ContentValues();
+        if (flag) {
+            ContentValues values = new ContentValues();
             values.put(COUPON_ID, coupon.getId());
             values.put(COUPON_COMPANY_ID, coupon.getCompanyID());
             values.put(COUPONS_CATEGORY, coupon.getCategory().name());
@@ -464,47 +418,49 @@ Date startDate = coupon.getStartDate();
             throw new myException("coupon does not exists in db!");
 
     }
+
     public void deleteCoupon(Coupon coupon) throws myException {
 
         Coupon tobeDeleted = null;
-        boolean flag =false;
+        boolean flag = false;
         for (Coupon c : coupons) {
-            if (c.getId() == (coupon.getId()) ){
+            if (c.getId() == (coupon.getId())) {
                 tobeDeleted = c;
                 flag = true;
                 break;
             }
         }
-        if(flag) {
+        if (flag) {
             coupons.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are refrences
             SQLiteDatabase db = getWritableDatabase();
             db.delete(TBL_COUPONS, COUPON_ID + "= ?", new String[]{(Integer.toString(coupon.getId()))});
 
-        }
-        else throw new myException("Delete failed No coupon found with id ="+ coupon.getId() +"!");
+        } else
+            throw new myException("Delete failed No coupon found with id =" + coupon.getId() + "!");
 
 
     }
-    public  ArrayList<Coupon> getAllCoupons() throws ParseException {
+
+    public ArrayList<Coupon> getAllCoupons() throws ParseException {
         ArrayList<Coupon> coupons = new ArrayList<>();
-        String[] fields = {COUPON_ID, COUPON_COMPANY_ID, COUPONS_CATEGORY,COUPONS_TITLE,COUPONS_DESC,COUPONS_START_DATE,COUPONS_END_DATE,COUPONS_AMOUNT,COUPONS_PRICE,COUPONS_IMAGE};
-        String id,compID,category,title,desc,start,end,amount,price,image;
+        String[] fields = {COUPON_ID, COUPON_COMPANY_ID, COUPONS_CATEGORY, COUPONS_TITLE, COUPONS_DESC, COUPONS_START_DATE, COUPONS_END_DATE, COUPONS_AMOUNT, COUPONS_PRICE, COUPONS_IMAGE};
+        String id, compID, category, title, desc, start, end, amount, price, image;
         try {
             Cursor cr = getCursor(TBL_COUPONS, fields, null);
             if (cr.moveToFirst())
                 do {
                     id = cr.getString(0);
-                    compID  = cr.getString(1);
+                    compID = cr.getString(1);
                     category = cr.getString(2);
                     title = cr.getString(3);
                     desc = cr.getString(4);
-                    start   = cr.getString(5);
-                    end= cr.getString(6);
+                    start = cr.getString(5);
+                    end = cr.getString(6);
                     amount = cr.getString(7);
                     price = cr.getString(8);
-                    image  = cr.getString(9);
+                    image = cr.getString(9);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    coupons.add(new Coupon(Integer.parseInt(id),Integer.parseInt(compID),Category.valueOf(category),title,desc,dateFormat.parse(start),dateFormat.parse(end),Integer.parseInt(amount),Double.parseDouble(price),image));
+                    coupons.add(new Coupon(Integer.parseInt(id), Integer.parseInt(compID), Category.valueOf(category), title, desc, dateFormat.parse(start), dateFormat.parse(end), Integer.parseInt(amount), Double.parseDouble(price), image));
                 } while (cr.moveToNext());
             return coupons;
         } catch (Exception e) {
@@ -513,16 +469,17 @@ Date startDate = coupon.getStartDate();
 
 
     }
+
     public Coupon getOneCoupon(int CouponID) throws ParseException {
         coupons = getAllCoupons();
-        for (Coupon c : coupons)
-        {
+        for (Coupon c : coupons) {
             if (c.getId() == CouponID)
                 return c;
         }
         return null;
     }
-    public  void addCouponPurchase(int customerID, int couponID) throws ParseException, myException {
+
+    public void addCouponPurchase(int customerID, int couponID) throws ParseException, myException {
         Coupon coupon = getOneCoupon(couponID);
         Customer customer = getOneCustomer(customerID);
 
@@ -539,13 +496,13 @@ Date startDate = coupon.getStartDate();
                     throw new myException(" database error during update");
                 }
             } else {
-               throw new myException("no coupons left ");
+                throw new myException("no coupons left ");
             }
         }
     }
 
 
-    public  void deleteCouponPurchase(int customerID, int couponID) throws myException, ParseException {
+    public void deleteCouponPurchase(int customerID, int couponID) throws myException, ParseException {
         Customer customer = getOneCustomer(customerID);
         Coupon coupon = getOneCoupon(couponID);
 
@@ -567,9 +524,6 @@ Date startDate = coupon.getStartDate();
 
         }
     }
-
-
-
 
 
 }
