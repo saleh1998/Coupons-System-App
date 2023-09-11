@@ -13,7 +13,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class DB_Manager extends SQLiteOpenHelper implements CompaniesDAO,CustomersDAO {
+public class DB_Manager extends SQLiteOpenHelper  {
 
     private final static String DB_NAME = "DB_1";
     private final static int DB_VER = 1;
@@ -108,7 +108,7 @@ public class DB_Manager extends SQLiteOpenHelper implements CompaniesDAO,Custome
 
 
     //_______________________Companies _________________________
-    @Override
+
     public boolean isCompanyExists(String email, String password)
     {
         companies = getAllCompanies();
@@ -120,7 +120,6 @@ public class DB_Manager extends SQLiteOpenHelper implements CompaniesDAO,Custome
         return false;
     }
 
-    @Override
     public void addCompany(Company company) {
         SQLiteDatabase db = getWritableDatabase();
 
@@ -134,8 +133,7 @@ public class DB_Manager extends SQLiteOpenHelper implements CompaniesDAO,Custome
         db.close();
     }
 
-    @SuppressLint("SuspiciousIndentation")
-    @Override
+
     public void updateCompany(Company company) throws myException {
         companies = getAllCompanies();
         boolean flag =false;
@@ -161,7 +159,6 @@ public class DB_Manager extends SQLiteOpenHelper implements CompaniesDAO,Custome
 
     }
 
-    @Override
     public void deleteCompany(int companyID) throws myException {
         Company tobeDeleted = null;
       boolean flag =false;
@@ -181,7 +178,7 @@ public class DB_Manager extends SQLiteOpenHelper implements CompaniesDAO,Custome
             else throw new myException("Delete failed No company found with id ="+ companyID +"!");
 
     }
-    @Override
+
     public ArrayList<Company> getAllCompanies() {
         ArrayList<Company> companies = new ArrayList<>();
         String[] fields = {COMPANY_ID, COMPANY_NAME, COMPANY_EMAIL,COMPANY_PASSWORD};
@@ -202,7 +199,7 @@ public class DB_Manager extends SQLiteOpenHelper implements CompaniesDAO,Custome
         }
     }
 
-    @Override
+
     public Company getOneCompany(int CompanyID) {
         companies = getAllCompanies();
         for (Company c : companies) {
@@ -262,7 +259,7 @@ public class DB_Manager extends SQLiteOpenHelper implements CompaniesDAO,Custome
 
 
 
-    @Override
+
     public boolean isCustomerExists(String email, String password) {
         customers = getAllCustomers();
         for (Customer c : customers) {
@@ -272,7 +269,7 @@ public class DB_Manager extends SQLiteOpenHelper implements CompaniesDAO,Custome
         }
         return false;    }
 
-    @Override
+
     public void addCustomer(Customer customer) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -286,7 +283,7 @@ public class DB_Manager extends SQLiteOpenHelper implements CompaniesDAO,Custome
         db.close();
     }
 
-    @Override
+
     public void updateCustomer(Customer customer) throws myException {
         customers = getAllCustomers();
         boolean flag =false;
@@ -313,7 +310,7 @@ public class DB_Manager extends SQLiteOpenHelper implements CompaniesDAO,Custome
 
     }
 
-    @Override
+
     public void deleteCustomer(int customerID) throws myException {
         Customer tobeDeleted = null;
         boolean flag =false;
@@ -333,7 +330,7 @@ public class DB_Manager extends SQLiteOpenHelper implements CompaniesDAO,Custome
         else throw new myException("Delete failed No customer found with id ="+ customerID +"!");
     }
 
-    @Override
+
     public ArrayList<Customer> getAllCustomers() {
         ArrayList<Customer> customers = new ArrayList<>();
         String[] fields = {CUSTOMER_ID, CUSTOMER_FNAME, CUSTOMER_LNAME,CUSTOMER_EMAIL,CUSTOMER_PASSWORD};
@@ -357,7 +354,6 @@ public class DB_Manager extends SQLiteOpenHelper implements CompaniesDAO,Custome
 
 
 
-    @Override
     public Customer getOneCustomer(int CustomerID)
     {
         customers = getAllCustomers();
