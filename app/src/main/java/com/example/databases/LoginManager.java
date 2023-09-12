@@ -3,17 +3,18 @@ package com.example.databases;
 import android.content.Context;
 
 public class LoginManager {
+    Context context;
 
     private static LoginManager instance = null;
 
-    private LoginManager() {
-
+    private LoginManager(Context context) {
+        this.context =context;
     }
 
 
     //...Singleton.........................................
     public static LoginManager getInstance(Context context) {
-        if (instance == null) instance = new LoginManager();
+        if (instance == null) instance = new LoginManager(context);
         return instance;
     }
 
