@@ -1,10 +1,22 @@
 package com.example.databases;
 
+import android.content.Context;
+
 public abstract class ClientFacade {
-    CompaniesDAO companiesDAO= new CompaniesDBDAO();
-    CustomersDAO customersDAO= new CustomersDBDAO();
-    CouponsDAO couponsDAO= new CouponsDBDAO();
-    public boolean login(String email,String password){
+
+    Context context;
+    CompaniesDAO companiesDAO= new CompaniesDBDAO(context);
+    CustomersDAO customersDAO= new CustomersDBDAO(context);
+    CouponsDAO couponsDAO= new CouponsDBDAO(context);
+
+
+
+    public ClientFacade(Context context) {
+        this.context = context;
+    }
+
+
+    public boolean login(String email, String password){
 //        String adminEmail = "admin@admin.com";
 //        String adminPassword = "admin";
 //        if (email.equals(adminEmail)&&password.equals(adminPassword)
