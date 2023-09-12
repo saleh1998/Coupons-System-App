@@ -12,6 +12,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class DB_Manager extends SQLiteOpenHelper {
 
@@ -23,10 +24,11 @@ public class DB_Manager extends SQLiteOpenHelper {
     ArrayList<Coupon> coupons;
 
     private final static String TBL_COMPANIES = "companies";
-    private final static String  COMPANY_ID = "id";
+    private final static String COMPANY_ID = "id";
     private final static String COMPANY_NAME = "name";
     private final static String COMPANY_EMAIL = "email";
     private final static String COMPANY_PASSWORD = "password";
+
 
 
     private final static String CREATE_TABLE_COMPANIES =
@@ -68,7 +70,7 @@ public class DB_Manager extends SQLiteOpenHelper {
 
     private final static String CREATE_TABLE_COUPONS =
             "CREATE TABLE IF NOT EXISTS " + TBL_COUPONS +
-                    " (" + COUPON_ID + "integer primary key autoincrement," +
+                    " (" + COUPON_ID + " integer primary key autoincrement," +
                     COUPON_COMPANY_ID + " integer, " +
                     COUPONS_CATEGORY + " integer, " +
                     COUPONS_TITLE + " text, " +
@@ -100,6 +102,7 @@ public class DB_Manager extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+
         db.execSQL(CREATE_TABLE_COMPANIES);
         db.execSQL(CREATE_TABLE_CUSTOMERS);
         db.execSQL(CREATE_TABLE_COUPONS);
@@ -133,6 +136,7 @@ public class DB_Manager extends SQLiteOpenHelper {
             SQLiteDatabase db = this.getReadableDatabase();
             Cursor cr = db.rawQuery(strQry, null);
             return cr;
+
         } catch (Exception e) {
             throw e;
         }
@@ -280,7 +284,7 @@ public class DB_Manager extends SQLiteOpenHelper {
         values.put(CUSTOMER_FNAME, customer.getFirstName());
         values.put(CUSTOMER_LNAME, customer.getLastName());
         values.put(CUSTOMER_EMAIL, customer.getEmail());
-        values.put(COMPANY_PASSWORD, customer.getPassword());
+        values.put(CUSTOMER_PASSWORD, customer.getPassword());
 
         db.insert(TBL_CUSTOMERS, null, values);
         db.close();
@@ -303,8 +307,8 @@ public class DB_Manager extends SQLiteOpenHelper {
             ContentValues cv = new ContentValues();
             cv.put(CUSTOMER_FNAME, customer.getFirstName());
             cv.put(CUSTOMER_LNAME, customer.getLastName());
-            cv.put(COMPANY_EMAIL, customer.getEmail());
-            cv.put(COMPANY_PASSWORD, customer.getPassword());
+            cv.put(CUSTOMER_EMAIL, customer.getEmail());
+            cv.put(CUSTOMER_PASSWORD, customer.getPassword());
 
             SQLiteDatabase db = getWritableDatabase();
             db.update(TBL_CUSTOMERS, cv, CUSTOMER_ID + "=" + customer.getId(), null);
@@ -528,7 +532,6 @@ public class DB_Manager extends SQLiteOpenHelper {
         if (customer != null && coupon != null) {
             if (customer.getCoupons().contains(coupon)) {
                 customer.getCoupons().remove(coupon);
-
                 try {
                     updateCustomer(customer);
                 } catch (myException e) {
@@ -566,7 +569,7 @@ public class DB_Manager extends SQLiteOpenHelper {
 
         values.put(CATEGORY_NAME, category);
 
-        db.insert(TBL_CUSTOMERS, null, values);
+        db.insert(TBL_CATEGORIES, null, values);
         db.close();
     }
 
@@ -580,8 +583,9 @@ public class DB_Manager extends SQLiteOpenHelper {
 
     private final static String CREATE_TABLE_CUSTOMERS_VS_COUPONS =
             "CREATE TABLE IF NOT EXISTS " + TBL_CUSTOMERS_VS_COUPONS +
-                    " (" + CUSTOMERS_VS_COUPON_CUSTOMER_ID + " integer primary key , " +
-                    CUSTOMERS_VS_COUPON_COUPON_ID + " integer primary key )";
+                    " (" + CUSTOMERS_VS_COUPON_CUSTOMER_ID + " integer, " +
+                    CUSTOMERS_VS_COUPON_COUPON_ID + " integer, " +
+                    "PRIMARY KEY (" + CUSTOMERS_VS_COUPON_CUSTOMER_ID + ", " + CUSTOMERS_VS_COUPON_COUPON_ID + "))";
 
 
 
@@ -593,8 +597,34 @@ public class DB_Manager extends SQLiteOpenHelper {
         values.put(CUSTOMERS_VS_COUPON_CUSTOMER_ID, customerId);
         values.put(CUSTOMERS_VS_COUPON_COUPON_ID, couponId);
 
-        db.insert(TBL_CUSTOMERS, null, values);
+        db.insert(TBL_CUSTOMERS_VS_COUPONS, null, values);
         db.close();
     }
+
+    // Functions Mix:
+    public void deleteExpiredCouponsAndPurchaseHistory() throws myException {
+        // 1. Get a list of all expired coupons.
+        List<Coupon> expiredCoupons = getExpiredCoupons();
+
+        // 2. Delete each expired coupon.
+        for (Coupon coupon : expiredCoupons) {
+            deleteCoupon(coupon);
+
+        }
+    }
+
+    private List<Coupon> getExpiredCoupons() {
+        List<Coupon> expiredCoupons = new ArrayList<>();
+
+        Date today = new Date(); // Assuming that Coupon has a Date type for expiration date
+        for (Coupon c : coupons) {
+            if (c.getEndDate().before(today)) {
+                expiredCoupons.add(c);
+            }
+        }
+        return expiredCoupons;
+    }
+
+
 
 }
