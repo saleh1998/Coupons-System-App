@@ -31,7 +31,7 @@ public class CompaniesDBDAO implements CompaniesDAO{
 
     @Override
     public void deleteCompany(int companyID) throws myException {
-mydb.deleteCompany(companyID);
+    mydb.deleteCompany(companyID);
     }
 
     @Override
