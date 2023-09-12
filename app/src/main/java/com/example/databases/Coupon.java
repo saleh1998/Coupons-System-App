@@ -14,8 +14,7 @@ public class Coupon {
     private Double price;
     private String image;
 
-    public Coupon(int id, int companyID, Category category, String title, String description, Date startDate, Date endDate, int amount, Double price, String image) {
-        this.id = id;
+    public Coupon( int companyID, Category category, String title, String description, Date startDate, Date endDate, int amount, Double price, String image) {
         this.companyID = companyID;
         this.category = category;
         this.title = title;
@@ -27,8 +26,7 @@ public class Coupon {
         this.image = image;
     }
 
-    public Coupon(int id, int companyID, Category category, String title, String description, Date startDate, Date endDate, int amount, Double price) {
-        this.id = id;
+    public Coupon(int companyID, Category category, String title, String description, Date startDate, Date endDate, int amount, Double price) {
         this.companyID = companyID;
         this.category = category;
         this.title = title;
