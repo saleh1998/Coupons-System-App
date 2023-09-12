@@ -20,7 +20,6 @@ public class AdminFacade extends ClientFacade{
             {
                 throw new myException("Company with the same title already exists.");
             }
-
         }
         if (!companyExists) {
             companiesDAO.addCompany(company);
