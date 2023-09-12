@@ -61,6 +61,8 @@ public class DB_Manager extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_COMPANIES);
         db.execSQL(CREATE_TABLE_CUSTOMERS);
         db.execSQL(CREATE_TABLE_COUPONS);
+        db.execSQL(CREATE_TABLE_CATEGORIES);
+        db.execSQL(CREATE_TABLE_CUSTOMERS_VS_COUPONS);
 
     }
 
@@ -160,7 +162,7 @@ public class DB_Manager extends SQLiteOpenHelper {
             }
         }
         if (flag) {
-            companies.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are refrences
+            companies.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are references
             SQLiteDatabase db = getWritableDatabase();
             db.delete(TBL_COMPANIES, COMPANY_ID + "= ?", new String[]{(Integer.toString(companyID))});
 
@@ -203,7 +205,7 @@ public class DB_Manager extends SQLiteOpenHelper {
 
 
     private final static String TBL_CUSTOMERS = "customers";
-    final static String CUSTOMER_ID = "id";
+    private final static String CUSTOMER_ID = "id";
     private final static String CUSTOMER_FNAME = "firstName";
     private final static String CUSTOMER_LNAME = "lastName";
     private final static String CUSTOMER_EMAIL = "email";
@@ -282,7 +284,7 @@ public class DB_Manager extends SQLiteOpenHelper {
             }
         }
         if (flag) {
-            customers.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are refrences
+            customers.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are references
             SQLiteDatabase db = getWritableDatabase();
             db.delete(TBL_CUSTOMERS, CUSTOMER_ID + "= ?", new String[]{(Integer.toString(customerID))});
 
@@ -431,7 +433,7 @@ public class DB_Manager extends SQLiteOpenHelper {
             }
         }
         if (flag) {
-            coupons.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are refrences
+            coupons.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are references
             SQLiteDatabase db = getWritableDatabase();
             db.delete(TBL_COUPONS, COUPON_ID + "= ?", new String[]{(Integer.toString(coupon.getId()))});
 
@@ -492,6 +494,7 @@ public class DB_Manager extends SQLiteOpenHelper {
                 try {
                     updateCoupon(coupon);
                     updateCustomer(customer);
+                    addCustomerVsCoupon(customerID,couponID);
                 } catch (myException e) {
                     throw new myException(" database error during update");
                 }
@@ -525,5 +528,57 @@ public class DB_Manager extends SQLiteOpenHelper {
         }
     }
 
+    //___________________________________Categories___________________________________
+
+
+    private final static String TBL_CATEGORIES = "categories";
+    private final static String CATEGORY_ID = "id";
+    private final static String CATEGORY_NAME = "name";
+
+
+    private final static String CREATE_TABLE_CATEGORIES =
+            "CREATE TABLE IF NOT EXISTS " + TBL_CATEGORIES +
+                    " (" + CATEGORY_ID + " integer primary key autoincrement, " +
+                    CATEGORY_NAME + " text)";
+
+
+
+    public void addCategory(String category) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+
+        values.put(CATEGORY_NAME, category);
+
+        db.insert(TBL_CUSTOMERS, null, values);
+        db.close();
+    }
+
+//___________________________________CUSTOMERS_VS_COUPONS___________________________________
+
+
+    private final static String TBL_CUSTOMERS_VS_COUPONS = "categories";
+    private final static String CUSTOMERS_VS_COUPON_CUSTOMER_ID = "customer_id";
+    private final static String CUSTOMERS_VS_COUPON_COUPON_ID = "coupon_id";
+
+
+    private final static String CREATE_TABLE_CUSTOMERS_VS_COUPONS =
+            "CREATE TABLE IF NOT EXISTS " + TBL_CUSTOMERS_VS_COUPONS +
+                    " (" + CUSTOMERS_VS_COUPON_CUSTOMER_ID + " integer primary key , " +
+                    CUSTOMERS_VS_COUPON_COUPON_ID + " integer primary key )";
+
+
+
+    public void addCustomerVsCoupon(int customerId,int couponId) {
+        SQLiteDatabase db = getWritableDatabase();
+        ContentValues values = new ContentValues();
+
+
+        values.put(CUSTOMERS_VS_COUPON_CUSTOMER_ID, customerId);
+        values.put(CUSTOMERS_VS_COUPON_COUPON_ID, couponId);
+
+        db.insert(TBL_CUSTOMERS, null, values);
+        db.close();
+    }
 
 }
