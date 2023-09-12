@@ -103,14 +103,21 @@ public class DB_Manager extends SQLiteOpenHelper {
 
     //_______________________Companies _________________________
 
-    public boolean isCompanyExists(String email, String password) {
+    public boolean isCompanyExists(String email, String password)
+    {
+        if(getCompanyId(email,password)!= -1 )
+            return true;
+        return false;
+
+    }
+
+    public int getCompanyId(String email, String password)
+    {
         companies = getAllCompanies();
         for (Company c : companies) {
             if (c.getEmail().equals(email))
-                if (c.getPassword().equals(password))
-                    return true;
-        }
-        return false;
+                if(c.getPassword().equals(password))
+                    return c.getId();
     }
 
     public void addCompany(Company company) {
@@ -222,13 +229,19 @@ public class DB_Manager extends SQLiteOpenHelper {
 
 
     public boolean isCustomerExists(String email, String password) {
+        if(getCustomerId(email, password) != -1)
+            return true;
+        return false;
+    }
+
+    public int getCustomerId(String email, String password) {
         customers = getAllCustomers();
         for (Customer c : customers) {
             if (c.getEmail().equals(email))
-                if (c.getPassword().equals(password))
-                    return true;
+                if(c.getPassword().equals(password))
+                    return c.getId();
         }
-        return false;
+        return -1;    }
     }
 
 
