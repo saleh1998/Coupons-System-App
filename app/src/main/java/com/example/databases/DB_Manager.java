@@ -167,7 +167,7 @@ public class DB_Manager extends SQLiteOpenHelper {
     }
 
     public void addCompany(Company company)
-     {
+    {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -274,7 +274,7 @@ public class DB_Manager extends SQLiteOpenHelper {
                     return c.getId();
         }
         return -1;    }
-    
+
 
 
     public void addCustomer(Customer customer) {
