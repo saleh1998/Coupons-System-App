@@ -76,4 +76,13 @@ public class AdminFacade extends  ClientFacade{
     public ArrayList<Customer> gelAllCustomers() {
         return customersDAO.getAllCustomers();
     }
+
+    @Override
+    public boolean login(String email, String password) {
+        String adminEmail = "admin@admin.com";
+       String adminPassword = "admin";
+      if(email.equals(adminEmail) && password.equals(adminPassword))
+          return true;
+      return  false;
+    }
 }

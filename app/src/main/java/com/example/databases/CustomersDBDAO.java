@@ -14,6 +14,10 @@ public class CustomersDBDAO implements CustomersDAO {
        return mydb.isCustomerExists(email,password);
     }
 
+    public int getCustomerId(String email, String password){
+        return mydb.getCustomerId(email,password);
+    }
+
     @Override
     public void addCustomer(Customer customer) {
         mydb.addCustomer(customer);

@@ -14,6 +14,10 @@ public class CompaniesDBDAO implements CompaniesDAO{
         return mydb.isCompanyExists(email,password);
     }
 
+    public int getCompanyId(String email, String password) {
+        return mydb.getCompanyId(email,password);
+    }
+
     @Override
     public void addCompany(Company company) throws myException {
     mydb.addCompany(company);

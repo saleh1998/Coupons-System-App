@@ -6,7 +6,11 @@ import java.util.ArrayList;
 public class CompanyFacade extends ClientFacade {
     private int companyID;
 
-        public CompanyFacade(int companyID) {
+    public void setCompanyID(int companyID) {
+        this.companyID = companyID;
+    }
+
+    public CompanyFacade(int companyID) {
         this.companyID = companyID;
         }
         public void addCoupon(Coupon coupon) throws myException, ParseException {
@@ -19,7 +23,18 @@ public class CompanyFacade extends ClientFacade {
             couponsDAO.addCoupon(coupon);
     }
 
-        public void updateCoupon(Coupon coupon) throws ParseException, myException {
+    @Override
+    public boolean login(String email, String password) {
+            if(companiesDAO.isCompanyExists(email, password)){
+                int id = companiesDAO.getCompanyId(email,password);
+                setCompanyID(id);
+                return true;
+            }
+            return false;
+
+    }
+
+    public void updateCoupon(Coupon coupon) throws ParseException, myException {
             Coupon existingCoupon = couponsDAO.getOneCoupon(coupon.getId());
             if (existingCoupon != null) {
                 couponsDAO.updateCoupon(coupon);
