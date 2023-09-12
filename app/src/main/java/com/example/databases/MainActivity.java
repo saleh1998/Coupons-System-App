@@ -15,7 +15,7 @@ public class MainActivity extends AppCompatActivity {
     DB_Manager dbManager = DB_Manager.getInstance(this);
 
     // Access methods from the CompaniesDAO interface
-    boolean companyExists = dbManager.isCompanyExists("companyEmail", "companyPassword");
+    //boolean companyExists = dbManager.isCompanyExists("companyEmail", "companyPassword");
     // You can also call other methods from CompaniesDAO if needed
 
     EditText etUserName, etPassword;
