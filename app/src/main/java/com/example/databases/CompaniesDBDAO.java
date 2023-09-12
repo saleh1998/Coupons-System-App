@@ -9,6 +9,10 @@ public class CompaniesDBDAO implements CompaniesDAO{
 
     DB_Manager mydb = DB_Manager.getInstance(context);
 
+    public CompaniesDBDAO(Context context) {
+        this.context = context;
+    }
+
     @Override
     public boolean isCompanyExists(String email, String password) {
         return mydb.isCompanyExists(email,password);

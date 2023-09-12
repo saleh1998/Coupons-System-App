@@ -14,7 +14,9 @@ public class CouponsDBDAO implements CouponsDAO {
 
     DB_Manager mydb = DB_Manager.getInstance(context);
 
-
+    public CouponsDBDAO(Context context) {
+        this.context = context;
+    }
 
     public void addCoupon(Coupon coupon)
     {

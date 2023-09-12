@@ -36,6 +36,48 @@ public class DB_Manager extends SQLiteOpenHelper {
                     COMPANY_EMAIL + " text, " +
                     COMPANY_PASSWORD + " text)";
 
+    private final static String TBL_CUSTOMERS = "customers";
+    private final static String CUSTOMER_ID = "id";
+    private final static String CUSTOMER_FNAME = "firstName";
+    private final static String CUSTOMER_LNAME = "lastName";
+    private final static String CUSTOMER_EMAIL = "email";
+    private final static String CUSTOMER_PASSWORD = "password";
+
+
+    private final static String CREATE_TABLE_CUSTOMERS =
+            "CREATE TABLE IF NOT EXISTS " + TBL_CUSTOMERS +
+                    " (" + CUSTOMER_ID + " integer primary key autoincrement, " +
+                    CUSTOMER_FNAME + " text, " +
+                    CUSTOMER_LNAME + " text, " +
+                    CUSTOMER_EMAIL + " text, " +
+                    CUSTOMER_PASSWORD + " text)";
+
+
+    private final static String TBL_COUPONS = "coupons";
+    final static String COUPON_ID = "id";
+    private static final String  COUPON_COMPANY_ID = "companyID";
+    private static final String  COUPONS_CATEGORY = "category";
+    private final static String COUPONS_TITLE = "title";
+    private final static String COUPONS_DESC = "description";
+    private final static String COUPONS_START_DATE = "startDate";
+    private final static String COUPONS_END_DATE = "endDate";
+    private final static String COUPONS_AMOUNT = "amount";
+    private final static String COUPONS_PRICE = "price";
+    private final static String COUPONS_IMAGE = "image";
+
+
+    private final static String CREATE_TABLE_COUPONS =
+            "CREATE TABLE IF NOT EXISTS " + TBL_COUPONS +
+                    " (" + COUPON_ID + "integer primary key autoincrement," +
+                    COUPON_COMPANY_ID + " integer, " +
+                    COUPONS_CATEGORY + " integer, " +
+                    COUPONS_TITLE + " text, " +
+                    COUPONS_DESC + " text, " +
+                    COUPONS_START_DATE + " date, " +
+                    COUPONS_END_DATE + " date, " +
+                    COUPONS_AMOUNT + " integer, " +
+                    COUPONS_PRICE + " double, " +
+                    COUPONS_IMAGE + " text)";
 
     //...Singleton.........................................
 
@@ -110,17 +152,18 @@ public class DB_Manager extends SQLiteOpenHelper {
         return false;
 
     }
-
-    public int getCompanyId(String email, String password)
-    {
+    public int getCompanyId(String email, String password) {
         companies = getAllCompanies();
         for (Company c : companies) {
             if (c.getEmail().equals(email))
-                if(c.getPassword().equals(password))
+                if (c.getPassword().equals(password))
                     return c.getId();
+        }
+        return -1;
     }
 
-    public void addCompany(Company company) {
+    public void addCompany(Company company)
+     {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -211,21 +254,6 @@ public class DB_Manager extends SQLiteOpenHelper {
     //___________________________________Customers___________________________________
 
 
-    private final static String TBL_CUSTOMERS = "customers";
-    private final static String CUSTOMER_ID = "id";
-    private final static String CUSTOMER_FNAME = "firstName";
-    private final static String CUSTOMER_LNAME = "lastName";
-    private final static String CUSTOMER_EMAIL = "email";
-    private final static String CUSTOMER_PASSWORD = "password";
-
-
-    private final static String CREATE_TABLE_CUSTOMERS =
-            "CREATE TABLE IF NOT EXISTS " + TBL_CUSTOMERS +
-                    " (" + CUSTOMER_ID + " integer primary key autoincrement, " +
-                    CUSTOMER_FNAME + " text, " +
-                    CUSTOMER_LNAME + " text, " +
-                    CUSTOMER_EMAIL + " text, " +
-                    CUSTOMER_PASSWORD + " text)";
 
 
     public boolean isCustomerExists(String email, String password) {
@@ -242,7 +270,7 @@ public class DB_Manager extends SQLiteOpenHelper {
                     return c.getId();
         }
         return -1;    }
-    }
+    
 
 
     public void addCustomer(Customer customer) {
@@ -339,31 +367,6 @@ public class DB_Manager extends SQLiteOpenHelper {
     //+_________________________________________Coupons_____________________________________________________
 
 
-    private final static String TBL_COUPONS = "coupons";
-    final static String COUPON_ID = "id";
-    private static final String  COUPON_COMPANY_ID = "companyID";
-    private static final String  COUPONS_CATEGORY = "category";
-    private final static String COUPONS_TITLE = "title";
-    private final static String COUPONS_DESC = "description";
-    private final static String COUPONS_START_DATE = "startDate";
-    private final static String COUPONS_END_DATE = "endDate";
-    private final static String COUPONS_AMOUNT = "amount";
-    private final static String COUPONS_PRICE = "price";
-    private final static String COUPONS_IMAGE = "image";
-
-
-    private final static String CREATE_TABLE_COUPONS =
-            "CREATE TABLE IF NOT EXISTS " + TBL_COUPONS +
-                    " (" + COUPON_ID + "integer primary key autoincrement," +
-                    COUPON_COMPANY_ID + " integer, " +
-                    COUPONS_CATEGORY + " integer, " +
-                    COUPONS_TITLE + " text, " +
-                    COUPONS_DESC + " text, " +
-                    COUPONS_START_DATE + " date, " +
-                    COUPONS_END_DATE + " date, " +
-                    COUPONS_AMOUNT + " integer, " +
-                    COUPONS_PRICE + " double, " +
-                    COUPONS_IMAGE + " text)";
 
 
     public void addCoupon(Coupon coupon) {
