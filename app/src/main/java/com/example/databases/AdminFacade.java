@@ -1,9 +1,15 @@
 package com.example.databases;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
-public class AdminFacade extends  ClientFacade{
-    public AdminFacade() {
+public class AdminFacade extends ClientFacade{
+
+
+    public AdminFacade(Context context) {
+        super(context);
+        this.context=context;
     }
 
     public void addCompany(Company company) throws myException {
