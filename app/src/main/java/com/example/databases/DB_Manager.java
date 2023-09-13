@@ -179,18 +179,18 @@ public class DB_Manager extends SQLiteOpenHelper {
         values.put(COMPANY_PASSWORD, company.getPassword());
 
         db.insert(TBL_COMPANIES, null, values);
+        companies.add(company);
         db.close();
     }
-
 
     public void updateCompany(Company company) throws myException {
         companies = getAllCompanies();
         boolean flag = false;
         for (Company c : companies) {
             if (c.getId() == (company.getId())) {
-                c.setName(company.getName());
                 c.setEmail(company.getEmail());
                 c.setPassword(company.getPassword());
+                c.setCoupons(company.getCoupons());
                 flag = true;
             }
         }
@@ -218,6 +218,10 @@ public class DB_Manager extends SQLiteOpenHelper {
             }
         }
         if (flag) {
+            for(Coupon c : tobeDeleted.getCoupons())
+            {
+                deleteCoupon(c);
+            }
             companies.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are references
             SQLiteDatabase db = getWritableDatabase();
             db.delete(TBL_COMPANIES, COMPANY_ID + "= ?", new String[]{(Integer.toString(companyID))});
@@ -290,6 +294,7 @@ public class DB_Manager extends SQLiteOpenHelper {
 
         db.insert(TBL_CUSTOMERS, null, values);
         db.close();
+        customers.add(customer);
     }
 
 
@@ -398,7 +403,7 @@ public class DB_Manager extends SQLiteOpenHelper {
 
         db.insert(TBL_COUPONS, null, values);
         db.close();
-
+        coupons.add(coupon);
 
     }
 
@@ -409,7 +414,7 @@ public class DB_Manager extends SQLiteOpenHelper {
         boolean flag = false;
         for (Coupon c : coupons) {
             if (c.getId() == (coupon.getId())) {
-                c.setCompanyID(coupon.getCompanyID());
+                //c.setCompanyID(coupon.getCompanyID());  // can not update this
                 c.setCategory(coupon.getCategory());
                 c.setTitle(coupon.getTitle());
                 c.setDescription(coupon.getDescription());
@@ -425,7 +430,6 @@ public class DB_Manager extends SQLiteOpenHelper {
         }
         if (flag) {
             ContentValues values = new ContentValues();
-            values.put(COUPON_ID, coupon.getId());
             values.put(COUPON_COMPANY_ID, coupon.getCompanyID());
             values.put(COUPONS_CATEGORY, coupon.getCategory().name());
             values.put(COUPONS_TITLE, coupon.getTitle());
@@ -456,6 +460,12 @@ public class DB_Manager extends SQLiteOpenHelper {
         }
         if (flag) {
             coupons.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are references
+            // moaad func to delete also from customer vs coupons
+            for (Customer c : customers)
+            {
+
+
+            }
             SQLiteDatabase db = getWritableDatabase();
             db.delete(TBL_COUPONS, COUPON_ID + "= ?", new String[]{(Integer.toString(coupon.getId()))});
 
