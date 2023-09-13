@@ -563,13 +563,13 @@ public class DB_Manager extends SQLiteOpenHelper {
                     CATEGORY_NAME + " text)";
     public ArrayList<Category> getAllCategories() throws ParseException {
         String[] fields = {CATEGORY_ID, CATEGORY_NAME};
-        String id, catName;
+        String id;
         try {
             Cursor cr = getCursor(TBL_CATEGORIES, fields, null);
             if (cr.moveToFirst())
                 do {
                     id = cr.getString(0);
-                    catName = cr.getString(1);
+
                     categories.add(Category.valueOf(id));
                 } while (cr.moveToNext());
             return categories;
