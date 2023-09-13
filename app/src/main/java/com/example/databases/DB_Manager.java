@@ -22,6 +22,8 @@ public class DB_Manager extends SQLiteOpenHelper {
     ArrayList<Company> companies;
     ArrayList<Customer> customers;
     ArrayList<Coupon> coupons;
+    ArrayList<Category> categories;
+
 
     private final static String TBL_COMPANIES = "companies";
     private final static String COMPANY_ID = "id";
@@ -569,13 +571,43 @@ public class DB_Manager extends SQLiteOpenHelper {
             "CREATE TABLE IF NOT EXISTS " + TBL_CATEGORIES +
                     " (" + CATEGORY_ID + " integer primary key autoincrement, " +
                     CATEGORY_NAME + " text)";
+    public ArrayList<Category> getAllCategories() throws ParseException {
+        ArrayList<Category> categories = new ArrayList<>();
+        String[] fields = {CATEGORY_ID, CATEGORY_NAME};
+        String id, catName;
+        try {
+            Cursor cr = getCursor(TBL_CATEGORIES, fields, null);
+            if (cr.moveToFirst())
+                do {
+                    id = cr.getString(0);
+                    catName = cr.getString(1);
+                    categories.add(Category.valueOf(id));
+                } while (cr.moveToNext());
+            return categories;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
+    public Category getCategoryByName(String categoryName) {
+        if (isValidEnum(Category.class, categoryName)) {
+            return Category.valueOf(categoryName);
+        }
+        return null;
+    }
 
+    public static <E extends Enum<E>> boolean isValidEnum(Class<E> enumClass, String testString) {
+        try {
+            Enum.valueOf(enumClass, testString);
+            return true;
+        } catch (IllegalArgumentException ex) {
+            return false;
+        }
+    }
 
     public void addCategory(String category) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-
 
         values.put(CATEGORY_NAME, category);
 
@@ -586,7 +618,7 @@ public class DB_Manager extends SQLiteOpenHelper {
 //___________________________________CUSTOMERS_VS_COUPONS___________________________________
 
 
-    private final static String TBL_CUSTOMERS_VS_COUPONS = "categories";
+    private final static String TBL_CUSTOMERS_VS_COUPONS = "customers_vs_coupons";
     private final static String CUSTOMERS_VS_COUPON_CUSTOMER_ID = "customer_id";
     private final static String CUSTOMERS_VS_COUPON_COUPON_ID = "coupon_id";
 
@@ -603,7 +635,6 @@ public class DB_Manager extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
-
         values.put(CUSTOMERS_VS_COUPON_CUSTOMER_ID, customerId);
         values.put(CUSTOMERS_VS_COUPON_COUPON_ID, couponId);
 
@@ -611,30 +642,87 @@ public class DB_Manager extends SQLiteOpenHelper {
         db.close();
     }
 
-    // Functions Mix:
-    public void deleteExpiredCouponsAndPurchaseHistory() throws myException {
-        // 1. Get a list of all expired coupons.
-        List<Coupon> expiredCoupons = getExpiredCoupons();
+    public ArrayList<Integer> getAllCouponsForSpecificCustomer(int customerId) {
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<Integer> couponIds = new ArrayList<>();
 
-        // 2. Delete each expired coupon.
-        for (Coupon coupon : expiredCoupons) {
-            deleteCoupon(coupon);
+        String[] columns = {CUSTOMERS_VS_COUPON_COUPON_ID};
+        String selection = CUSTOMERS_VS_COUPON_CUSTOMER_ID + "=?";
+        String[] selectionArgs = {String.valueOf(customerId)};
 
-        }
-    }
+        Cursor cursor = db.query(TBL_CUSTOMERS_VS_COUPONS, columns, selection, selectionArgs, null, null, null);
 
-    private List<Coupon> getExpiredCoupons() {
-        List<Coupon> expiredCoupons = new ArrayList<>();
-
-        Date today = new Date(); // Assuming that Coupon has a Date type for expiration date
-        for (Coupon c : coupons) {
-            if (c.getEndDate().before(today)) {
-                expiredCoupons.add(c);
+        if (cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndex(CUSTOMERS_VS_COUPON_COUPON_ID);
+            if (columnIndex != -1) {
+                do {
+                    int couponId = cursor.getInt(columnIndex);
+                    couponIds.add(couponId);
+                } while (cursor.moveToNext());
             }
         }
-        return expiredCoupons;
+
+        cursor.close();
+        db.close();
+
+        return couponIds;
     }
 
+    public ArrayList<Integer> getAllCustomersForSpecificCoupon(int couponId) {
+        SQLiteDatabase db = getReadableDatabase();
+        ArrayList<Integer> customerIds = new ArrayList<>();
+
+        String[] columns = {CUSTOMERS_VS_COUPON_CUSTOMER_ID};
+        String selection = CUSTOMERS_VS_COUPON_COUPON_ID + "=?";
+        String[] selectionArgs = {String.valueOf(couponId)};
+
+        Cursor cursor = db.query(TBL_CUSTOMERS_VS_COUPONS, columns, selection, selectionArgs, null, null, null);
+
+        if (cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndex(CUSTOMERS_VS_COUPON_CUSTOMER_ID);
+            if (columnIndex != -1) {
+                do {
+                    int customerId = cursor.getInt(columnIndex);
+                    customerIds.add(customerId);
+                } while (cursor.moveToNext());
+            }
+        }
+        cursor.close();
+        db.close();
+
+        return customerIds;
+    }
+
+    public void deleteCustomerVsCouponCouponForAllCustomersByCouponId(int couponId) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        // Define 'where' part of query
+        String selection = CUSTOMERS_VS_COUPON_COUPON_ID + " = ?";
+
+        // Specify arguments in placeholder order
+        String[] selectionArgs = { String.valueOf(couponId) };
+
+        // Issue SQL statement
+        db.delete(TBL_CUSTOMERS_VS_COUPONS, selection, selectionArgs);
+        db.close();
+    }
+    public void deleteCustomerVsCouponCouponForAllCouponsByCustomerId(int customerId) {
+        SQLiteDatabase db = getWritableDatabase();
+
+        // Define 'where' part of query
+        String selection = CUSTOMERS_VS_COUPON_CUSTOMER_ID + " = ?";
+
+        // Specify arguments in placeholder order
+        String[] selectionArgs = { String.valueOf(customerId) };
+
+        // Issue SQL statement
+        db.delete(TBL_CUSTOMERS_VS_COUPONS, selection, selectionArgs);
+        db.close();
+    }
+
+
+
+    // Functions Mix:
 
 
 }

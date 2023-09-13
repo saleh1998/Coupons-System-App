@@ -8,6 +8,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class CouponsDBDAO implements CouponsDAO {
     Context context;
@@ -52,6 +53,37 @@ public class CouponsDBDAO implements CouponsDAO {
     @Override
     public void deleteCouponPurchase(int customerID, int couponID) throws ParseException, myException {
         mydb.deleteCouponPurchase(customerID,couponID);
+    }
+
+    public void deleteExpiredCouponsAndPurchaseHistory() throws myException, ParseException {
+        // 1. Get a list of all expired coupons.
+        List<Coupon> expiredCoupons = getExpiredCoupons();
+
+        // 2. Delete each expired coupon.
+        for (Coupon coupon : expiredCoupons) {
+            int compId = coupon.getCompanyID();
+            Company company = mydb.getOneCompany(compId);
+            company.getCoupons().remove(coupon);
+            ArrayList<Integer> customersIds =  mydb.getAllCustomersForSpecificCoupon(compId);
+            for(int customerId : customersIds){
+                Customer customer = mydb.getOneCustomer(customerId);
+                customer.getCoupons().remove(coupon);
+                mydb.deleteCustomerVsCouponCouponForAllCustomersByCouponId(coupon.getId());
+            }
+            mydb.deleteCoupon(coupon);
+        }
+    }
+
+    private List<Coupon> getExpiredCoupons() throws ParseException {
+        List<Coupon> expiredCoupons = new ArrayList<>();
+
+        Date today = new Date(); // Assuming that Coupon has a Date type for expiration date
+        for (Coupon c : mydb.getAllCoupons()) {
+            if (c.getEndDate().before(today)) {
+                expiredCoupons.add(c);
+            }
+        }
+        return expiredCoupons;
     }
 
 
