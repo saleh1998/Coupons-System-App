@@ -10,4 +10,6 @@ public interface CustomersDAO {
     void deleteCustomer(int customerID) throws myException;
     ArrayList<Customer> getAllCustomers();
     Customer getOneCustomer(int CustomerID);
+
+    boolean isCustomerEmailExists(String email);
 }

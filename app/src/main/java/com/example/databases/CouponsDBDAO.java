@@ -68,8 +68,8 @@ public class CouponsDBDAO implements CouponsDAO {
             for(int customerId : customersIds){
                 Customer customer = mydb.getOneCustomer(customerId);
                 customer.getCoupons().remove(coupon);
-                mydb.deleteCustomerVsCouponCouponForAllCustomersByCouponId(coupon.getId());
             }
+            mydb.deleteCustomerVsCouponCouponForAllCustomersByCouponId(coupon.getId());
             mydb.deleteCoupon(coupon);
         }
     }

@@ -15,11 +15,11 @@ public class CustomersDBDAO implements CustomersDAO {
 
     @Override
     public boolean isCustomerExists(String email, String password) {
-       return mydb.isCustomerExists(email,password);
+        return mydb.isCustomerExists(email, password);
     }
 
-    public int getCustomerId(String email, String password){
-        return mydb.getCustomerId(email,password);
+    public int getCustomerId(String email, String password) {
+        return mydb.getCustomerId(email, password);
     }
 
     @Override
@@ -46,4 +46,13 @@ public class CustomersDBDAO implements CustomersDAO {
     public Customer getOneCustomer(int CustomerID) {
         return mydb.getOneCustomer(CustomerID);
     }
+
+
+    public boolean isCustomerEmailExists(String email) {
+        if(mydb.customers.contains(email)) return true;
+        return false;
+    }
+
+
+
 }

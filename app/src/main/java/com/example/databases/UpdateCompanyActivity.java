@@ -60,6 +60,7 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
         public void onClick(View view) {
             if(view.getId() == btnSave.getId()){
                 ///Save new Company
+
             }
             if(view.getId() == btnCancel.getId()){
                 finish();

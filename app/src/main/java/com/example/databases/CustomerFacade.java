@@ -30,47 +30,40 @@ public class CustomerFacade extends ClientFacade {
         return false;
     }
 
-    public void purchaseCoupon(Coupon coupon) {
-        if (coupon.getAmount() != 0){
+    public void purchaseCoupon(Coupon coupon) throws myException, ParseException {
+        if (coupon.getAmount() != 0) {
             coupon.getEndDate();
             LocalDate currentDate = LocalDate.now();
             LocalDate endDate = coupon.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate startDate = coupon.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            if(currentDate.isAfter(startDate)&& currentDate.isBefore(endDate)){
+            if (currentDate.isAfter(startDate) && currentDate.isBefore(endDate)) {
                 // adding the coupon to the customer coupon list
                 try {
-                    couponsDAO.addCouponPurchase(customerID,coupon.getId());
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
-                } catch (myException e) { // sho my exception b3mal
-                    throw new RuntimeException(e);
+                    couponsDAO.addCouponPurchase(customerID, coupon.getId());
+                } catch (myException | ParseException e) {
+                    throw new myException("Can't add new coupon");
                 }
-
-
+            } else {
+                throw new myException("The coupon is either expired or not yet valid.");
             }
-            else {
-                // we can not use the coupon because of the date
-            }
-
+        } else {
+            throw new myException("There are no more coupons available.");
         }
-        else{
-            // there is no more coupons
-        }
-
     }
+
     public ArrayList<Coupon> getCustomerCoupons() throws ParseException {
-        ArrayList<Coupon> customerCoupons = customersDAO.getOneCustomer(customerID).getCoupons();
-        return customerCoupons;
+        return(customersDAO.getOneCustomer(customerID).getCoupons());
     }
+
     public ArrayList<Coupon> getCustomerCoupons(Category category) throws ParseException {
         ArrayList<Coupon> customerCoupons = getCustomerCoupons();
         ArrayList<Coupon> customerCouponsByCategory = new ArrayList<>();
         for(Coupon coupon : customerCoupons)
-            if(coupon.getCategory() == category)
+            if(coupon.getCategory().equals(category))
                 customerCouponsByCategory.add(coupon);
         return customerCouponsByCategory;
-
     }
+
     public ArrayList<Coupon> getCustomerCoupons(double maxPrice) throws ParseException {
         ArrayList<Coupon> customerCoupons = getCustomerCoupons();
         ArrayList<Coupon> customerCouponsByCategory = new ArrayList<>();
@@ -79,10 +72,9 @@ public class CustomerFacade extends ClientFacade {
                 customerCouponsByCategory.add(coupon);
         return customerCouponsByCategory;
     }
-    public Customer getCustomerDetails(Company company) {
-        Customer customer = customersDAO.getOneCustomer(customerID);
-        return customer;
 
+    public Customer getCustomerDetails(Company company) {
+        return(customersDAO.getOneCustomer(customerID));
     }
 
 
