@@ -12,21 +12,25 @@ public class AdminFacade extends ClientFacade{
         this.context=context;
     }
 
+
+    // v
     public void addCompany(Company company) throws myException {
-        boolean companyExists = companiesDAO.isCompanyExists(company.getEmail(), company.getPassword());
         ArrayList<Company> compamnies = getAllCompanies();
         for (Company c :compamnies) {
             if(c.getName().equals(company.getName()))
             {
                 throw new myException("Company with the same title already exists.");
             }
+            if(c.getEmail().equals(company.getEmail()))
+            {
+                throw new myException("Company with the same email already exists.");
+            }
         }
-        if (!companyExists) {
-            companiesDAO.addCompany(company);
-        } else {
-            throw new myException("Company with the same email or password already exists.");
-        }
+                    companiesDAO.addCompany(company);
     }
+
+
+    //v
     public void updateCompany(Company company) throws myException {
         Company existingCompany = companiesDAO.getOneCompany(company.getId());
 
@@ -36,6 +40,8 @@ public class AdminFacade extends ClientFacade{
            throw new myException("Company not found for the given ID.");
         }
     }
+
+    //
     public void deleteCompany(Company company) throws myException {
             int companyIdToDelete = company.getId();
              Company companyExists = companiesDAO.getOneCompany(company.getId());
@@ -90,6 +96,8 @@ public class AdminFacade extends ClientFacade{
         return customersDAO.getAllCustomers();
     }
 
+
+    // v
     @Override
     public boolean login(String email, String password) {
         String adminEmail = "admin@admin.com";
