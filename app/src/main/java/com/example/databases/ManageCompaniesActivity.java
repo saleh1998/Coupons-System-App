@@ -1,5 +1,9 @@
 package com.example.databases;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -30,6 +34,8 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
     ListView lvCompanies;
     Toolbar toolbar;
     NavigationView navigationView;
+    CompanyLvAdapter lvAdapter;
+    DB_Manager db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +55,6 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
         btnDelete.setOnClickListener(buttonsClick);
         btnSearch.setOnClickListener(buttonsClick);
 
-        toolbar = findViewById(R.id.manageCompanies_toolbar);
         setSupportActionBar(toolbar);
         drawerLayout=findViewById(R.id.manageCompanies_drawer_layout);
         navigationView=findViewById(R.id.nav_view);
@@ -64,8 +69,30 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
                     replace(R.id.manageCompanies_fragContainer, new CompanyManagementFragment()).commit();
             navigationView.setCheckedItem(R.id.nav_home);
         }
+
+        db = DB_Manager.getInstance(this);
+        lvAdapter=new CompanyLvAdapter(this,R.layout.company_line,db.getAllCompanies());
+        lvCompanies.setAdapter(lvAdapter);
     }
 
+    ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Intent intent = result.getData();
+                    if(intent != null){
+                        int requestCode = intent.getIntExtra("requestCode",0);
+                        if(requestCode==2){
+                            Company c = (Company) intent.getSerializableExtra("company");
+                            if(result.getResultCode()==RESULT_OK){
+                                db.addCompany(c);
+                                lvAdapter.refreshCompanyAdded(c);
+                            }
+                        }
+                    }
+                }
+            });
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.nav_home){
             getSupportFragmentManager().beginTransaction().
@@ -85,12 +112,14 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
         @Override
         public void onClick(View view) {
             if(view.getId() == btnAdd.getId()){
-                /*Intent intent = new Intent(this,ManageCompaniesActivity.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(ManageCompaniesActivity.this,AddCompanyActivity.class);
+                intent.putExtra("requestCode",1);
+                launcher.launch(intent);
             }
             if(view.getId() == btnUpdate.getId()){
-                /*Intent intent = new Intent(this,ManageCustomersActivity.class);
-                startActivity(intent);*/
+                Intent intent = new Intent(ManageCompaniesActivity.this,UpdateCompanyActivity.class);
+                intent.putExtra("requestCode",1);
+                launcher.launch(intent);
             }
             if(view.getId() == btnDelete.getId()){
                 //finish();
