@@ -7,20 +7,15 @@ import java.util.ArrayList;
 
 public class CompanyFacade extends ClientFacade {
     private int companyID;
-
     public void setCompanyID(int companyID) {
         this.companyID = companyID;
     }
-    public CompanyFacade(){}
-        public CompanyFacade(int companyID) {
-        this.companyID = companyID;
-        }
     public CompanyFacade(int companyID, Context context) {
         super(context);
         this.context = context;
         this.companyID = companyID;
 
-        }
+    }
        // V
         public void addCoupon(Coupon coupon) throws myException {
             ArrayList<Coupon> companyCoupons = companiesDAO.getOneCompany(coupon.getCompanyID()).getCoupons();

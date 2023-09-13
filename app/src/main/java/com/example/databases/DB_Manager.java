@@ -609,6 +609,7 @@ public class DB_Manager extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
 
+
         values.put(CATEGORY_NAME, category);
 
         db.insert(TBL_CATEGORIES, null, values);
@@ -634,6 +635,7 @@ public class DB_Manager extends SQLiteOpenHelper {
     public void addCustomerVsCoupon(int customerId,int couponId) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
+
 
         values.put(CUSTOMERS_VS_COUPON_CUSTOMER_ID, customerId);
         values.put(CUSTOMERS_VS_COUPON_COUPON_ID, couponId);
@@ -723,6 +725,29 @@ public class DB_Manager extends SQLiteOpenHelper {
 
 
     // Functions Mix:
+    public void deleteExpiredCouponsAndPurchaseHistory() throws myException {
+        // 1. Get a list of all expired coupons.
+        List<Coupon> expiredCoupons = getExpiredCoupons();
+
+        // 2. Delete each expired coupon.
+        for (Coupon coupon : expiredCoupons) {
+            deleteCoupon(coupon);
+
+        }
+    }
+
+    private List<Coupon> getExpiredCoupons() {
+        List<Coupon> expiredCoupons = new ArrayList<>();
+
+        Date today = new Date(); // Assuming that Coupon has a Date type for expiration date
+        for (Coupon c : coupons) {
+            if (c.getEndDate().before(today)) {
+                expiredCoupons.add(c);
+            }
+        }
+        return expiredCoupons;
+    }
+
 
 
 }

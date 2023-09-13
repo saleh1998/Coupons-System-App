@@ -56,7 +56,6 @@ public class CustomerFacade extends ClientFacade {
         else{
             // there is no more coupons
         }
-
     }
     public ArrayList<Coupon> getCustomerCoupons() {
         return null;
