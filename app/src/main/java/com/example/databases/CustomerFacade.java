@@ -12,8 +12,10 @@ public class CustomerFacade extends ClientFacade {
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
     }
+
     int customerID ;
-    public CustomerFacade(Context context)  {
+
+    public CustomerFacade(Context context) {
         super(context);
         this.context= context;
     }
@@ -44,8 +46,6 @@ public class CustomerFacade extends ClientFacade {
                     throw new RuntimeException(e);
                 }
 
-                // the quantity in stock of the coupon must be reduced by 1
-
 
             }
             else {
@@ -56,17 +56,32 @@ public class CustomerFacade extends ClientFacade {
         else{
             // there is no more coupons
         }
+
     }
-    public ArrayList<Coupon> getCustomerCoupons() {
-        return null;
+    public ArrayList<Coupon> getCustomerCoupons() throws ParseException {
+        ArrayList<Coupon> customerCoupons = customersDAO.getOneCustomer(customerID).getCoupons();
+        return customerCoupons;
     }
-    public ArrayList<Coupon> getCustomerCoupons(Category category) {
-        return null;
+    public ArrayList<Coupon> getCustomerCoupons(Category category) throws ParseException {
+        ArrayList<Coupon> customerCoupons = getCustomerCoupons();
+        ArrayList<Coupon> customerCouponsByCategory = new ArrayList<>();
+        for(Coupon coupon : customerCoupons)
+            if(coupon.getCategory() == category)
+                customerCouponsByCategory.add(coupon);
+        return customerCouponsByCategory;
+
     }
-    public ArrayList<Coupon> getCustomerCoupons(double maxPrice) {
-        return null;
+    public ArrayList<Coupon> getCustomerCoupons(double maxPrice) throws ParseException {
+        ArrayList<Coupon> customerCoupons = getCustomerCoupons();
+        ArrayList<Coupon> customerCouponsByCategory = new ArrayList<>();
+        for(Coupon coupon : customerCoupons)
+            if(coupon.getPrice() <= maxPrice)
+                customerCouponsByCategory.add(coupon);
+        return customerCouponsByCategory;
     }
-    public void getCompanyDetails(Company company) {
+    public Customer getCustomerDetails(Company company) {
+        Customer customer = customersDAO.getOneCustomer(customerID);
+        return customer;
 
     }
 
