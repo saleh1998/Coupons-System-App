@@ -13,6 +13,18 @@
         android:theme="@style/Theme.DataBases"
         tools:targetApi="34">
         <activity
+            android:name=".UpdateCustomerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddCustomerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateCompanyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddCompanyActivity"
+            android:exported="false" />
+        <activity
             android:name=".ManageCustomersActivity"
             android:exported="false" />
         <activity

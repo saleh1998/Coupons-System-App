@@ -17,7 +17,7 @@ import java.util.List;
 public class DB_Manager extends SQLiteOpenHelper {
 
     private final static String DB_NAME = "DB_1";
-    private final static int DB_VER = 1;
+    private final static int DB_VER = 2;
     private Context context;
     ArrayList<Company> companies;
     ArrayList<Customer> customers;
@@ -91,6 +91,7 @@ public class DB_Manager extends SQLiteOpenHelper {
         super(context, DB_NAME, null, DB_VER);
         try {
             this.context = context;
+            companies = new ArrayList<>();
         } catch (Exception e) {
             throw e;
         }
@@ -173,14 +174,18 @@ public class DB_Manager extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(COMPANY_ID, company.getId());
+        //values.put(COMPANY_ID, company.getId());
         values.put(COMPANY_NAME, company.getName());
         values.put(COMPANY_EMAIL, company.getEmail());
         values.put(COMPANY_PASSWORD, company.getPassword());
 
-        db.insert(TBL_COMPANIES, null, values);
+        long newRowId = db.insert(TBL_COMPANIES, null, values);
         companies.add(company);
         db.close();
+        if(newRowId != -1){
+            company.setId((int)newRowId);
+            companies.add(company);
+        }
     }
 
     public void updateCompany(Company company) throws myException {
@@ -231,7 +236,6 @@ public class DB_Manager extends SQLiteOpenHelper {
     }
 
     public ArrayList<Company> getAllCompanies() {
-        ArrayList<Company> companies = new ArrayList<>();
         String[] fields = {COMPANY_ID, COMPANY_NAME, COMPANY_EMAIL, COMPANY_PASSWORD};
         String id, name, email, password;
         try {
