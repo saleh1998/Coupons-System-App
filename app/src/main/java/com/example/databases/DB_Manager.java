@@ -22,6 +22,8 @@ public class DB_Manager extends SQLiteOpenHelper {
     ArrayList<Company> companies;
     ArrayList<Customer> customers;
     ArrayList<Coupon> coupons;
+    ArrayList<Category> categories;
+
 
     private final static String TBL_COMPANIES = "companies";
     private final static String COMPANY_ID = "id";
@@ -559,13 +561,43 @@ public class DB_Manager extends SQLiteOpenHelper {
             "CREATE TABLE IF NOT EXISTS " + TBL_CATEGORIES +
                     " (" + CATEGORY_ID + " integer primary key autoincrement, " +
                     CATEGORY_NAME + " text)";
+    public ArrayList<Category> getAllCategories() throws ParseException {
+        ArrayList<Category> categories = new ArrayList<>();
+        String[] fields = {CATEGORY_ID, CATEGORY_NAME};
+        String id, catName;
+        try {
+            Cursor cr = getCursor(TBL_CATEGORIES, fields, null);
+            if (cr.moveToFirst())
+                do {
+                    id = cr.getString(0);
+                    catName = cr.getString(1);
+                    categories.add(Category.valueOf(id));
+                } while (cr.moveToNext());
+            return categories;
+        } catch (Exception e) {
+            throw e;
+        }
+    }
 
+    public Category getCategoryByName(String categoryName) {
+        if (isValidEnum(Category.class, categoryName)) {
+            return Category.valueOf(categoryName);
+        }
+        return null;
+    }
 
+    public static <E extends Enum<E>> boolean isValidEnum(Class<E> enumClass, String testString) {
+        try {
+            Enum.valueOf(enumClass, testString);
+            return true;
+        } catch (IllegalArgumentException ex) {
+            return false;
+        }
+    }
 
     public void addCategory(String category) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-
 
         values.put(CATEGORY_NAME, category);
 
