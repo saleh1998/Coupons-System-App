@@ -1,5 +1,7 @@
 package com.example.databases;
 
+import android.content.Context;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -10,8 +12,14 @@ public class CompanyFacade extends ClientFacade {
         this.companyID = companyID;
     }
     public CompanyFacade(){}
-    public CompanyFacade(int companyID) {
+        public CompanyFacade(int companyID) {
         this.companyID = companyID;
+        }
+    public CompanyFacade(int companyID, Context context) {
+        super(context);
+        this.context = context;
+        this.companyID = companyID;
+
         }
         public void addCoupon(Coupon coupon) throws myException, ParseException {
             ArrayList<Coupon> companyCoupons = couponsDAO.getAllCoupons();

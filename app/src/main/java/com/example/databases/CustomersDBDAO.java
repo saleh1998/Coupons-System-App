@@ -9,6 +9,10 @@ public class CustomersDBDAO implements CustomersDAO {
 
     DB_Manager mydb = DB_Manager.getInstance(context);
 
+    public CustomersDBDAO(Context context) {
+        this.context = context;
+    }
+
     @Override
     public boolean isCustomerExists(String email, String password) {
        return mydb.isCustomerExists(email,password);

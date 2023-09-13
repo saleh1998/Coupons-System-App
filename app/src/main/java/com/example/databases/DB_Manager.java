@@ -167,7 +167,7 @@ public class DB_Manager extends SQLiteOpenHelper {
     }
 
     public void addCompany(Company company)
-     {
+    {
         SQLiteDatabase db = getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -236,7 +236,7 @@ public class DB_Manager extends SQLiteOpenHelper {
                     name = cr.getString(1);
                     email = cr.getString(2);
                     password = cr.getString(3);
-                    companies.add(new Company(Integer.parseInt(id), name, email, password));
+                    companies.add(new Company(name, email, password));
                 } while (cr.moveToNext());
             return companies;
         } catch (Exception e) {
@@ -274,7 +274,7 @@ public class DB_Manager extends SQLiteOpenHelper {
                     return c.getId();
         }
         return -1;    }
-    
+
 
 
     public void addCustomer(Customer customer) {
@@ -351,7 +351,7 @@ public class DB_Manager extends SQLiteOpenHelper {
                     lname = cr.getString(2);
                     email = cr.getString(3);
                     password = cr.getString(4);
-                    customers.add(new Customer(Integer.parseInt(id), fname, lname, email, password));
+                    customers.add(new Customer(fname, lname, email, password));
                 } while (cr.moveToNext());
             return customers;
         } catch (Exception e) {
@@ -482,7 +482,7 @@ public class DB_Manager extends SQLiteOpenHelper {
                     price = cr.getString(8);
                     image = cr.getString(9);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    coupons.add(new Coupon(Integer.parseInt(id), Integer.parseInt(compID), Category.valueOf(category), title, desc, dateFormat.parse(start), dateFormat.parse(end), Integer.parseInt(amount), Double.parseDouble(price), image));
+                    coupons.add(new Coupon( Integer.parseInt(compID), Category.valueOf(category), title, desc, dateFormat.parse(start), dateFormat.parse(end), Integer.parseInt(amount), Double.parseDouble(price), image));
                 } while (cr.moveToNext());
             return coupons;
         } catch (Exception e) {

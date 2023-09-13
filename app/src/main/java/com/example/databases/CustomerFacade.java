@@ -1,5 +1,7 @@
 package com.example.databases;
 
+import android.content.Context;
+
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.ZoneId;
@@ -10,9 +12,10 @@ public class CustomerFacade extends ClientFacade {
     public void setCustomerID(int customerID) {
         this.customerID = customerID;
     }
-
     int customerID ;
-    public CustomerFacade()  {
+    public CustomerFacade(Context context)  {
+        super(context);
+        this.context= context;
     }
 
     @Override

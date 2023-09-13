@@ -1,13 +1,26 @@
 package com.example.databases;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
-public class AdminFacade extends  ClientFacade{
-    public AdminFacade() {
+public class AdminFacade extends ClientFacade{
+
+
+    public AdminFacade(Context context) {
+        super(context);
+        this.context=context;
     }
 
     public void addCompany(Company company) throws myException {
         boolean companyExists = companiesDAO.isCompanyExists(company.getEmail(), company.getPassword());
+        ArrayList<Company> compamnies = getAllCompanies();
+        for (Company c :compamnies) {
+            if(c.getName().equals(company.getName()))
+            {
+                throw new myException("Company with the same title already exists.");
+            }
+        }
         if (!companyExists) {
             companiesDAO.addCompany(company);
         } else {

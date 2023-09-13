@@ -29,7 +29,7 @@ public class MyRunnable implements Runnable {
 
     private void deleteExpiredCoupons() throws myException, ParseException {
         System.out.println("Checking and deleting expired coupons...");
-        couponsDAO.deleteExpiredCouponsAndPurchaseHistory();
+//        couponsDAO.deleteExpiredCouponsAndPurchaseHistory();
         System.out.println("Expired coupons check complete.");
     }
 
