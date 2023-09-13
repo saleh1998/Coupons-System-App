@@ -562,7 +562,6 @@ public class DB_Manager extends SQLiteOpenHelper {
                     " (" + CATEGORY_ID + " integer primary key autoincrement, " +
                     CATEGORY_NAME + " text)";
     public ArrayList<Category> getAllCategories() throws ParseException {
-        ArrayList<Category> categories = new ArrayList<>();
         String[] fields = {CATEGORY_ID, CATEGORY_NAME};
         String id, catName;
         try {
