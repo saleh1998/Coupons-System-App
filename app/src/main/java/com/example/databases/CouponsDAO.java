@@ -12,4 +12,5 @@ public interface CouponsDAO {
     void addCouponPurchase(int customerID,int couponID) throws ParseException, myException;
     void deleteCouponPurchase(int customerID,int couponID) throws ParseException, myException;
 
+    void deleteExpiredCouponsAndPurchaseHistory() throws myException, ParseException;
 }

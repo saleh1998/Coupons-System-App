@@ -11,7 +11,10 @@ public class CompanyFacade extends ClientFacade {
     public void setCompanyID(int companyID) {
         this.companyID = companyID;
     }
-
+    public CompanyFacade(){}
+        public CompanyFacade(int companyID) {
+        this.companyID = companyID;
+        }
     public CompanyFacade(int companyID, Context context) {
         super(context);
         this.context = context;
