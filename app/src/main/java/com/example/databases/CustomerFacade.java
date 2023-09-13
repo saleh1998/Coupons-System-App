@@ -2,9 +2,13 @@ package com.example.databases;
 
 import java.util.ArrayList;
 
-public class CustomerFacade {
-    public CustomerFacade() {
+public class CustomerFacade extends ClientFacade {
+    private int customerID;
+
+    public CustomerFacade(int customerID) {
+        this.customerID = customerID;
     }
+
     public void purchaseCoupon(Coupon coupon) {
 
     }

@@ -1,5 +1,7 @@
 package com.example.databases;
 
+import android.annotation.SuppressLint;
+
 import java.text.ParseException;
 import java.util.ArrayList;
 
@@ -27,10 +29,17 @@ public class CompanyFacade extends ClientFacade {
                 throw new myException("Coupon not found for the given ID.");
             }
         }
+
         public void deleteCoupon(Coupon coupon) throws ParseException, myException {
             Coupon existingCoupon = couponsDAO.getOneCoupon(coupon.getId());
             if (existingCoupon != null) {
                 couponsDAO.deleteCoupon(coupon);
+                ArrayList<Customer> allCustomer= customersDAO.getAllCustomers();
+                for(Customer customer: allCustomer){
+                    if(customer.getCoupons().contains(coupon))
+                    couponsDAO.deleteCouponPurchase(customer.getId(), coupon.getId());
+                }
+
             } else {
                 throw new myException("Coupon not found for the given ID.");
             }
