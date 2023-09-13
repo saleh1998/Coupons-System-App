@@ -569,7 +569,6 @@ public class DB_Manager extends SQLiteOpenHelper {
             if (cr.moveToFirst())
                 do {
                     id = cr.getString(0);
-
                     categories.add(Category.valueOf(id));
                 } while (cr.moveToNext());
             return categories;
