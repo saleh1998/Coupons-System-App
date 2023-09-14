@@ -36,6 +36,7 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
     NavigationView navigationView;
     CompanyLvAdapter lvAdapter;
     DB_Manager db;
+    AdminFacade admfcd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +87,8 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
                         if(requestCode==2){
                             Company c = (Company) intent.getSerializableExtra("company");
                             if(result.getResultCode()==RESULT_OK){
-                                db.addCompany(c);
+                                admfcd = new AdminFacade(context);
+                                admfcd.addCompany(c);
                                 lvAdapter.refreshCompanyAdded(c);
                             }
                         }

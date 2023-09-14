@@ -235,6 +235,7 @@ public class DB_Manager extends SQLiteOpenHelper {
     }
 
     public ArrayList<Company> getAllCompanies() {
+        ArrayList<Company> companies1 = new ArrayList<>();
         String[] fields = {COMPANY_ID, COMPANY_NAME, COMPANY_EMAIL, COMPANY_PASSWORD};
         String id, name, email, password;
         try {
@@ -245,9 +246,9 @@ public class DB_Manager extends SQLiteOpenHelper {
                     name = cr.getString(1);
                     email = cr.getString(2);
                     password = cr.getString(3);
-                    companies.add(new Company(name, email, password));
+                    companies1.add(new Company(Integer.parseInt(id),name, email, password,null));
                 } while (cr.moveToNext());
-            return companies;
+            return companies1;
         } catch (Exception e) {
             throw e;
         }

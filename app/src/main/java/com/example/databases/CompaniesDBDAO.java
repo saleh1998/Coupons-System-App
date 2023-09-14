@@ -2,6 +2,7 @@ package com.example.databases;
 
 import android.content.Context;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class CompaniesDBDAO implements CompaniesDAO{
@@ -34,7 +35,7 @@ public class CompaniesDBDAO implements CompaniesDAO{
     }
 
     @Override
-    public void deleteCompany(int companyID) throws myException {
+    public void deleteCompany(int companyID) throws myException, ParseException {
     mydb.deleteCompany(companyID);
     }
 

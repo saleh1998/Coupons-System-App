@@ -1,5 +1,6 @@
 package com.example.databases;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public interface CompaniesDAO {
@@ -9,7 +10,7 @@ public interface CompaniesDAO {
 
      void addCompany(Company company) throws myException;
     void updateCompany(Company company) throws myException;
-    void deleteCompany(int companyID) throws myException;
+    void deleteCompany(int companyID) throws myException , ParseException;
     ArrayList<Company> getAllCompanies();
     Company getOneCompany(int CompanyID);
 }

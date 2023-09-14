@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,7 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
     EditText etName,etEmail,etPassword,etConfirmPassword;
     Toolbar toolbar;
     NavigationView navigationView;
+    Company company=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,10 +31,18 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
 
         btnSave = findViewById(R.id.updateCompany_btnSave);
         btnCancel = findViewById(R.id.updateCompany_btnCancel);
-        etName = findViewById(R.id.updateCompany_etName);
+        etName = findViewById(R.id.updateCompany_etName); // CHANGE THIS TO TEXTVIEW CAUSE NOT ALLOWED TO CHANGE COMPANY'S NAME
         etEmail = findViewById(R.id.updateCompany_etEmail);
         etPassword = findViewById(R.id.updateCompany_etPassword);
         etConfirmPassword = findViewById(R.id.updateCompany_etConfirmPassword);
+
+        Intent intent = getIntent();
+        int requestCode = intent.getIntExtra("requestCode",0);
+        company = (Company) intent.getSerializableExtra("company");
+        etName.setText(company.getName());
+        etEmail.setText(company.getEmail());
+        etPassword.setText(company.getPassword());
+        etConfirmPassword.setText("");
 
         ButtonsClick buttonsClick = new ButtonsClick();
         btnSave.setOnClickListener(buttonsClick);
@@ -59,8 +69,26 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
         @Override
         public void onClick(View view) {
             if(view.getId() == btnSave.getId()){
-                ///Save new Company
+                ///Update Company
+                String email = etEmail.getText().toString();
+                String password = etPassword.getText().toString();
+                String confirmPassword = etConfirmPassword.getText().toString();
+                if (password.equals(confirmPassword)) {
 
+                    company.setEmail(email);
+                    company.setPassword(password);
+
+                    Intent intent = getIntent();
+                    intent.putExtra("company", company);
+                    intent.putExtra("requestCode", 4);
+                    setResult(RESULT_OK, intent);
+                    finish();
+
+                } else {
+                    etPassword.setText("");
+                    etConfirmPassword.setText("");
+                    Toast.makeText(UpdateCompanyActivity.this, "Please insert correct password confirmation!!", Toast.LENGTH_SHORT).show();
+                }
             }
             if(view.getId() == btnCancel.getId()){
                 finish();
