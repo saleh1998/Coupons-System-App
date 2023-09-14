@@ -9,6 +9,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
+
+import java.io.Serializable;
 
 public class MainActivity extends AppCompatActivity {
     // Create an instance of DB_Manager
@@ -28,11 +31,14 @@ public class MainActivity extends AppCompatActivity {
     // Variables related to the background service
     private Thread myThread;
     private MyRunnable myRunnable;
+    LoginManager loginManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        loginManager = LoginManager.getInstance(MainActivity.this);
         etUserName = findViewById(R.id.main_etUserName);
         etPassword = findViewById(R.id.main_etPassword);
 
@@ -49,17 +55,42 @@ public class MainActivity extends AppCompatActivity {
                 selectedRadioBtnRow = rg.getCheckedRadioButtonId();
                 if(selectedRadioBtnRow != -1){
                     RadioButton selected = findViewById(selectedRadioBtnRow);
+                    String userName = etUserName.getText().toString();
+                    String pass = etPassword.getText().toString();
                     if(selected.getId() == rdAdmin.getId()){
-                        if(etUserName.getText().toString().equals("admin@admin.com") &&
-                            etPassword.getText().toString().equals("admin") ){
+                        AdminFacade adminFacade = (AdminFacade) loginManager.login(userName,pass,ClientType.Administrator);
+                        if(adminFacade != null) {
                             Intent intent = new Intent(MainActivity.this, AdminActivity.class);
                             startActivity(intent);
                         }
+                        else {
+                            Toast.makeText(MainActivity.this,"User Name or Password incorrect", Toast.LENGTH_LONG).show();
+                        }
+
+
                     }
                     if(selected.getId() == rdCustomer.getId()){
+                        CustomerFacade customerFacade = (CustomerFacade) loginManager.login(userName,pass,ClientType.Customer);
+//                        if(customerFacade != null) {
+//                                Intent intent = new Intent(MainActivity.this, CustomerA.class);
+//                                startActivity(intent);
+//                        }
+//                        else {
+//                            Toast.makeText(MainActivity.this,"User Name or Password incorrect", Toast.LENGTH_LONG).show();
+//
+//                        }
 
                     }
                     if(selected.getId() == rdCompany.getId()){
+                        CompanyFacade companyFacade = (CompanyFacade)loginManager.login(userName,pass,ClientType.Company);
+                        if(companyFacade != null) {
+                            Intent intent = new Intent(MainActivity.this, CompanyActivity.class);
+                            intent.putExtra("companyFacade",(Serializable) companyFacade);
+                            startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(MainActivity.this,"User Name or Password incorrect", Toast.LENGTH_LONG).show();
+                        }
 
                     }
                 }

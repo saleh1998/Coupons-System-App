@@ -49,7 +49,7 @@ public class AddCouponActivity extends AppCompatActivity {
         db = DB_Manager.getInstance(this);
 
 
-        /* we have to get allCategories from db manager then put thim in categoriesList
+        /* we have to get allCategories from db manager then put them in categoriesList
         *******************************************************************************
         ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categoriesList);
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -85,10 +85,10 @@ public class AddCouponActivity extends AppCompatActivity {
                 String describtion = etDescription.getText().toString();
                 Date startDate = supportClass.getDate(etStartDate.getText().toString());
                 Date endDate = supportClass.getDate(etEndDate.getText().toString());
-                int anount = Integer.parseInt(etAmount.getText().toString());
+                int amount = Integer.parseInt(etAmount.getText().toString());
                 double price = Double.parseDouble(etPrice.getText().toString());
                 String imgSrc = etImg.getText().toString();
-                // we hav to creat new coupon with this fileds + companyID from the obj that we have got it from the intent*/
+                // we hav to create new coupon with this fields + companyID from the obj that we have got it from the intent*/
             }
 
         }

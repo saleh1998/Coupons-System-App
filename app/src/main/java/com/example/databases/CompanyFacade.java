@@ -36,7 +36,6 @@ public class CompanyFacade extends ClientFacade {
                 return true;
             }
             return false;
-
     }
 
     // v

@@ -21,24 +21,34 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.io.Serializable;
 import java.text.ParseException;
 
-public class CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Serializable {
 
     private DrawerLayout drawerLayout;
     Button btnAdd,btnUpdate,btnDelete, btnGetBycategory, btnGetByPrice;
     ListView lvCompanyCoupons;
     CompanyCouponsLvAdapter companyCouponsLvAdapter;
-    DB_Manager db;
     int selectedRow =-1;
     int bgLineColor;
     LinearLayout bgLayout;
     Toolbar toolbar;
     NavigationView navigationView;
+    CompanyFacade companyFacade;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company);
+
+
+        Intent intent = getIntent();
+        if (intent != null) {
+            companyFacade = (CompanyFacade) intent.getSerializableExtra("companyFacade");
+        } else {
+          //  throw new myException("ERROR: Intent is null");
+        }
 
         drawerLayout = findViewById(R.id.company_drawLayout);
         btnAdd = findViewById(R.id.company_btnAdd);
@@ -58,9 +68,10 @@ public class CompanyActivity extends AppCompatActivity implements NavigationView
         toggle.syncState();
 
         lvCompanyCoupons = findViewById(R.id.company_lvCoupons);
-        db = DB_Manager.getInstance(this);
+
+
         try {
-            companyCouponsLvAdapter = new CompanyCouponsLvAdapter(this,R.layout.coupon_line,db.getAllCoupons());
+            companyCouponsLvAdapter = new CompanyCouponsLvAdapter(this,R.layout.coupon_line,companyFacade.getCompanyCoupons());
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -140,21 +151,18 @@ public class CompanyActivity extends AppCompatActivity implements NavigationView
             if(v.getId() == btnDelete.getId()){
 
                 try {
-                    Coupon c = db.getAllCoupons().get(selectedRow);
-                    db.deleteCoupon(c);
-                    companyCouponsLvAdapter.refreshAllCoupons(db.getAllCoupons());
+                    Coupon c = companyFacade.getCompanyCoupons().get(selectedRow);
+                    companyFacade.deleteCoupon(c);
+                    companyCouponsLvAdapter.refreshAllCoupons(companyFacade.getCompanyCoupons());
                 } catch (ParseException e) {
-                    Toast.makeText(CompanyActivity.this, "cant get all coupons from DB", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CompanyActivity.this, "cant get all coupons from DB thought CompanyFacade", Toast.LENGTH_SHORT).show();
                 } catch (myException e) {
                     Toast.makeText(CompanyActivity.this, "deleting failed", Toast.LENGTH_SHORT).show();
                 }
-
-
             }
             if(v.getId() == btnGetBycategory.getId()){
                 Intent intent = new Intent(CompanyActivity.this, CouponsByCategoryActivity.class);
                 startActivity(intent);
-
             }
             if(v.getId() == btnGetByPrice.getId()){
                 Intent intent = new Intent(CompanyActivity.this, CouponsByPriceActivity.class);
