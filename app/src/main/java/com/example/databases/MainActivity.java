@@ -24,11 +24,15 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogIn;
 
     int selectedRadioBtnRow = -1;
+
+    // Variables related to the background service
+    private Thread myThread;
+    private MyRunnable myRunnable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         etUserName = findViewById(R.id.main_etUserName);
         etPassword = findViewById(R.id.main_etPassword);
 
@@ -62,9 +66,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-
-
+// Start the background service to check for expired coupons
+        myRunnable = new MyRunnable();
+        myThread = new Thread(myRunnable);
+        myThread.start();
     }
 
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // Properly stop the runnable when the activity is destroyed.
+        if (myRunnable != null) {
+            myRunnable.stop();
+            try {
+                myThread.join(); // Wait for the thread to finish its execution.
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }

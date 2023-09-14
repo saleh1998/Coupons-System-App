@@ -732,18 +732,28 @@ public class DB_Manager extends SQLiteOpenHelper {
 
 
     // Functions Mix:
+
+
     public void deleteExpiredCouponsAndPurchaseHistory() throws myException, ParseException {
         // 1. Get a list of all expired coupons.
         List<Coupon> expiredCoupons = getExpiredCoupons();
 
         // 2. Delete each expired coupon.
         for (Coupon coupon : expiredCoupons) {
+            int compId = coupon.getCompanyID();
+            Company company = getOneCompany(compId);
+            company.getCoupons().remove(coupon);
+            ArrayList<Integer> customersIds =  getAllCustomersForSpecificCoupon(compId);
+            for(int customerId : customersIds){
+                Customer customer = getOneCustomer(customerId);
+                customer.getCoupons().remove(coupon);
+            }
+            deleteCustomerVsCouponCouponForAllCustomersByCouponId(coupon.getId());
             deleteCoupon(coupon);
-
         }
     }
 
-    private List<Coupon> getExpiredCoupons() {
+    private List<Coupon> getExpiredCoupons() throws ParseException {
         List<Coupon> expiredCoupons = new ArrayList<>();
 
         Date today = new Date(); // Assuming that Coupon has a Date type for expiration date
@@ -754,6 +764,18 @@ public class DB_Manager extends SQLiteOpenHelper {
         }
         return expiredCoupons;
     }
+
+//    public void deleteExpiredCouponsAndPurchaseHistory() throws myException, ParseException {
+//        // 1. Get a list of all expired coupons.
+//        List<Coupon> expiredCoupons = getExpiredCoupons();
+//
+//        // 2. Delete each expired coupon.
+//        for (Coupon coupon : expiredCoupons) {
+//            deleteCoupon(coupon);
+//
+//        }
+//    }
+
 
 
 

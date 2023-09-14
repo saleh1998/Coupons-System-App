@@ -5,13 +5,10 @@ import java.util.concurrent.TimeUnit;
 
 
 public class MyRunnable implements Runnable {
+    DB_Manager dbManager = DB_Manager.getInstance(null);
 
-    private CouponsDAO couponsDAO;
+
     private volatile boolean quit = false;
-
-    public MyRunnable(CouponsDAO couponsDAO) {
-        this.couponsDAO = couponsDAO;
-    }
 
     @Override
     public void run() {
@@ -29,7 +26,7 @@ public class MyRunnable implements Runnable {
 
     private void deleteExpiredCoupons() throws myException, ParseException {
         System.out.println("Checking and deleting expired coupons...");
-        //couponsDAO.deleteExpiredCouponsAndPurchaseHistory();
+        dbManager.deleteExpiredCouponsAndPurchaseHistory();
         System.out.println("Expired coupons check complete.");
     }
 
