@@ -40,19 +40,19 @@ public class CompanyActivity extends AppCompatActivity implements NavigationView
     Toolbar toolbar;
     NavigationView navigationView;
     CompanyFacade companyFacade;
-    DB_Manager db;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company);
-        db = DB_Manager.getInstance(this);
 
 
         Intent intent = getIntent();
         if (intent != null) {
             int companyid = intent.getIntExtra("companyid",0);
             companyFacade = new CompanyFacade(companyid,this);
+
         } else {
           //  throw new myException("ERROR: Intent is null");
         }
@@ -200,11 +200,14 @@ public class CompanyActivity extends AppCompatActivity implements NavigationView
                 launcher.launch(intent);
             }
             if(v.getId() == btnDelete.getId()){
-
                 try {
-                    Coupon c = companyFacade.getCompanyCoupons().get(selectedRow);
-                    companyFacade.deleteCoupon(c);
-                    companyCouponsLvAdapter.refreshAllCoupons(companyFacade.getCompanyCoupons());
+                    if(selectedRow != -1) {
+                        Coupon c = companyFacade.getCompanyCoupons().get(selectedRow);
+                        companyFacade.deleteCoupon(c);
+                       companyCouponsLvAdapter.refreshAllCoupons(companyFacade.getCompanyCoupons());
+                       // lvCompanyCoupons.setAdapter(companyCouponsLvAdapter);
+                        selectedRow = -1;
+                    }
                 } catch (ParseException e) {
                     Toast.makeText(CompanyActivity.this, "cant get all coupons from DB thought CompanyFacade", Toast.LENGTH_SHORT).show();
                 } catch (myException e) {
@@ -218,6 +221,7 @@ public class CompanyActivity extends AppCompatActivity implements NavigationView
             }
             if(v.getId() == btnGetByPrice.getId()){
                 Intent intent = new Intent(CompanyActivity.this, CouponsByPriceActivity.class);
+                intent.putExtra("companyid", companyFacade.getCompanyID());
                 startActivity(intent);
             }
         }
