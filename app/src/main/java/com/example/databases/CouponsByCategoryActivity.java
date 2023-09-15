@@ -43,23 +43,24 @@ public class CouponsByCategoryActivity extends AppCompatActivity {
         db = DB_Manager.getInstance(this);
         Intent intent = getIntent();
         if (intent != null) {
-            int companyid = intent.getIntExtra("companyid",0);
-            companyFacade = new CompanyFacade(companyid,this);        }
-        else
-            {
-                try {
-                    throw new myException("Error:Intent is null");
-                } catch (myException e) {
-                    throw new RuntimeException(e);
-                }
+            int companyid = intent.getIntExtra("companyid", 0);
+            companyFacade = new CompanyFacade(companyid, this);
+        } else {
+            try {
+                throw new myException("Error:Intent is null");
+            } catch (myException e) {
+                throw new RuntimeException(e);
             }
+        }
 
         try {
             categoriesList = db.getAllCategories();
-            for (Category c:categoriesList) {
+            for (Category c : categoriesList)
+            {
                 couponsbycat.add(c.toString());
             }
-        } catch (ParseException e) {
+        }
+        catch (ParseException e) {
             throw new RuntimeException(e);
         }
         ButtonsClick buttonsClick = new ButtonsClick();
@@ -67,29 +68,32 @@ public class CouponsByCategoryActivity extends AppCompatActivity {
         btnBack.setOnClickListener(buttonsClick);
 
 
-      /*   we have to get allCategories from db manager then put thim in categoriesList
-        ********************************************************************************/
-        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, couponsbycat);
+        /*   we have to get allCategories from db manager then put thim in categoriesList
+         ********************************************************************************/
+        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, Category.values());
         aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        if(couponsbycat!=null)
-        categoriesSpin.setAdapter(aa);
-        categoriesSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                row = position;
-                ((TextView) parent.getChildAt(0)).setTextSize(30);
-            }
+        if (couponsbycat != null)
+        {
+            categoriesSpin.setAdapter(aa);
+        }
+            categoriesSpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    row = position;
+                    ((TextView) parent.getChildAt(0)).setTextSize(30);
+                }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
+                }
+            });
 
-    }
+        }
 
-    class ButtonsClick implements View.OnClickListener{
 
+    class ButtonsClick implements View.OnClickListener
+    {
         @Override
         public void onClick(View v) {
             if(v.getId() == btnBack.getId()){
