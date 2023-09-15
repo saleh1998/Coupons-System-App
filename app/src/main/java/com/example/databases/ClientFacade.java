@@ -2,7 +2,9 @@ package com.example.databases;
 
 import android.content.Context;
 
-public abstract class ClientFacade {
+import java.io.Serializable;
+
+public abstract class ClientFacade implements Serializable {
 
     Context context;
     CompaniesDAO companiesDAO= new CompaniesDBDAO(context);

@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,9 +21,10 @@ public class UpdateCustomerActivity extends AppCompatActivity implements Navigat
 
     private DrawerLayout drawerLayout;
     Button btnSave,btnCancel;
-    EditText etName,etEmail,etPassword,etConfirmPassword;
+    EditText etFName,etLName,etEmail,etPassword,etConfirmPassword;
     Toolbar toolbar;
     NavigationView navigationView;
+    Customer customer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +32,21 @@ public class UpdateCustomerActivity extends AppCompatActivity implements Navigat
 
         btnSave = findViewById(R.id.updateCustomer_btnSave);
         btnCancel = findViewById(R.id.updateCustomer_btnCancel);
-        etName = findViewById(R.id.updateCustomer_etName);
+        etFName = findViewById(R.id.updateCustomer_etFName);
+        etLName = findViewById(R.id.updateCustomer_etLName);
         etEmail = findViewById(R.id.updateCustomer_etEmail);
         etPassword = findViewById(R.id.updateCustomer_etPassword);
         etConfirmPassword = findViewById(R.id.updateCustomer_etConfirmPassword);
+
+
+        Intent intent = getIntent();
+        int requestCode = intent.getIntExtra("requestCode",0);
+        customer = (Customer) intent.getSerializableExtra("customer");
+        etFName.setText(customer.getFirstName());
+        etLName.setText(customer.getLastName());
+        etEmail.setText(customer.getEmail());
+        etPassword.setText(customer.getPassword());
+        etConfirmPassword.setText("");
 
         ButtonsClick buttonsClick = new ButtonsClick();
         btnSave.setOnClickListener(buttonsClick);
@@ -72,7 +85,30 @@ public class UpdateCustomerActivity extends AppCompatActivity implements Navigat
         @Override
         public void onClick(View view) {
             if (view.getId() == btnSave.getId()) {
-                ///Save new Company
+                ///Update Customer
+                String f_name = etFName.getText().toString();
+                String l_name = etLName.getText().toString();
+                String email = etEmail.getText().toString();
+                String password = etPassword.getText().toString();
+                String confirmPassword = etConfirmPassword.getText().toString();
+                if (password.equals(confirmPassword)) {
+
+                    customer.setFirstName(f_name);
+                    customer.setLastName(l_name);
+                    customer.setEmail(email);
+                    customer.setPassword(password);
+
+                    Intent intent = getIntent();
+                    intent.putExtra("customer", customer);
+                    intent.putExtra("requestCode", 4);
+                    setResult(RESULT_OK, intent);
+                    finish();
+
+                } else {
+                    etPassword.setText("");
+                    etConfirmPassword.setText("");
+                    Toast.makeText(UpdateCustomerActivity.this, "Please insert correct password confirmation!!", Toast.LENGTH_SHORT).show();
+                }
             }
             if (view.getId() == btnCancel.getId()) {
                 finish();

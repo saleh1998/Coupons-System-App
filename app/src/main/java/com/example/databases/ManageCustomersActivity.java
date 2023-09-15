@@ -1,5 +1,9 @@
 package com.example.databases;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,25 +15,33 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+
 public class ManageCustomersActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+
+    int selectedRow=-1;
+    int selectedCustomerID=-1;
+    String selectedCustomerFName="";
 
     private DrawerLayout drawerLayout;
     Button btnAdd,btnUpdate,btnDelete;
     ImageButton btnSearch;
-    EditText etSearchCompany;
-    ListView lvCompanies;
+    EditText etSearchCustomer;
+    ListView lvCustomers;
     Toolbar toolbar;
     NavigationView navigationView;
-    CompanyLvAdapter lvAdapter;
-    DB_Manager db;
+    CustomerLvAdapter lvAdapter;
+    AdminFacade adminFacade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +52,8 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
         btnUpdate=findViewById(R.id.manageCustomers_btnUpadate);
         btnDelete=findViewById(R.id.manageCustomers_btnDelete);
         btnSearch=findViewById(R.id.manageCustomers_btnSearch);
-        etSearchCompany=findViewById(R.id.manageCustomers_etCustomerCode);
-        lvCompanies=findViewById(R.id.manageCustomers_lv);
+        etSearchCustomer=findViewById(R.id.manageCustomers_etCustomerCode);
+        lvCustomers=findViewById(R.id.manageCustomers_lv);
         toolbar = findViewById(R.id.manageCustomers_toolbar);
 
         ButtonsClick buttonsClick = new ButtonsClick();
@@ -65,10 +77,55 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
-        db = DB_Manager.getInstance(this);
-        //lvAdapter=new CompanyLvAdapter(this,R.layout.company_line,db.getAllCustomers());
-        //lvCompanies.setAdapter(lvAdapter);
+        adminFacade = new AdminFacade(this);
+        lvAdapter=new CustomerLvAdapter(this,R.layout.customer_line, adminFacade.getAllCustomers());
+        lvCustomers.setAdapter(lvAdapter);
+        lvCustomers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedRow=position;
+                TextView etName1 = (TextView)view.findViewById(R.id.customerLine_tvFName);
+                selectedCustomerFName = etName1.getText().toString();
+                TextView etId1 = (TextView)view.findViewById(R.id.customerLine_tvCustomerCode);
+                selectedCustomerID = Integer.parseInt(etId1.getText().toString());
+            }
+        });
     }
+
+    ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Intent intent = result.getData();
+                    if(intent != null){
+                        int requestCode = intent.getIntExtra("requestCode",0);
+                        if(requestCode==2){ //// returning from AddCustomerActivity
+                            Customer c = (Customer) intent.getSerializableExtra("customer");
+                            if(result.getResultCode()==RESULT_OK){
+                                try {
+                                    adminFacade.addCustomer(c);
+                                    lvAdapter.refreshCustomerAdded(c);
+                                } catch (myException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }
+                        if(requestCode==4){//// returning from UpdateCustomerActivity
+                            Customer c = (Customer) intent.getSerializableExtra("customer");
+                            if(result.getResultCode()==RESULT_OK){
+                                try {
+                                    adminFacade.updateCustomer(c);
+                                    lvAdapter.refreshAllCustomers(adminFacade.getAllCustomers());
+                                } catch (myException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+    );
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.nav_home){
             getSupportFragmentManager().beginTransaction().
@@ -88,15 +145,40 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
         @Override
         public void onClick(View view) {
             if(view.getId() == btnAdd.getId()){
-                Intent intent = new Intent(ManageCustomersActivity.this,AddCompanyActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(ManageCustomersActivity.this,AddCustomerActivity.class);
+                intent.putExtra("requestCode",1);
+                launcher.launch(intent);
+                selectedCustomerFName="";
+                selectedRow=-1;
             }
             if(view.getId() == btnUpdate.getId()){
-                Intent intent = new Intent(ManageCustomersActivity.this,UpdateCompanyActivity.class);
-                startActivity(intent);
+                Intent intent = new Intent(ManageCustomersActivity.this, UpdateCustomerActivity.class);
+                Customer c = adminFacade.getOneCustomer(selectedCustomerID);
+                if(c!=null){
+                    intent.putExtra("customer",c);
+                }
+                intent.putExtra("requestCode",3);
+                launcher.launch(intent);
+                selectedCustomerFName="";
+                selectedRow=-1;
             }
             if(view.getId() == btnDelete.getId()){
-                //finish();
+                Customer c = adminFacade.getOneCustomer(selectedCustomerID);
+                try {
+                    adminFacade.deleteCustomer(selectedCustomerID);
+                    lvAdapter.refreshAllCustomers(adminFacade.getAllCustomers());
+                } catch (myException e) {
+                    throw new RuntimeException(e);
+                }
+                selectedCustomerFName="";
+                selectedRow=-1;
+            }
+            if(view.getId() == btnSearch.getId()){
+                String searchedId = etSearchCustomer.getText().toString();
+                Customer target = adminFacade.getOneCustomer(Integer.parseInt(searchedId));
+                ArrayList<Customer> specificCustomer =new ArrayList<>();
+                specificCustomer.add(target);
+                lvAdapter.refreshAllCustomers(specificCustomer);
             }
         }
     }

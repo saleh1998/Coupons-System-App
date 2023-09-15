@@ -1,5 +1,9 @@
 package com.example.databases;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -22,11 +26,15 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
     private DrawerLayout drawerLayout;
     Button btnCompaniesManagment, btnCustomersManagment;
     ImageButton btnBack;
+    //ClientFacade adminFacade;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin);
+
+        /*Intent intent = getIntent();
+        adminFacade = (AdminFacade) intent.getSerializableExtra("AdminFacade");*/
 
         btnCompaniesManagment = findViewById(R.id.admin_btnCompaniesMang);
         btnCustomersManagment = findViewById(R.id.admin_btnCustomersMang);
@@ -55,6 +63,19 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
 
     }
 
+    ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Intent intent = result.getData();
+                    int logout = intent.getIntExtra("logout",0);
+                    if(logout == 1){
+                        finish();
+                    }
+                }
+            }
+    );
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.nav_home){
             getSupportFragmentManager().beginTransaction().
@@ -98,10 +119,12 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             if(view.getId() == btnCompaniesManagment.getId()){
                 Toast.makeText(AdminActivity.this, "Yalla", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AdminActivity.this,ManageCompaniesActivity.class);
+                //intent.putExtra("AdminFacade",adminFacade);
                 startActivity(intent);
             }
             if(view.getId() == btnCustomersManagment.getId()){
                 Intent intent = new Intent(AdminActivity.this,ManageCustomersActivity.class);
+                //intent.putExtra("AdminFacade",adminFacade);
                 startActivity(intent);
             }
             if(view.getId() == btnBack.getId()){

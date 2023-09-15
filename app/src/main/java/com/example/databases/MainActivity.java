@@ -14,6 +14,8 @@ public class MainActivity extends AppCompatActivity {
     // Create an instance of DB_Manager
     DB_Manager dbManager = DB_Manager.getInstance(this);
 
+    ClientFacade clientFacade;
+
     // Access methods from the CompaniesDAO interface
     //boolean companyExists = dbManager.isCompanyExists("companyEmail", "companyPassword");
     // You can also call other methods from CompaniesDAO if needed
@@ -49,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
                         if(etUserName.getText().toString().equals("admin@admin.com") &&
                             etPassword.getText().toString().equals("admin") ){
                             Intent intent = new Intent(MainActivity.this, AdminActivity.class);
+                            /*clientFacade = new AdminFacade(MainActivity.this);
+                            AdminFacade adfc = new AdminFacade(MainActivity.this);
+                            intent.putExtra("AdminFacade",adfc);
+                            */
                             startActivity(intent);
                         }
                     }

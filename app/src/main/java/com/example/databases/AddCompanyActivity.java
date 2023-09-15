@@ -29,7 +29,7 @@ public class AddCompanyActivity extends AppCompatActivity implements NavigationV
     EditText etName, etEmail, etPassword, etConfirmPassword;
     Toolbar toolbar;
     NavigationView navigationView;
-    DB_Manager db;
+    //DB_Manager db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +60,7 @@ public class AddCompanyActivity extends AppCompatActivity implements NavigationV
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
-        db = DB_Manager.getInstance(this);
+        //db = DB_Manager.getInstance(this);
     }
 
     @Override
