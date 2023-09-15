@@ -44,7 +44,7 @@ public class Company implements Serializable {
     }
 
     public ArrayList<Coupon> getCoupons() {
-        return coupons;
+        return this.coupons;
     }
 
     public void setCoupons(ArrayList<Coupon> coupons) {
@@ -55,6 +55,7 @@ public class Company implements Serializable {
         this.name = name;
         this.email = email;
         this.password = password;
+        this.coupons = null;
     }
 
     public Company(int id, String name, String email, String password, ArrayList<Coupon> coupons) {

@@ -13,4 +13,6 @@ public interface CompaniesDAO {
     void deleteCompany(int companyID) throws myException , ParseException;
     ArrayList<Company> getAllCompanies();
     Company getOneCompany(int CompanyID);
+
+    ArrayList<Coupon> getCompanyCouponsbyID(int companyID) throws ParseException;
 }

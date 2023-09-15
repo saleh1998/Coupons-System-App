@@ -1,8 +1,9 @@
 package com.example.databases;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Coupon {
+public class Coupon implements Serializable {
     private int id;
     private int companyID;
     private Category category;
@@ -11,10 +12,11 @@ public class Coupon {
     private Date startDate;
     private Date endDate;
     private int amount;
-    private Double price;
+    private double price;
     private String image;
 
-    public Coupon( int companyID, Category category, String title, String description, Date startDate, Date endDate, int amount, Double price, String image) {
+    public Coupon( int couponid,int companyID, Category category, String title, String description, Date startDate, Date endDate, int amount, Double price, String image) {
+        this.id = couponid;
         this.companyID = companyID;
         this.category = category;
         this.title = title;
@@ -26,7 +28,7 @@ public class Coupon {
         this.image = image;
     }
 
-    public Coupon(int companyID, Category category, String title, String description, Date startDate, Date endDate, int amount, Double price) {
+    public Coupon(int companyID, Category category, String title, String description, Date startDate, Date endDate, int amount, Double price,String image) {
         this.companyID = companyID;
         this.category = category;
         this.title = title;
@@ -35,6 +37,7 @@ public class Coupon {
         this.endDate = endDate;
         this.amount = amount;
         this.price = price;
+        this.image = image;
     }
 
     public int getId() {

@@ -1,5 +1,9 @@
 package com.example.databases;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,16 +40,19 @@ public class CompanyActivity extends AppCompatActivity implements NavigationView
     Toolbar toolbar;
     NavigationView navigationView;
     CompanyFacade companyFacade;
+    DB_Manager db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_company);
+        db = DB_Manager.getInstance(this);
 
 
         Intent intent = getIntent();
         if (intent != null) {
-            companyFacade = (CompanyFacade) intent.getSerializableExtra("companyFacade");
+            int companyid = intent.getIntExtra("companyid",0);
+            companyFacade = new CompanyFacade(companyid,this);
         } else {
           //  throw new myException("ERROR: Intent is null");
         }
@@ -75,7 +82,12 @@ public class CompanyActivity extends AppCompatActivity implements NavigationView
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
-        lvCompanyCoupons.setAdapter(companyCouponsLvAdapter);
+        try {
+            if(companyFacade.getCompanyCoupons()!=null)
+                lvCompanyCoupons.setAdapter(companyCouponsLvAdapter);
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
         lvCompanyCoupons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -90,6 +102,13 @@ public class CompanyActivity extends AppCompatActivity implements NavigationView
                 bgLayout.setBackgroundColor(Color.rgb(150,150,150));
             }
         });
+        ButtonsClick buttonsClick = new ButtonsClick();
+        btnAdd.setOnClickListener(buttonsClick);
+        btnDelete.setOnClickListener(buttonsClick);
+        btnUpdate.setOnClickListener(buttonsClick);
+        btnGetBycategory.setOnClickListener(buttonsClick);
+        btnGetByPrice.setOnClickListener(buttonsClick);
+
 
     }
 
@@ -132,7 +151,31 @@ public class CompanyActivity extends AppCompatActivity implements NavigationView
         }
         super.onBackPressed();
     }
+    ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Intent intent = result.getData();
+                    if(intent != null){
+                        int requestCode = intent.getIntExtra("codeForCompanyActivity",0);
+                        if(requestCode==1){
+                           /* int companyid = intent.getIntExtra("companyid",0);
+                            companyFacade = new CompanyFacade(companyid,CompanyActivity.this);*/
+                            try {
+                                Coupon newCoupon = (Coupon)intent.getSerializableExtra("Coupon");
+                                companyFacade.addCoupon(newCoupon);
+                                companyCouponsLvAdapter.refreshAllCoupons(companyFacade.getCompanyCoupons());
+                            } catch (ParseException e) {
+                                throw new RuntimeException(e);
+                            } catch (myException e) {
+                                throw new RuntimeException(e);
+                            }
+                        }
+                        }
+                    }
 
+            });
     class ButtonsClick implements View.OnClickListener{
 
         @Override
@@ -140,13 +183,21 @@ public class CompanyActivity extends AppCompatActivity implements NavigationView
             if(v.getId() == btnAdd.getId()){
 
                 Intent intent = new Intent(CompanyActivity.this, AddCouponActivity.class);
-                /* we hav to send with the intent the company obj */
-                startActivity(intent);
+                    intent.putExtra("companyid",companyFacade.getCompanyID());
+                 //   intent.putExtra("codeForCompanyActivity",1);
+                launcher.launch(intent);
             }
             if(v.getId() == btnUpdate.getId()){
                 Intent intent = new Intent(CompanyActivity.this, UpdateCouponActivity.class);
-                /* we hav to send with the intent the coupon obj */
-                startActivity(intent);
+                Coupon c = null;
+                try {
+                    c = companyFacade.getCompanyCoupons().get(selectedRow);
+                } catch (ParseException ex) {
+                    throw new RuntimeException(ex);
+                }
+                intent.putExtra("coupon",c);
+                intent.putExtra("requestCode", 2);
+                launcher.launch(intent);
             }
             if(v.getId() == btnDelete.getId()){
 
@@ -162,6 +213,7 @@ public class CompanyActivity extends AppCompatActivity implements NavigationView
             }
             if(v.getId() == btnGetBycategory.getId()){
                 Intent intent = new Intent(CompanyActivity.this, CouponsByCategoryActivity.class);
+                intent.putExtra("companyid", companyFacade.getCompanyID());
                 startActivity(intent);
             }
             if(v.getId() == btnGetByPrice.getId()){

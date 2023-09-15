@@ -2,9 +2,10 @@ package com.example.databases;
 
 import android.content.Context;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class CustomersDBDAO implements CustomersDAO {
+public class CustomersDBDAO implements CustomersDAO, Serializable {
     Context context;
 
     DB_Manager mydb = DB_Manager.getInstance(context);

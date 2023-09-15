@@ -1,12 +1,21 @@
 package com.example.databases;
 
 import android.content.Context;
+import android.os.Parcelable;
+import android.widget.Toast;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CompanyFacade extends ClientFacade {
     private int companyID;
+
+    public int getCompanyID() {
+        return companyID;
+    }
+
     public void setCompanyID(int companyID) {
         this.companyID = companyID;
     }
@@ -17,13 +26,18 @@ public class CompanyFacade extends ClientFacade {
 
     }
        // V
-        public void addCoupon(Coupon coupon) throws myException {
-            ArrayList<Coupon> companyCoupons = companiesDAO.getOneCompany(coupon.getCompanyID()).getCoupons();
+        public void addCoupon(Coupon coupon) throws myException, ParseException {
+            ArrayList<Coupon> companyCoupons = companiesDAO.getCompanyCouponsbyID(companyID);
+           if(companyCoupons!=null)
             for (Coupon existingCoupon : companyCoupons) {
                 if (existingCoupon.getTitle().equals(coupon.getTitle())) {
+                    //throw new myException("Coupon with the same title already exists for same company.");
+                    Toast.makeText(context, "Coupon with the same title already exists for same company", Toast.LENGTH_SHORT).show();
                     throw new myException("Coupon with the same title already exists for same company.");
+
                 }
             }
+
             couponsDAO.addCoupon(coupon);
     }
 
@@ -64,8 +78,9 @@ public class CompanyFacade extends ClientFacade {
 
         // v
         public ArrayList<Coupon> getCompanyCoupons() throws ParseException {
-            return companiesDAO.getOneCompany(companyID).getCoupons();
-        }
+          // return companiesDAO.getOneCompany(companyID).getCoupons();
+        return companiesDAO.getCompanyCouponsbyID(companyID);
+    }
 
 
         // v

@@ -2,7 +2,7 @@ package com.example.databases;
 
 import java.util.ArrayList;
 
-public interface CustomersDAO {
+public interface CustomersDAO  {
     boolean isCustomerExists(String email,String password);
     int getCustomerId(String email,String password);
     void addCustomer(Customer customer);

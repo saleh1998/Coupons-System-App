@@ -4,13 +4,14 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CouponsDBDAO implements CouponsDAO {
+public class CouponsDBDAO implements CouponsDAO, Serializable {
     Context context;
 
     DB_Manager mydb = DB_Manager.getInstance(context);

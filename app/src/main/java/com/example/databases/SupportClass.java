@@ -22,7 +22,7 @@ public class SupportClass {
     }
 
     public Date getDate(String dateToConvert){
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault());
         Date date = null;
 
         try {

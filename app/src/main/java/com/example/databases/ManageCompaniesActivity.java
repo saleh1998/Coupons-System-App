@@ -87,8 +87,7 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
                         if(requestCode==2){
                             Company c = (Company) intent.getSerializableExtra("company");
                             if(result.getResultCode()==RESULT_OK){
-                                admfcd = new AdminFacade(context);
-                                admfcd.addCompany(c);
+                                db.addCompany(c);
                                 lvAdapter.refreshCompanyAdded(c);
                             }
                         }
