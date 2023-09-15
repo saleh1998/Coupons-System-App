@@ -22,7 +22,6 @@ public class AdminFacade extends  ClientFacade implements Serializable {
         } else {
             throw new myException("Company with the same name or email already exists.");
         }
-
     }
 
     public void updateCompany(Company company) throws myException {
@@ -58,9 +57,8 @@ public class AdminFacade extends  ClientFacade implements Serializable {
             }
         } else {
             throw new myException("Company not found for the given ID.");
+            }
         }
-
-    }
 
 
     public ArrayList<Company> getAllCompanies() {
@@ -72,7 +70,7 @@ public class AdminFacade extends  ClientFacade implements Serializable {
     }
 
     public void addCustomer(Customer customer) throws myException {
-        boolean customerExists = customersDAO.isCustomerExists(customer.getEmail(), customer.getPassword());
+        boolean customerExists = customersDAO.isCustomerEmailExists(customer.getEmail());
         if (!customerExists) {
             customersDAO.addCustomer(customer);
         } else {

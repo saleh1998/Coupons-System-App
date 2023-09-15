@@ -34,6 +34,21 @@
             android:name=".AdminActivity"
             android:exported="false" />
         <activity
+            android:name=".CompanyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".AddCouponActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".UpdateCouponActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".CouponsByPriceActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".CouponsByCategoryActivity"
+            android:exported="false"/>
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

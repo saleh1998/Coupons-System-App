@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CouponsByPriceActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/cpnByPrice_toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#A57E0A"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Coupons By Price"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:titleTextColor="#080909" />
+
+    <ListView
+        android:id="@+id/cpnByPrice_lv"
+        android:layout_width="393dp"
+        android:layout_height="436dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cpnByPrice_btnSearch"
+        app:layout_constraintVertical_bias="0.659" />
+
+    <Button
+        android:id="@+id/cpnByPrice_btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#A39305"
+        android:text="Search"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/cpnByPrice_etPrice"
+        app:layout_constraintStart_toStartOf="@+id/cpnByPrice_etPrice"
+        app:layout_constraintTop_toBottomOf="@+id/cpnByPrice_etPrice" />
+
+    <ImageButton
+        android:id="@+id/cpnByPrice_btnBack"
+        android:layout_width="63dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#F6F2F2"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.017"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cpnByPrice_toolBar"
+        app:srcCompat="@drawable/back" />
+
+    <EditText
+        android:id="@+id/cpnByPrice_etPrice"
+        android:layout_width="273dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="68dp"
+        android:ems="10"
+        android:hint="Maximum Price"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cpnByPrice_toolBar" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

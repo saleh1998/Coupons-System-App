@@ -2,7 +2,7 @@ package com.example.databases;
 
 import java.util.ArrayList;
 
-public interface CustomersDAO {
+public interface CustomersDAO  {
     boolean isCustomerExists(String email,String password);
     int getCustomerId(String email,String password);
     void addCustomer(Customer customer);
@@ -10,4 +10,6 @@ public interface CustomersDAO {
     void deleteCustomer(int customerID) throws myException;
     ArrayList<Customer> getAllCustomers();
     Customer getOneCustomer(int CustomerID);
+
+    boolean isCustomerEmailExists(String email);
 }

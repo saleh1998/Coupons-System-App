@@ -6,6 +6,7 @@ import java.io.Serializable;
 
 public abstract class ClientFacade implements Serializable {
 
+
     Context context;
     CompaniesDAO companiesDAO= new CompaniesDBDAO(context);
     CustomersDAO customersDAO= new CustomersDBDAO(context);

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddCouponActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/addCoupon_toolbar"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        android:background="#A57E0A"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="  Add New Coupon "
+        app:titleMargin="5dp"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:titleTextColor="#F1EAEA" />
+
+    <Spinner
+        android:id="@+id/addCoupon_spCategory"
+        android:layout_width="383dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addCoupon_toolbar" />
+
+    <EditText
+        android:id="@+id/addCoupon_etTitle"
+        android:layout_width="280dp"
+        android:layout_height="44dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Title"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/addCoupon_spCategory"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/addCoupon_spCategory"
+        app:layout_constraintTop_toBottomOf="@+id/addCoupon_spCategory" />
+
+    <EditText
+        android:id="@+id/addCoupon_etDescription"
+        android:layout_width="388dp"
+        android:layout_height="41dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Description"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/addCoupon_etTitle"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/addCoupon_etTitle"
+        app:layout_constraintTop_toBottomOf="@+id/addCoupon_etTitle" />
+
+    <EditText
+        android:id="@+id/addCoupon_etStartDate"
+        android:layout_width="217dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Start Date"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="@+id/addCoupon_etDescription"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/addCoupon_etDescription"
+        app:layout_constraintTop_toBottomOf="@+id/addCoupon_etDescription"
+        android:focusable="false"
+        android:onClick="onStartDateClick"/>
+
+    <EditText
+        android:id="@+id/addCoupon_etEndDate"
+        android:layout_width="217dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="End Date"
+        android:inputType="date"
+        app:layout_constraintEnd_toEndOf="@+id/addCoupon_etStartDate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/addCoupon_etStartDate"
+        app:layout_constraintTop_toBottomOf="@+id/addCoupon_etStartDate"
+        android:focusable="false"
+        android:onClick="onEndDateClick"/>
+
+    <EditText
+        android:id="@+id/addCoupon_etAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Amount"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toEndOf="@+id/addCoupon_etEndDate"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/addCoupon_etEndDate"
+        app:layout_constraintTop_toBottomOf="@+id/addCoupon_etEndDate" />
+
+    <EditText
+        android:id="@+id/addCoupon_etPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Price"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/addCoupon_etAmount"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/addCoupon_etAmount"
+        app:layout_constraintTop_toBottomOf="@+id/addCoupon_etAmount" />
+
+    <Button
+        android:id="@+id/addCoupon_btnSave"
+        android:layout_width="122dp"
+        android:layout_height="65dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#A39305"
+        android:text="Save"
+        android:textSize="24sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/addCoupon_btnBack"
+        android:layout_width="54dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#00EDE5E5"
+        android:scaleType="fitCenter"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.033"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addCoupon_toolbar"
+        app:srcCompat="@drawable/back" />
+
+    <EditText
+        android:id="@+id/addCoupon_etImgSrc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Image src"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="@+id/addCoupon_etPrice"
+        app:layout_constraintStart_toStartOf="@+id/addCoupon_etPrice"
+        app:layout_constraintTop_toBottomOf="@+id/addCoupon_etPrice" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

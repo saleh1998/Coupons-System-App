@@ -15,7 +15,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 public class DB_Manager extends SQLiteOpenHelper{
+
 
     private final static String DB_NAME = "DB_1";
     private final static int DB_VER = 3;
@@ -110,6 +112,7 @@ public class DB_Manager extends SQLiteOpenHelper{
         db.execSQL(CREATE_TABLE_COMPANIES);
         db.execSQL(CREATE_TABLE_CUSTOMERS);
         db.execSQL(CREATE_TABLE_COUPONS);
+        db.execSQL("DROP TABLE IF EXISTS " + TBL_CATEGORIES);
         db.execSQL(CREATE_TABLE_CATEGORIES);
         db.execSQL(CREATE_TABLE_CUSTOMERS_VS_COUPONS);
 
@@ -214,6 +217,7 @@ public class DB_Manager extends SQLiteOpenHelper{
 
     public void deleteCompany(int companyID) throws myException {
         companies = getAllCompanies();
+        
         Company tobeDeleted = null;
         boolean flag = false;
         for (Company c : companies) {
@@ -234,10 +238,10 @@ public class DB_Manager extends SQLiteOpenHelper{
             db.delete(TBL_COMPANIES, COMPANY_ID + "= ?", new String[]{(companyID+"")});
 
         } else throw new myException("Delete failed No company found with id =" + companyID + "!");
-
     }
 
     public ArrayList<Company> getAllCompanies() {
+        ArrayList<Company> companies1 = new ArrayList<>();
         String[] fields = {COMPANY_ID, COMPANY_NAME, COMPANY_EMAIL, COMPANY_PASSWORD};
         ArrayList<Company> companiesCpy = new ArrayList<>();
         String id, name, email, password;
@@ -358,7 +362,7 @@ public class DB_Manager extends SQLiteOpenHelper{
             customers.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are references
             SQLiteDatabase db = getWritableDatabase();
             db.delete(TBL_CUSTOMERS, CUSTOMER_ID + "= ?", new String[]{(Integer.toString(customerID))});
-
+            deleteCustomerVsCouponCouponForAllCouponsByCustomerId(customerID);
         } else
             throw new myException("Delete failed No customer found with id =" + customerID + "!");
     }
@@ -401,7 +405,7 @@ public class DB_Manager extends SQLiteOpenHelper{
 
     public void addCoupon(Coupon coupon) {
         Date startDate = coupon.getStartDate();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         String start = dateFormat.format(startDate);
 
         Date endDate = coupon.getEndDate();
@@ -409,7 +413,7 @@ public class DB_Manager extends SQLiteOpenHelper{
 
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COUPON_ID, coupon.getId());
+        //values.put(COUPON_ID, coupon.getId());
         values.put(COUPON_COMPANY_ID, coupon.getCompanyID());
         values.put(COUPONS_CATEGORY, coupon.getCategory().name());
         values.put(COUPONS_TITLE, coupon.getTitle());
@@ -422,18 +426,19 @@ public class DB_Manager extends SQLiteOpenHelper{
 
         db.insert(TBL_COUPONS, null, values);
         db.close();
+/*
         coupons.add(coupon);
+*/
 
     }
 
 
     public void updateCoupon(Coupon coupon) throws myException, ParseException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
         coupons = getAllCoupons();
         boolean flag = false;
         for (Coupon c : coupons) {
             if (c.getId() == (coupon.getId())) {
-                //c.setCompanyID(coupon.getCompanyID());  // can not update this
                 c.setCategory(coupon.getCategory());
                 c.setTitle(coupon.getTitle());
                 c.setDescription(coupon.getDescription());
@@ -466,7 +471,7 @@ public class DB_Manager extends SQLiteOpenHelper{
 
     }
 
-    public void deleteCoupon(Coupon coupon) throws myException {
+    public void deleteCoupon(Coupon coupon) throws myException, ParseException {
 
         Coupon tobeDeleted = null;
         boolean flag = false;
@@ -479,19 +484,23 @@ public class DB_Manager extends SQLiteOpenHelper{
         }
         if (flag) {
             coupons.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are references
-            // moaad func to delete also from customer vs coupons
-            for (Customer c : customers)
-            {
-
-
+            // Moaad func to delete also from customer vs coupons
+            for(Customer customer: customers) {
+                if (customer.getCoupons().contains(coupon)) {
+                    customer.getCoupons().remove(coupon);
+                }
             }
+                for(Company company: companies){
+                    if(company.getCoupons().contains(coupon)) {
+                        company.getCoupons().remove(coupon);
+                    }
+            }
+            deleteCustomerVsCouponCouponForAllCustomersByCouponId(coupon.getId());
             SQLiteDatabase db = getWritableDatabase();
             db.delete(TBL_COUPONS, COUPON_ID + "= ?", new String[]{(Integer.toString(coupon.getId()))});
-
+            coupons = getAllCoupons();
         } else
             throw new myException("Delete failed No coupon found with id =" + coupon.getId() + "!");
-
-
     }
 
     public ArrayList<Coupon> getAllCoupons() throws ParseException {
@@ -513,7 +522,7 @@ public class DB_Manager extends SQLiteOpenHelper{
                     price = cr.getString(8);
                     image = cr.getString(9);
                     SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-                    coupons.add(new Coupon( Integer.parseInt(compID), Category.valueOf(category), title, desc, dateFormat.parse(start), dateFormat.parse(end), Integer.parseInt(amount), Double.parseDouble(price), image));
+                    coupons.add(new Coupon( Integer.parseInt(id),Integer.parseInt(compID), Category.valueOf(category), title, desc, dateFormat.parse(start), dateFormat.parse(end), Integer.parseInt(amount), Double.parseDouble(price), image));
                 } while (cr.moveToNext());
             return coupons;
         } catch (Exception e) {
@@ -578,6 +587,23 @@ public class DB_Manager extends SQLiteOpenHelper{
         }
     }
 
+    public ArrayList<Coupon> getCompanyCouponsbyID(int companyID) throws ParseException {
+        ArrayList<Coupon> coupons = getAllCoupons();
+        ArrayList<Coupon> reqCoupons = new ArrayList<>();
+        if(coupons!=null) {
+            for (Coupon c : coupons)
+            {
+            if(c.getCompanyID() == companyID)
+                reqCoupons.add(c);
+
+
+            }
+            return reqCoupons;
+        }
+        return null;
+
+    }
+
     //___________________________________Categories___________________________________
 
 
@@ -593,14 +619,15 @@ public class DB_Manager extends SQLiteOpenHelper{
     public ArrayList<Category> getAllCategories() throws ParseException {
         ArrayList<Category> categories = new ArrayList<>();
         String[] fields = {CATEGORY_ID, CATEGORY_NAME};
-        String id, catName;
+        String  catName;
+        int id;
         try {
             Cursor cr = getCursor(TBL_CATEGORIES, fields, null);
             if (cr.moveToFirst())
                 do {
-                    id = cr.getString(0);
+                    id = cr.getInt(0);
                     catName = cr.getString(1);
-                    categories.add(Category.valueOf(id));
+                    categories.add(Category.valueOf(catName));
                 } while (cr.moveToNext());
             return categories;
         } catch (Exception e) {
@@ -744,20 +771,33 @@ public class DB_Manager extends SQLiteOpenHelper{
 
 
     // Functions Mix:
-    public void deleteExpiredCouponsAndPurchaseHistory() throws myException {
+
+
+    public void deleteExpiredCouponsAndPurchaseHistory() throws myException, ParseException {
         // 1. Get a list of all expired coupons.
         List<Coupon> expiredCoupons = getExpiredCoupons();
 
         // 2. Delete each expired coupon.
-        for (Coupon coupon : expiredCoupons) {
-            deleteCoupon(coupon);
-
+        if (expiredCoupons != null) {
+            for (Coupon coupon : expiredCoupons) {
+                int compId = coupon.getCompanyID();
+                Company company = getOneCompany(compId);
+                if (company.getCoupons() != null)
+                    company.getCoupons().remove(coupon);
+                ArrayList<Integer> customersIds = getAllCustomersForSpecificCoupon(compId);
+                if (customersIds != null)
+                    for (int customerId : customersIds) {
+                        Customer customer = getOneCustomer(customerId);
+                        customer.getCoupons().remove(coupon);
+                    }
+                deleteCustomerVsCouponCouponForAllCustomersByCouponId(coupon.getId());
+                deleteCoupon(coupon);
+            }
         }
     }
-
-    private List<Coupon> getExpiredCoupons() {
+    private List<Coupon> getExpiredCoupons() throws ParseException {
         List<Coupon> expiredCoupons = new ArrayList<>();
-
+        coupons = getAllCoupons();
         Date today = new Date(); // Assuming that Coupon has a Date type for expiration date
         for (Coupon c : coupons) {
             if (c.getEndDate().before(today)) {
@@ -766,6 +806,20 @@ public class DB_Manager extends SQLiteOpenHelper{
         }
         return expiredCoupons;
     }
+
+
+
+//    public void deleteExpiredCouponsAndPurchaseHistory() throws myException, ParseException {
+//        // 1. Get a list of all expired coupons.
+//        List<Coupon> expiredCoupons = getExpiredCoupons();
+//
+//        // 2. Delete each expired coupon.
+//        for (Coupon coupon : expiredCoupons) {
+//            deleteCoupon(coupon);
+//
+//        }
+//    }
+
 
 
 

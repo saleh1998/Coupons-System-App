@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".CouponsByCategoryActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/cpnByCategory_toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#A57E0A"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="Coupons By Category"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+        app:titleTextColor="#080909" />
+
+    <Spinner
+        android:id="@+id/cpnByCategory_sp"
+        android:layout_width="330dp"
+        android:layout_height="43dp"
+        android:layout_marginTop="4dp"
+        app:layout_constraintStart_toStartOf="@+id/textView2"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="264dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="68dp"
+        android:gravity="center|start"
+        android:text="choose category "
+        android:textSize="20sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.272"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cpnByCategory_toolBar" />
+
+    <ListView
+        android:id="@+id/cpnByCategory_lv"
+        android:layout_width="393dp"
+        android:layout_height="436dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cpnByCategory_btnSearch"
+        app:layout_constraintVertical_bias="0.916" />
+
+    <Button
+        android:id="@+id/cpnByCategory_btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="#A39305"
+        android:text="Search"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/cpnByCategory_sp"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/cpnByCategory_sp"
+        app:layout_constraintTop_toBottomOf="@+id/cpnByCategory_sp" />
+
+    <ImageButton
+        android:id="@+id/cpnByCategory_btnBack"
+        android:layout_width="63dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#F6F2F2"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cpnByCategory_toolBar"
+        app:srcCompat="@drawable/back" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

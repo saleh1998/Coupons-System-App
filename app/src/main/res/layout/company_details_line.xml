@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="410dp"
+        android:layout_height="124dp"
+        android:layout_marginBottom="392dp"
+        android:background="@drawable/border"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:background="#F4D8AE"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/companyLine_tvComCode"
+                android:layout_width="168dp"
+                android:layout_height="51dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center|start"
+                android:textSize="20sp" />
+
+            <Space
+                android:layout_width="34dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/companyLine_tvComName"
+                android:layout_width="232dp"
+                android:layout_height="51dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center|start"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:background="#F4D8AE"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/companyLine_tvComPassword"
+                android:layout_width="168dp"
+                android:layout_height="48dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center|start"
+                android:textSize="20sp" />
+
+            <Space
+                android:layout_width="34dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/companyLine_tvComMail"
+                android:layout_width="231dp"
+                android:layout_height="50dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center|start"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

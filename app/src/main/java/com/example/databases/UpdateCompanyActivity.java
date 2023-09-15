@@ -75,7 +75,6 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
                 String confirmPassword = etConfirmPassword.getText().toString();
                 if (password.equals(confirmPassword)) {
 
-
                     company.setEmail(email);
                     company.setPassword(password);
 
