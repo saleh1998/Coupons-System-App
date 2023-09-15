@@ -4,6 +4,7 @@ import android.content.Context;
 
 import java.io.Serializable;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class CompaniesDBDAO implements CompaniesDAO, Serializable {

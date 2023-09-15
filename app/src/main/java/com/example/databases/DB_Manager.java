@@ -215,7 +215,7 @@ public class DB_Manager extends SQLiteOpenHelper{
 
     }
 
-    public void deleteCompany(int companyID) throws myException {
+    public void deleteCompany(int companyID) throws myException, ParseException {
         companies = getAllCompanies();
         
         Company tobeDeleted = null;
