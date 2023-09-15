@@ -95,6 +95,9 @@ public class DB_Manager extends SQLiteOpenHelper{
         try {
             this.context = context;
             companies = new ArrayList<>();
+            customers = new ArrayList<>();
+            categories = new ArrayList<>();
+            coupons = new ArrayList<>();
         } catch (Exception e) {
             throw e;
         }
@@ -215,7 +218,7 @@ public class DB_Manager extends SQLiteOpenHelper{
 
     }
 
-    public void deleteCompany(int companyID) throws myException {
+    public void deleteCompany(int companyID) throws myException, ParseException {
         companies = getAllCompanies();
         
         Company tobeDeleted = null;
@@ -241,7 +244,6 @@ public class DB_Manager extends SQLiteOpenHelper{
     }
 
     public ArrayList<Company> getAllCompanies() {
-        ArrayList<Company> companies1 = new ArrayList<>();
         String[] fields = {COMPANY_ID, COMPANY_NAME, COMPANY_EMAIL, COMPANY_PASSWORD};
         ArrayList<Company> companiesCpy = new ArrayList<>();
         String id, name, email, password;
