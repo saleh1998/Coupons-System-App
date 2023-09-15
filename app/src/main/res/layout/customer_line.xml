@@ -8,8 +8,8 @@
     android:backgroundTint="#F4D8AE">
 
     <TextView
-        android:id="@+id/companyLine_tvComCode"
-        android:layout_width="168dp"
+        android:id="@+id/customerLine_tvCustomerCode"
+        android:layout_width="50dp"
         android:layout_height="51dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -20,23 +20,38 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/companyLine_tvComName"
-        android:layout_width="232dp"
+        android:id="@+id/customerLine_tvFName"
+        android:layout_width="150dp"
         android:layout_height="51dp"
         android:layout_marginStart="8dp"
         android:background="@android:drawable/editbox_background_normal"
         android:gravity="center|start"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/companyLine_tvComCode"
+        app:layout_constraintBottom_toBottomOf="@+id/customerLine_tvCustomerCode"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.076"
-        app:layout_constraintStart_toEndOf="@+id/companyLine_tvComCode"
-        app:layout_constraintTop_toTopOf="@+id/companyLine_tvComCode"
+        app:layout_constraintStart_toEndOf="@+id/customerLine_tvCustomerCode"
+        app:layout_constraintTop_toTopOf="@+id/customerLine_tvCustomerCode"
         app:layout_constraintVertical_bias="1.0" />
 
     <TextView
-        android:id="@+id/companyLine_tvComMail"
-        android:layout_width="168dp"
+        android:id="@+id/customerLine_tvLName"
+        android:layout_width="150dp"
+        android:layout_height="51dp"
+        android:layout_marginStart="8dp"
+        android:background="@android:drawable/editbox_background_normal"
+        android:gravity="center|start"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/customerLine_tvFName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.076"
+        app:layout_constraintStart_toEndOf="@+id/customerLine_tvFName"
+        app:layout_constraintTop_toTopOf="@+id/customerLine_tvFName"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/customerLine_tvEmail"
+        android:layout_width="200dp"
         android:layout_height="48dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
@@ -44,19 +59,19 @@
         android:gravity="center|start"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/companyLine_tvComCode" />
+        app:layout_constraintTop_toBottomOf="@+id/customerLine_tvCustomerCode" />
 
     <TextView
-        android:id="@+id/companyLine_tvComPassword"
-        android:layout_width="231dp"
+        android:id="@+id/customerLine_tvPassword"
+        android:layout_width="170dp"
         android:layout_height="50dp"
         android:layout_marginStart="12dp"
         android:background="@android:drawable/editbox_background_normal"
         android:gravity="center|start"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/companyLine_tvComMail"
-        app:layout_constraintStart_toEndOf="@+id/companyLine_tvComMail"
-        app:layout_constraintTop_toTopOf="@+id/companyLine_tvComMail"
+        app:layout_constraintBottom_toBottomOf="@+id/customerLine_tvEmail"
+        app:layout_constraintStart_toEndOf="@+id/customerLine_tvEmail"
+        app:layout_constraintTop_toTopOf="@+id/customerLine_tvEmail"
         app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

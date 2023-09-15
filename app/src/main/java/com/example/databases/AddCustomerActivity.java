@@ -7,6 +7,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,7 +22,7 @@ public class AddCustomerActivity extends AppCompatActivity implements Navigation
 
     private DrawerLayout drawerLayout;
     Button btnSave,btnCancel;
-    EditText etName,etEmail,etPassword,etConfirmPassword;
+    EditText etFName,etLName,etEmail,etPassword,etConfirmPassword;
     Toolbar toolbar;
     NavigationView navigationView;
     @Override
@@ -31,7 +32,8 @@ public class AddCustomerActivity extends AppCompatActivity implements Navigation
 
         btnSave = findViewById(R.id.addCustomer_btnSave);
         btnCancel = findViewById(R.id.addCustomer_btnCancel);
-        etName = findViewById(R.id.addCustomer_etName);
+        etFName = findViewById(R.id.addCustomer_etFName);
+        etLName = findViewById(R.id.addCustomer_etLName);
         etEmail = findViewById(R.id.addCustomer_etEmail);
         etPassword = findViewById(R.id.addCustomer_etPassword);
         etConfirmPassword = findViewById(R.id.addCustomer_etConfirmPassword);
@@ -74,7 +76,26 @@ public class AddCustomerActivity extends AppCompatActivity implements Navigation
         @Override
         public void onClick(View view) {
             if (view.getId() == btnSave.getId()) {
-                ///Save new Company
+                ///Save new Customer
+                String f_name = etFName.getText().toString();
+                String l_name = etLName.getText().toString();
+                String email = etEmail.getText().toString();
+                String password = etPassword.getText().toString();
+                String confirmPassword = etConfirmPassword.getText().toString();
+                if (password.equals(confirmPassword)) {
+                    Customer customer = new Customer(f_name,l_name, email, password);
+
+                    Intent intent = getIntent();
+                    intent.putExtra("customer", customer);
+                    intent.putExtra("requestCode", 2);
+                    setResult(RESULT_OK, intent);
+                    finish();
+
+                } else {
+                    etPassword.setText("");
+                    etConfirmPassword.setText("");
+                    Toast.makeText(AddCustomerActivity.this, "Please insert correct password confirmation!!", Toast.LENGTH_SHORT).show();
+                }
             }
             if (view.getId() == btnCancel.getId()) {
                 finish();

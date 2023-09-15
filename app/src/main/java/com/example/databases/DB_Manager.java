@@ -15,10 +15,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class DB_Manager extends SQLiteOpenHelper implements Serializable {
+
+public class DB_Manager extends SQLiteOpenHelper{
+
 
     private final static String DB_NAME = "DB_1";
-    private final static int DB_VER = 2;
+    private final static int DB_VER = 3;
     private Context context;
     ArrayList<Company> companies;
     ArrayList<Customer> customers;
@@ -182,9 +184,8 @@ public class DB_Manager extends SQLiteOpenHelper implements Serializable {
         values.put(COMPANY_PASSWORD, company.getPassword());
 
         long newRowId = db.insert(TBL_COMPANIES, null, values);
-        companies.add(company);
         db.close();
-        if(newRowId != -1){
+        if(newRowId !=-1){
             company.setId((int)newRowId);
             companies.add(company);
         }
@@ -214,7 +215,9 @@ public class DB_Manager extends SQLiteOpenHelper implements Serializable {
 
     }
 
-    public void deleteCompany(int companyID) throws myException, ParseException {
+    public void deleteCompany(int companyID) throws myException {
+        companies = getAllCompanies();
+        
         Company tobeDeleted = null;
         boolean flag = false;
         for (Company c : companies) {
@@ -225,13 +228,14 @@ public class DB_Manager extends SQLiteOpenHelper implements Serializable {
             }
         }
         if (flag) {
-            for(Coupon c : tobeDeleted.getCoupons())
-            {
-                deleteCoupon(c);
+            if(tobeDeleted!=null && tobeDeleted.getCoupons()!=null) {
+                for (Coupon c : tobeDeleted.getCoupons()) {
+                    deleteCoupon(c);
+                }
             }
             companies.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are references
             SQLiteDatabase db = getWritableDatabase();
-            db.delete(TBL_COMPANIES, COMPANY_ID + "= ?", new String[]{(Integer.toString(companyID))});
+            db.delete(TBL_COMPANIES, COMPANY_ID + "= ?", new String[]{(companyID+"")});
 
         } else throw new myException("Delete failed No company found with id =" + companyID + "!");
     }
@@ -239,6 +243,7 @@ public class DB_Manager extends SQLiteOpenHelper implements Serializable {
     public ArrayList<Company> getAllCompanies() {
         ArrayList<Company> companies1 = new ArrayList<>();
         String[] fields = {COMPANY_ID, COMPANY_NAME, COMPANY_EMAIL, COMPANY_PASSWORD};
+        ArrayList<Company> companiesCpy = new ArrayList<>();
         String id, name, email, password;
         try {
             Cursor cr = getCursor(TBL_COMPANIES, fields, null);
@@ -248,15 +253,23 @@ public class DB_Manager extends SQLiteOpenHelper implements Serializable {
                     name = cr.getString(1);
                     email = cr.getString(2);
                     password = cr.getString(3);
-                    companies1.add(new Company(Integer.parseInt(id),name, email, password,null));
+                    companiesCpy.add(new Company(Integer.parseInt(id),name, email, password,null));
                 } while (cr.moveToNext());
-            return companies1;
+            return companiesCpy;
         } catch (Exception e) {
             throw e;
         }
     }
 
 
+    public Company getOneCompanyByName(String companyName) {
+        companies = getAllCompanies();
+        for (Company c : companies) {
+            if (c.getName().equals(companyName))
+                return c;
+        }
+        return null;
+    }
     public Company getOneCompany(int CompanyID) {
         companies = getAllCompanies();
         for (Company c : companies) {
@@ -285,22 +298,26 @@ public class DB_Manager extends SQLiteOpenHelper implements Serializable {
                 if(c.getPassword().equals(password))
                     return c.getId();
         }
-        return -1;    }
+        return -1;
+    }
 
 
 
     public void addCustomer(Customer customer) {
         SQLiteDatabase db = getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(CUSTOMER_ID, customer.getId());
+        //values.put(CUSTOMER_ID, customer.getId());
         values.put(CUSTOMER_FNAME, customer.getFirstName());
         values.put(CUSTOMER_LNAME, customer.getLastName());
         values.put(CUSTOMER_EMAIL, customer.getEmail());
         values.put(CUSTOMER_PASSWORD, customer.getPassword());
 
-        db.insert(TBL_CUSTOMERS, null, values);
+        long newRowId = db.insert(TBL_CUSTOMERS, null, values);
         db.close();
-        customers.add(customer);
+        if(newRowId !=-1){
+            customer.setId((int)newRowId);
+            customers.add(customer);
+        }
     }
 
 
@@ -364,7 +381,7 @@ public class DB_Manager extends SQLiteOpenHelper implements Serializable {
                     lname = cr.getString(2);
                     email = cr.getString(3);
                     password = cr.getString(4);
-                    customers.add(new Customer(fname, lname, email, password));
+                    customers.add(new Customer(Integer.parseInt(id),fname, lname, email, password));
                 } while (cr.moveToNext());
             return customers;
         } catch (Exception e) {

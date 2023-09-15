@@ -3,10 +3,11 @@ package com.example.databases;
 import android.content.Context;
 
 import java.io.Serializable;
-import java.text.ParseException;
+
 import java.util.ArrayList;
 
-public class CompaniesDBDAO implements CompaniesDAO , Serializable {
+public class CompaniesDBDAO implements CompaniesDAO, Serializable {
+
     Context context;
 
     DB_Manager mydb = DB_Manager.getInstance(context);

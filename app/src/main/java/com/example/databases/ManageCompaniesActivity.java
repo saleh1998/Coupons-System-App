@@ -15,18 +15,26 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.util.ArrayList;
+
 //comment attempt
 public class ManageCompaniesActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
+
+    int selectedRow=-1;
+    int selectedCompanyID=-1;
+    String selectedCompanyName="";
     private DrawerLayout drawerLayout;
     Button btnAdd,btnUpdate,btnDelete;
     ImageButton btnSearch;
@@ -35,8 +43,7 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
     Toolbar toolbar;
     NavigationView navigationView;
     CompanyLvAdapter lvAdapter;
-    DB_Manager db;
-    AdminFacade admfcd;
+    AdminFacade adminFacade;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,9 +78,22 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
             navigationView.setCheckedItem(R.id.nav_home);
         }
 
-        db = DB_Manager.getInstance(this);
-        lvAdapter=new CompanyLvAdapter(this,R.layout.company_line,db.getAllCompanies());
+        /*Intent intent = getIntent();
+        adminFacade = (AdminFacade) intent.getSerializableExtra("AdminFacade");*/
+        adminFacade = new AdminFacade(this);
+
+        lvAdapter=new CompanyLvAdapter(this,R.layout.company_line, adminFacade.getAllCompanies());
         lvCompanies.setAdapter(lvAdapter);
+        lvCompanies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                selectedRow=position;
+                TextView etName1 = (TextView)view.findViewById(R.id.companyLine_tvComName);
+                selectedCompanyName = etName1.getText().toString();
+                TextView etId1 = (TextView)view.findViewById(R.id.companyLine_tvComCode);
+                selectedCompanyID = Integer.parseInt(etId1.getText().toString());
+            }
+        });
     }
 
     ActivityResultLauncher<Intent> launcher = registerForActivityResult(
@@ -84,11 +104,26 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
                     Intent intent = result.getData();
                     if(intent != null){
                         int requestCode = intent.getIntExtra("requestCode",0);
-                        if(requestCode==2){
+                        if(requestCode==2){ //// returning from AddCompanyActivity
                             Company c = (Company) intent.getSerializableExtra("company");
                             if(result.getResultCode()==RESULT_OK){
-                                db.addCompany(c);
-                                lvAdapter.refreshCompanyAdded(c);
+                                try {
+                                    adminFacade.addCompany(c);
+                                    lvAdapter.refreshCompanyAdded(c);
+                                } catch (myException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        }
+                        if(requestCode==4){//// returning from UpdateCompanyActivity
+                            Company c = (Company) intent.getSerializableExtra("company");
+                            if(result.getResultCode()==RESULT_OK){
+                                try {
+                                    adminFacade.updateCompany(c);
+                                    lvAdapter.refreshAllCompanies(adminFacade.getAllCompanies());
+                                } catch (myException e) {
+                                    throw new RuntimeException(e);
+                                }
                             }
                         }
                     }
@@ -96,11 +131,14 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
             });
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.nav_home){
-            getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container, new AdminFragment()).commit();
+            /*getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment_container, new AdminFragment()).commit();*/
+            finish();
         }
         if (item.getItemId() == R.id.nav_logout) {
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+            Intent intent = getIntent();
+            intent.putExtra("logout",1);
             finish();
         }
 
@@ -116,14 +154,37 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
                 Intent intent = new Intent(ManageCompaniesActivity.this,AddCompanyActivity.class);
                 intent.putExtra("requestCode",1);
                 launcher.launch(intent);
+                selectedCompanyName="";
+                selectedRow=-1;
             }
             if(view.getId() == btnUpdate.getId()){
                 Intent intent = new Intent(ManageCompaniesActivity.this,UpdateCompanyActivity.class);
-                intent.putExtra("requestCode",1);
+                Company c = adminFacade.getOneCompany(selectedCompanyID);
+                if(c!=null){
+                    intent.putExtra("company",c);
+                }
+                intent.putExtra("requestCode",3);
                 launcher.launch(intent);
+                selectedCompanyName="";
+                selectedRow=-1;
             }
             if(view.getId() == btnDelete.getId()){
-                //finish();
+                Company c = adminFacade.getOneCompany(selectedCompanyID);
+                try {
+                    adminFacade.deleteCompany(c);
+                    lvAdapter.refreshAllCompanies(adminFacade.getAllCompanies());
+                } catch (myException e) {
+                    throw new RuntimeException(e);
+                }
+                selectedCompanyName="";
+                selectedRow=-1;
+            }
+            if(view.getId() == btnSearch.getId()){
+                String searchedId = etSearchCompany.getText().toString();
+                Company target = adminFacade.getOneCompany(Integer.parseInt(searchedId));
+                ArrayList<Company> specificCompany =new ArrayList<>();
+                specificCompany.add(target);
+                lvAdapter.refreshAllCompanies(specificCompany);
             }
         }
     }

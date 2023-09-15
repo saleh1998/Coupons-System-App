@@ -1,8 +1,9 @@
 package com.example.databases;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Customer {
+public class Customer implements Serializable {
     private int id;
     private String firstName;
     private String lastName;
@@ -17,6 +18,13 @@ public class Customer {
         this.password = password;
     }
 
+    public Customer(int id,String firstName, String lastName, String email, String password) {
+        this.id=id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+    }
     public Customer( String firstName, String lastName, String email, String password, ArrayList<Coupon> coupons) {
         this.firstName = firstName;
         this.lastName = lastName;

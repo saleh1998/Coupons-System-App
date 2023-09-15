@@ -65,11 +65,23 @@
             android:layout_height="11dp" />
 
         <EditText
-            android:id="@+id/updateCustomer_etName"
+            android:id="@+id/updateCustomer_etFName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
-            android:hint="Enter Customer Name"
+            android:hint="Enter Customer First Name"
+            android:inputType="text" />
+
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="11dp" />
+
+        <EditText
+            android:id="@+id/updateCustomer_etLName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:hint="Enter Customer Last Name"
             android:inputType="text" />
 
         <Space

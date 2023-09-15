@@ -4,7 +4,8 @@ import android.content.Context;
 
 import java.io.Serializable;
 
-public abstract class ClientFacade {
+public abstract class ClientFacade implements Serializable {
+
 
     Context context;
     CompaniesDAO companiesDAO= new CompaniesDBDAO(context);
