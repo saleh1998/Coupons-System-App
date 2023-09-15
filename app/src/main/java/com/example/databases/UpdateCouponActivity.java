@@ -11,6 +11,8 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.Toolbar;
 
+import java.util.ArrayList;
+
 public class UpdateCouponActivity extends AppCompatActivity {
 
     Spinner categoriesSpin;
@@ -40,8 +42,6 @@ public class UpdateCouponActivity extends AppCompatActivity {
 
 
         db = DB_Manager.getInstance(this);
-
-
         /* we have to get allCategories from db manager then put thim in categoriesList
         *******************************************************************************
         ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categoriesList);
@@ -59,7 +59,6 @@ public class UpdateCouponActivity extends AppCompatActivity {
 
             }
         });*/
-
     }
 
     class ButtonsClick implements View.OnClickListener{
@@ -79,8 +78,8 @@ public class UpdateCouponActivity extends AppCompatActivity {
                 Date endDate = supportClass.getDate(etEndDate.getText().toString());
                 int anount = Integer.parseInt(etAmount.getText().toString());
                 double price = Double.parseDouble(etPrice.getText().toString());
-                String imgSrc = etImg.getText().toString();
-                // we hav to creat new coupon with this fileds + companyID from the obj that we have got it from the intent*/
+                String imgSrc = etImg.getText().toString();*/
+                // we hav to creat new coupon with this fileds + companyID from the obj that we have got it from the intent
             }
 
         }

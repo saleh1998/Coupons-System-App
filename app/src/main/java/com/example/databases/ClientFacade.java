@@ -2,6 +2,8 @@ package com.example.databases;
 
 import android.content.Context;
 
+import java.io.Serializable;
+
 public abstract class ClientFacade {
 
     Context context;

@@ -1,8 +1,13 @@
 package com.example.databases;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +17,8 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import java.io.Serializable;
+import java.text.ParseException;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     // Create an instance of DB_Manager
@@ -25,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     RadioGroup rg;
     RadioButton rdAdmin, rdCustomer, rdCompany;
     Button btnLogIn;
+    ArrayList<Category> categories;
 
     int selectedRadioBtnRow = -1;
 
@@ -37,6 +45,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        try {
+             categories = dbManager.getAllCategories();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
+        }
+
+
+        // INSERTING CATEGORIES
+        for(Category c : Category.values())
+        {
+            dbManager.addCategory(c.name());
+        }
+
+
 
         loginManager = LoginManager.getInstance(MainActivity.this);
         etUserName = findViewById(R.id.main_etUserName);
@@ -85,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
                         CompanyFacade companyFacade = (CompanyFacade)loginManager.login(userName,pass,ClientType.Company);
                         if(companyFacade != null) {
                             Intent intent = new Intent(MainActivity.this, CompanyActivity.class);
-                            intent.putExtra("companyFacade",(Serializable) companyFacade);
+                            intent.putExtra("companyid", companyFacade.getCompanyID());
                             startActivity(intent);
                         }
                         else {
@@ -96,11 +118,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
+/*
 // Start the background service to check for expired coupons
         myRunnable = new MyRunnable();
         myThread = new Thread(myRunnable);
-        myThread.start();
+        myThread.start();*/
     }
 
     @Override

@@ -68,7 +68,9 @@
         app:layout_constraintEnd_toEndOf="@+id/addCoupon_etDescription"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/addCoupon_etDescription"
-        app:layout_constraintTop_toBottomOf="@+id/addCoupon_etDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/addCoupon_etDescription"
+        android:focusable="false"
+        android:onClick="onStartDateClick"/>
 
     <EditText
         android:id="@+id/addCoupon_etEndDate"
@@ -81,7 +83,9 @@
         app:layout_constraintEnd_toEndOf="@+id/addCoupon_etStartDate"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/addCoupon_etStartDate"
-        app:layout_constraintTop_toBottomOf="@+id/addCoupon_etStartDate" />
+        app:layout_constraintTop_toBottomOf="@+id/addCoupon_etStartDate"
+        android:focusable="false"
+        android:onClick="onEndDateClick"/>
 
     <EditText
         android:id="@+id/addCoupon_etAmount"

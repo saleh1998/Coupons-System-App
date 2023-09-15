@@ -2,10 +2,11 @@ package com.example.databases;
 
 import android.content.Context;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class CompaniesDBDAO implements CompaniesDAO{
+public class CompaniesDBDAO implements CompaniesDAO , Serializable {
     Context context;
 
     DB_Manager mydb = DB_Manager.getInstance(context);
@@ -48,4 +49,11 @@ public class CompaniesDBDAO implements CompaniesDAO{
     public Company getOneCompany(int CompanyID) {
         return mydb.getOneCompany(CompanyID);
     }
+
+    public ArrayList<Coupon> getCompanyCouponsbyID(int companyID) throws ParseException
+    {
+        return mydb.getCompanyCouponsbyID(companyID);
+
+    }
+
 }
