@@ -54,12 +54,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
 
-        // INSERTING CATEGORIES
+       /* // INSERTING CATEGORIES
         for(Category c : Category.values())
         {
             dbManager.addCategory(c.name());
         }
-
+*/
 
 
         loginManager = LoginManager.getInstance(MainActivity.this);
