@@ -68,7 +68,7 @@ public class CompanyFacade extends ClientFacade {
             if (existingCoupon != null) {
                 couponsDAO.deleteCoupon(coupon);
                 Company co = companiesDAO.getOneCompany(existingCoupon.getCompanyID());
-                co.getCoupons().remove(existingCoupon);
+               // co.getCoupons().remove(existingCoupon);
                 companiesDAO.updateCompany(co);
             } else {
                 throw new myException("Coupon not found for the given ID.");

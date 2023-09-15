@@ -1,10 +1,11 @@
 package com.example.databases;
 
 import android.content.Context;
+import android.net.ParseException;
 
 import java.io.Serializable;
 
-import java.text.ParseException;
+
 import java.util.ArrayList;
 
 public class CompaniesDBDAO implements CompaniesDAO, Serializable {
@@ -38,7 +39,7 @@ public class CompaniesDBDAO implements CompaniesDAO, Serializable {
     }
 
     @Override
-    public void deleteCompany(int companyID) throws myException, ParseException {
+    public void deleteCompany(int companyID) throws myException, ParseException, java.text.ParseException {
     mydb.deleteCompany(companyID);
     }
 
@@ -52,8 +53,7 @@ public class CompaniesDBDAO implements CompaniesDAO, Serializable {
         return mydb.getOneCompany(CompanyID);
     }
 
-    public ArrayList<Coupon> getCompanyCouponsbyID(int companyID) throws ParseException
-    {
+    public ArrayList<Coupon> getCompanyCouponsbyID(int companyID) throws ParseException, java.text.ParseException {
         return mydb.getCompanyCouponsbyID(companyID);
 
     }

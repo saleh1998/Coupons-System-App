@@ -485,21 +485,23 @@ public class DB_Manager extends SQLiteOpenHelper{
             }
         }
         if (flag) {
-            coupons.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are references
             // Moaad func to delete also from customer vs coupons
-            for(Customer customer: customers) {
-                if (customer.getCoupons().contains(coupon)) {
-                    customer.getCoupons().remove(coupon);
-                }
-            }
-                for(Company company: companies){
-                    if(company.getCoupons().contains(coupon)) {
-                        company.getCoupons().remove(coupon);
-                    }
-            }
+            customers = getAllCustomers();
+            companies = getAllCompanies();
+//            for(Customer customer: customers) {
+//                if (customer.getCoupons().contains(coupon)) {
+//                    customer.getCoupons().remove(coupon);
+//                }
+//            }
+//                for(Company company: companies){
+//                    if(company.getCoupons().contains(coupon)) {
+//                        company.getCoupons().remove(coupon);
+//                    }
+//            }
             deleteCustomerVsCouponCouponForAllCustomersByCouponId(coupon.getId());
             SQLiteDatabase db = getWritableDatabase();
             db.delete(TBL_COUPONS, COUPON_ID + "= ?", new String[]{(Integer.toString(coupon.getId()))});
+            coupons.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are references
             coupons = getAllCoupons();
         } else
             throw new myException("Delete failed No coupon found with id =" + coupon.getId() + "!");
