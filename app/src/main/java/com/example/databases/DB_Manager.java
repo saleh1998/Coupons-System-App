@@ -109,6 +109,22 @@ public class DB_Manager extends SQLiteOpenHelper{
         return instance;
     }
 
+//    public void generate(){
+//        Date date = new Date(2023,7,16);
+//        Date date1 = new Date(2023,9,30);
+//        Coupon c1 = new Coupon(1,1,Category.Electricity,"fan","the best fan ever",date,date1,5,10.0,"");
+//        Coupon c2 = new Coupon(2,1,Category.Food,"apple","the best apple ever",date,date1,5,10.0,"");
+//        addCoupon(c1);
+//        addCoupon(c2);
+//        ArrayList<Coupon> list = new ArrayList<>();
+//        list.add(c1);
+//        list.add(c2);
+//        Company company = new Company(1, "electric", "electric@gmail.com", "1234", list);
+//        addCompany(company);
+//        Customer customer = new Customer(1,"aaa","bbb","aaa","1234");
+//        addCustomer(customer);
+//    }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
 

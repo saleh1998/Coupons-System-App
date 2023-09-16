@@ -49,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         try {
              categories = dbManager.getAllCategories();
+             //dbManager.generate();
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -99,14 +100,15 @@ public class MainActivity extends AppCompatActivity {
                     }
                     if(selected.getId() == rdCustomer.getId()){
                         CustomerFacade customerFacade = (CustomerFacade) loginManager.login(userName,pass,ClientType.Customer);
-//                        if(customerFacade != null) {
-//                                Intent intent = new Intent(MainActivity.this, CustomerA.class);
-//                                startActivity(intent);
-//                        }
-//                        else {
-//                            Toast.makeText(MainActivity.this,"User Name or Password incorrect", Toast.LENGTH_LONG).show();
-//
-//                        }
+                        if(customerFacade != null) {
+                                Intent intent = new Intent(MainActivity.this, CustomerActivity.class);
+                            intent.putExtra("customerid", customerFacade.getCustomerID());
+                                startActivity(intent);
+                        }
+                        else {
+                            Toast.makeText(MainActivity.this,"User Name or Password incorrect", Toast.LENGTH_LONG).show();
+
+                        }
 
                     }
                     if(selected.getId() == rdCompany.getId()){

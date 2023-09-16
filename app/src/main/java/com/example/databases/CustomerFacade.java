@@ -9,15 +9,23 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class CustomerFacade extends ClientFacade {
-    public void setCustomerID(int customerID) {
-        this.customerID = customerID;
-    }
+
 
     int customerID ;
+
+
 
     public CustomerFacade(Context context) {
         super(context);
         this.context= context;
+    }
+
+    public void setCustomerID(int customerID) {
+        this.customerID = customerID;
+    }
+
+    public int getCustomerID() {
+        return customerID;
     }
 
     @Override
@@ -31,6 +39,10 @@ public class CustomerFacade extends ClientFacade {
     }
 
     public void purchaseCoupon(Coupon coupon) throws myException, ParseException {
+        ArrayList<Coupon> customerCpn = getCustomerCoupons();
+        for(Coupon c : customerCpn)
+            if(customerCpn.contains(c))
+                throw new myException(" You already have this coupon") ;
         if (coupon.getAmount() != 0) {
             coupon.getEndDate();
             LocalDate currentDate = LocalDate.now();

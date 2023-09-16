@@ -28,7 +28,8 @@ import com.google.android.material.navigation.NavigationView;
 import java.io.Serializable;
 import java.text.ParseException;
 
-public class CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Serializable {
+public class
+CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, Serializable {
 
     private DrawerLayout drawerLayout;
     Button btnAdd,btnUpdate,btnDelete, btnGetBycategory, btnGetByPrice;

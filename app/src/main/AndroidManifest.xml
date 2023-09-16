@@ -13,6 +13,15 @@
         android:theme="@style/Theme.DataBases"
         tools:targetApi="34">
         <activity
+            android:name=".CustomerViewProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".BuyCouponActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CustomerActivity"
+            android:exported="false" />
+        <activity
             android:name=".UpdateCustomerActivity"
             android:exported="false" />
         <activity
