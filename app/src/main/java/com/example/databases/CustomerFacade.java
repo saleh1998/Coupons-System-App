@@ -48,7 +48,7 @@ public class CustomerFacade extends ClientFacade {
             LocalDate currentDate = LocalDate.now();
             LocalDate endDate = coupon.getEndDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
             LocalDate startDate = coupon.getStartDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            if (currentDate.isAfter(startDate) && currentDate.isBefore(endDate)) {
+            if (currentDate.isBefore(endDate)) {
                 // adding the coupon to the customer coupon list
                 try {
                     couponsDAO.addCouponPurchase(customerID, coupon.getId());
@@ -64,7 +64,7 @@ public class CustomerFacade extends ClientFacade {
     }
 
     public ArrayList<Coupon> getCustomerCoupons() throws ParseException {
-        return(customersDAO.getOneCustomer(customerID).getCoupons());
+        return(customersDAO.getCustomerCoupons(customerID));
     }
 
     public ArrayList<Coupon> getCustomerCoupons(Category category) throws ParseException {

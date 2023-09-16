@@ -3,6 +3,8 @@ package com.example.databases;
 import android.content.Context;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public class CustomersDBDAO implements CustomersDAO, Serializable {
@@ -53,6 +55,22 @@ public class CustomersDBDAO implements CustomersDAO, Serializable {
         if(mydb.customers.contains(email)) return true;
         return false;
     }
+
+    public ArrayList<Coupon> getCustomerCoupons(int customerID) throws ParseException {
+    ArrayList<Integer> couponsids =  mydb.getAllCouponsForSpecificCustomer(customerID);
+    ArrayList<Coupon> coupons = mydb.getAllCoupons();
+        ArrayList<Coupon> reqCoupons = new ArrayList<>();
+    if(couponsids!=null) {
+        for (Integer i : couponsids) {
+            for (Coupon c : coupons) {
+                if (c.getId() == i)
+                    reqCoupons.add(c);
+            }
+        }
+    }
+    return reqCoupons;
+    }
+
 
 
 

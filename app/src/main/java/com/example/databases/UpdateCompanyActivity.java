@@ -12,15 +12,18 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
+
+import org.w3c.dom.Text;
 
 public class UpdateCompanyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
 
     private DrawerLayout drawerLayout;
     Button btnSave,btnCancel;
-    EditText etName,etEmail,etPassword,etConfirmPassword;
+    EditText etEmail,etPassword,etConfirmPassword;
     Toolbar toolbar;
     NavigationView navigationView;
     Company company=null;
@@ -31,10 +34,9 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
 
         btnSave = findViewById(R.id.updateCompany_btnSave);
         btnCancel = findViewById(R.id.updateCompany_btnCancel);
-        etName = findViewById(R.id.updateCompany_etName); // CHANGE THIS TO TEXTVIEW CAUSE NOT ALLOWED TO CHANGE COMPANY'S NAME
+          TextView etName = findViewById(R.id.updateCompany_etName); // CHANGE THIS TO TEXTVIEW CAUSE NOT ALLOWED TO CHANGE COMPANY'S NAME
         etEmail = findViewById(R.id.updateCompany_etEmail);
         etPassword = findViewById(R.id.updateCompany_etPassword);
-        etConfirmPassword = findViewById(R.id.updateCompany_etConfirmPassword);
 
         Intent intent = getIntent();
         int requestCode = intent.getIntExtra("requestCode",0);
@@ -42,7 +44,6 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
         etName.setText(company.getName());
         etEmail.setText(company.getEmail());
         etPassword.setText(company.getPassword());
-        etConfirmPassword.setText("");
 
         ButtonsClick buttonsClick = new ButtonsClick();
         btnSave.setOnClickListener(buttonsClick);
@@ -68,27 +69,19 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
 
         @Override
         public void onClick(View view) {
-            if(view.getId() == btnSave.getId()){
+            if(view.getId() == btnSave.getId()) {
                 ///Update Company
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
-                String confirmPassword = etConfirmPassword.getText().toString();
-                if (password.equals(confirmPassword)) {
 
-                    company.setEmail(email);
-                    company.setPassword(password);
+                company.setEmail(email);
+                company.setPassword(password);
 
-                    Intent intent = getIntent();
-                    intent.putExtra("company", company);
-                    intent.putExtra("requestCode", 4);
-                    setResult(RESULT_OK, intent);
-                    finish();
-
-                } else {
-                    etPassword.setText("");
-                    etConfirmPassword.setText("");
-                    Toast.makeText(UpdateCompanyActivity.this, "Please insert correct password confirmation!!", Toast.LENGTH_SHORT).show();
-                }
+                Intent intent = getIntent();
+                intent.putExtra("company", company);
+                intent.putExtra("requestCode", 4);
+                setResult(RESULT_OK, intent);
+                finish();
             }
             if(view.getId() == btnCancel.getId()){
                 finish();

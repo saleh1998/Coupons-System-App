@@ -61,8 +61,6 @@ public class AddCouponActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.addCoupon_btnSave);
         toolbar= findViewById(R.id.addCoupon_toolbar);
         etPrice = findViewById(R.id.addCoupon_etPrice); // this was forgot when writing  !!!!!!!!!!!!
-
-
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 
@@ -159,8 +157,8 @@ public class AddCouponActivity extends AppCompatActivity {
                 intent1.putExtra("requestCode", 1);*/
 
                     Intent intent = new Intent();
-                    intent.putExtra("Coupon",newCoupon);
-                    intent.putExtra("codeForCompanyActivity",2);
+                    intent.putExtra("coupon",newCoupon);
+                    intent.putExtra("codeForCompanyActivity",1);
                     setResult(RESULT_OK, intent);
                     Toast.makeText(AddCouponActivity.this, "Coupon added successfully!", Toast.LENGTH_SHORT).show();
                     finish();

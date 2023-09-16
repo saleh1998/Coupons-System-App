@@ -94,19 +94,12 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:hint="Enter Password"
-            android:inputType="text|textPassword" />
+            android:inputType="text" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="11dp" />
 
-        <EditText
-            android:id="@+id/updateCompany_etConfirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Confirm Password"
-            android:inputType="text|textPassword" />
 
 
     </LinearLayout>

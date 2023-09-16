@@ -35,7 +35,7 @@ public class CompanyLvAdapter extends ArrayAdapter {
         TextView tvCompanyName = view.findViewById(R.id.companyLine_tvComName);
         TextView tvCompanyPassword = view.findViewById(R.id.companyLine_tvComPassword);
         TextView tvCompanyMail = view.findViewById(R.id.companyLine_tvComMail);
-
+        TextView tv = view.findViewById(R.id.companyLine_tvComPassword);
 
         tvCompanyCode.setText(c.getId()+"");
         tvCompanyName.setText(c.getName());

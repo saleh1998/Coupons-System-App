@@ -8,9 +8,22 @@
     android:backgroundTint="#F4D8AE">
 
     <TextView
+        android:id="@+id/companyLine_tvComPassword"
+        android:layout_width="176dp"
+        android:layout_height="43dp"
+        android:layout_marginStart="12dp"
+        android:background="@android:drawable/editbox_background_normal"
+        android:gravity="center|start"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/companyLine_tvComMail"
+        app:layout_constraintStart_toEndOf="@+id/companyLine_tvComMail"
+        app:layout_constraintTop_toTopOf="@+id/companyLine_tvComMail"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
         android:id="@+id/companyLine_tvComCode"
-        android:layout_width="168dp"
-        android:layout_height="51dp"
+        android:layout_width="89dp"
+        android:layout_height="50dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:background="@android:drawable/editbox_background_normal"
@@ -21,8 +34,8 @@
 
     <TextView
         android:id="@+id/companyLine_tvComName"
-        android:layout_width="232dp"
-        android:layout_height="51dp"
+        android:layout_width="279dp"
+        android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:background="@android:drawable/editbox_background_normal"
         android:gravity="center|start"
@@ -36,8 +49,8 @@
 
     <TextView
         android:id="@+id/companyLine_tvComMail"
-        android:layout_width="168dp"
-        android:layout_height="48dp"
+        android:layout_width="193dp"
+        android:layout_height="46dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="12dp"
         android:background="@android:drawable/editbox_background_normal"
@@ -45,18 +58,5 @@
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/companyLine_tvComCode" />
-
-    <TextView
-        android:id="@+id/companyLine_tvComPassword"
-        android:layout_width="231dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="12dp"
-        android:background="@android:drawable/editbox_background_normal"
-        android:gravity="center|start"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/companyLine_tvComMail"
-        app:layout_constraintStart_toEndOf="@+id/companyLine_tvComMail"
-        app:layout_constraintTop_toTopOf="@+id/companyLine_tvComMail"
-        app:layout_constraintVertical_bias="0.0" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

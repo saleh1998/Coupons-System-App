@@ -1,5 +1,6 @@
 package com.example.databases;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 
 public interface CustomersDAO  {
@@ -12,4 +13,6 @@ public interface CustomersDAO  {
     Customer getOneCustomer(int CustomerID);
 
     boolean isCustomerEmailExists(String email);
+
+    ArrayList<Coupon> getCustomerCoupons(int customerID) throws ParseException;
 }
