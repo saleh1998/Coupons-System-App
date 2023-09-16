@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+tools:context=".BuyCouponActivity">
+
+<androidx.appcompat.widget.Toolbar
+    android:id="@+id/buyCpn_toolBar"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#A57E0A"
+    android:minHeight="?attr/actionBarSize"
+    android:theme="?attr/actionBarTheme"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:title="Buy New Coupon"
+    app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
+    app:titleTextColor="#080909" />
+
+    <ListView
+        android:id="@+id/buyCpn_lvCoupons"
+        android:layout_width="387dp"
+        android:layout_height="575dp"
+        android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buyCpn_btnbuy"
+        app:layout_constraintVertical_bias="0.555" />
+
+    <Button
+        android:id="@+id/buyCpn_btnbuy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:backgroundTint="#A39305"
+        android:text="buy"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.913"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buyCpn_toolBar" />
+
+    <ImageButton
+    android:id="@+id/buyCpn_btnBack"
+    android:layout_width="63dp"
+    android:layout_height="51dp"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="8dp"
+    android:backgroundTint="#F6F2F2"
+    android:scaleType="fitCenter"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/buyCpn_toolBar"
+    app:srcCompat="@drawable/back" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
