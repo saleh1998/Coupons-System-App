@@ -34,7 +34,7 @@ public class UpdateCouponActivity extends AppCompatActivity {
     int row;
     private SimpleDateFormat dateFormat;
     Date startDate, endDate;
-
+    Coupon coupon;
     DB_Manager db;
     Spinner spinner;
 
@@ -46,6 +46,7 @@ public class UpdateCouponActivity extends AppCompatActivity {
         Intent intent = getIntent();
         companyid = intent.getIntExtra("companyid", 0);
         Coupon c = (Coupon) intent.getSerializableExtra("coupon");
+        coupon = c;
         /* we have to get the coupon from the intent */
 /*
         categoriesSpin = findViewById(R.id.updateCoupon_spCategory);
@@ -151,6 +152,17 @@ public class UpdateCouponActivity extends AppCompatActivity {
                 String describtion = etDescription.getText().toString();
                /* Date startDate = supportClass.getDate(etStartDate.getText().toString());
                 Date endDate = supportClass.getDate(etEndDate.getText().toString());*/
+                if(startDate == null)
+                {
+                    startDate = coupon.getStartDate();
+
+
+                }
+                if(endDate == null)
+                {
+
+                    endDate = coupon.getEndDate();
+                }
                 int anount = Integer.parseInt(etAmount.getText().toString());
                 double price = Double.parseDouble(etPrice.getText().toString());
                 String imgSrc = etImg.getText().toString();

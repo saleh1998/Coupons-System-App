@@ -20,7 +20,7 @@ public class DB_Manager extends SQLiteOpenHelper{
 
 
     private final static String DB_NAME = "DB_1";
-    private final static int DB_VER = 3;
+    private final static int DB_VER = 4;
     private Context context;
     ArrayList<Company> companies;
     ArrayList<Customer> customers;
@@ -569,7 +569,9 @@ public class DB_Manager extends SQLiteOpenHelper{
             if (coupon.getAmount() > 0) {
                 coupon.setAmount(coupon.getAmount() - 1);
 
+/*
                 customer.getCoupons().add(coupon);
+*/
 
                 try {
                     updateCoupon(coupon);

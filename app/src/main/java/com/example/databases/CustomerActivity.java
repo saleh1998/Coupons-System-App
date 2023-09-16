@@ -12,6 +12,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -57,9 +58,11 @@ public class CustomerActivity extends AppCompatActivity {
         ///// initializing the list view
         try {
             customerCoupons = customerFacade.getCustomerCoupons();
-            if(customerCoupons != null){
+            if(customerCoupons != null)
+            {
             adapter = new CompanyCouponsLvAdapter(this, R.layout.coupon_line,customerCoupons);
-            lvCoupons.setAdapter(adapter);}
+            lvCoupons.setAdapter(adapter);
+            }
         } catch (ParseException e) {
             throw new RuntimeException(e);
         }
@@ -68,7 +71,6 @@ public class CustomerActivity extends AppCompatActivity {
 
         ArrayAdapter<String> categoryAdapter;
         ArrayList<String> items = new ArrayList<>();
-        items.add("choose category");
         items.add(Category.Food.toString());
         items.add(Category.Electricity.name());
         items.add(Category.Restaurant.name());
@@ -77,10 +79,32 @@ public class CustomerActivity extends AppCompatActivity {
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
        spCategory.setAdapter(categoryAdapter);
 
+
+
         ButtonsClick buttonsClick = new ButtonsClick();
         btnBuyCoupon.setOnClickListener(buttonsClick);
         btnSearch.setOnClickListener(buttonsClick);
+        spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                if (position != -1) {
+                    Category category = Category.valueOf(items.get(position));
+                    try {
+                        ArrayList<Coupon> couponsByCat = customerFacade.getCustomerCoupons(category);
+                        adapter = new CompanyCouponsLvAdapter(CustomerActivity.this, R.layout.coupon_line, couponsByCat);
+                        lvCoupons.setAdapter(adapter);
+                    } catch (ParseException e) {
+                        throw new RuntimeException(e);
+                    }
+
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
 
 
@@ -142,21 +166,17 @@ public class CustomerActivity extends AppCompatActivity {
 
             }
             else if (view.getId() == btnSearch.getId()){
-               String selectedCategory = (String) spCategory.getSelectedItem();
                double maxPrice = Double.parseDouble(etMaxPrice.getText().toString());
-               ArrayList<Coupon> couponsByPrice;
-               ArrayList<Coupon> couponsByCategory;
-               if(selectedCategory.equals("choose category")){
-                  //// filtering just by price
-                   try {
-                       couponsByPrice = customerFacade.getCustomerCoupons(maxPrice);
-                       adapter.refreshAllCoupons(couponsByPrice);
+                try {
+                    ArrayList<Coupon> couponsByPrice = customerFacade.getCustomerCoupons(maxPrice);
+                    adapter = new CompanyCouponsLvAdapter(CustomerActivity.this, R.layout.coupon_line,couponsByPrice);
+                    lvCoupons.setAdapter(adapter);
+                } catch (ParseException e) {
+                    throw new RuntimeException(e);
+                }
 
-                   } catch (ParseException e) {
-                       throw new RuntimeException(e);
-                   }
-               }
-               else {
+
+                /*{
                    try {
                        couponsByCategory = customerFacade.getCustomerCoupons(Category.valueOf(selectedCategory));
                        ArrayList<Coupon> priceAndCategory= new ArrayList<>();
@@ -171,7 +191,7 @@ public class CustomerActivity extends AppCompatActivity {
                        throw new RuntimeException(e);
                    }
 
-               }
+               }*/
 
 
             }

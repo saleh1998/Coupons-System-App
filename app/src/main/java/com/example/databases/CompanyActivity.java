@@ -164,7 +164,7 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
                            /* int companyid = intent.getIntExtra("companyid",0);
                             companyFacade = new CompanyFacade(companyid,CompanyActivity.this);*/
                             try {
-                                Coupon newCoupon = (Coupon)intent.getSerializableExtra("Coupon");
+                                Coupon newCoupon = (Coupon)intent.getSerializableExtra("coupon");
                                 companyFacade.addCoupon(newCoupon);
                                 companyCouponsLvAdapter.refreshAllCoupons(companyFacade.getCompanyCoupons());
                             } catch (ParseException e) {
@@ -177,10 +177,10 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
                         {
                            try {
                                Coupon newCoupon = (Coupon)intent.getSerializableExtra("coupon");
-                               assert newCoupon != null;
+                               if( newCoupon != null) {
                                companyFacade.updateCoupon(newCoupon);
                                companyCouponsLvAdapter.refreshAllCoupons(companyFacade.getCompanyCoupons());
-                           }catch (ParseException e) {
+                           } }catch (ParseException e) {
                                throw new RuntimeException(e);
                            } catch (myException e) {
                                throw new RuntimeException(e);
