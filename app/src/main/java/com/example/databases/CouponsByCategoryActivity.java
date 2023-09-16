@@ -108,8 +108,9 @@ public class CouponsByCategoryActivity extends AppCompatActivity {
                     throw new RuntimeException(e);
                 }
                 lvAdapter  = new CompanyCouponsLvAdapter(CouponsByCategoryActivity.this,R.layout.coupon_line,coupons);
-                if(coupons!=null)
+                if(coupons!=null) {
                 couponsLv.setAdapter(lvAdapter);
+            }
             }
 
         }

@@ -172,7 +172,27 @@ public class CompanyActivity extends AppCompatActivity implements NavigationView
                                 throw new RuntimeException(e);
                             }
                         }
+                        if(requestCode == 2)
+                        {
+                           try {
+                               Coupon newCoupon = (Coupon)intent.getSerializableExtra("coupon");
+                               assert newCoupon != null;
+                               companyFacade.updateCoupon(newCoupon);
+                               companyCouponsLvAdapter.refreshAllCoupons(companyFacade.getCompanyCoupons());
+                           }catch (ParseException e) {
+                               throw new RuntimeException(e);
+                           } catch (myException e) {
+                               throw new RuntimeException(e);
+                           }
                         }
+
+
+                    }
+
+
+
+
+
                     }
 
             });
@@ -187,17 +207,22 @@ public class CompanyActivity extends AppCompatActivity implements NavigationView
                  //   intent.putExtra("codeForCompanyActivity",1);
                 launcher.launch(intent);
             }
-            if(v.getId() == btnUpdate.getId()){
-                Intent intent = new Intent(CompanyActivity.this, UpdateCouponActivity.class);
-                Coupon c = null;
-                try {
-                    c = companyFacade.getCompanyCoupons().get(selectedRow);
-                } catch (ParseException ex) {
-                    throw new RuntimeException(ex);
+            if(v.getId() == btnUpdate.getId()) {
+                if (selectedRow != -1) {
+                    Intent intent = new Intent(CompanyActivity.this, UpdateCouponActivity.class);
+                    Coupon c = null;
+                    try {
+                        c = companyFacade.getCompanyCoupons().get(selectedRow);
+                    } catch (ParseException ex) {
+                        throw new RuntimeException(ex);
+                    }
+                    intent.putExtra("coupon", c);
+                    intent.putExtra("requestCode", 2);
+                    intent.putExtra("companyid", companyFacade.getCompanyID());
+                    launcher.launch(intent);
+                } else {
+                    Toast.makeText(CompanyActivity.this, "please select first the coupon you want to update", Toast.LENGTH_SHORT).show();
                 }
-                intent.putExtra("coupon",c);
-                intent.putExtra("requestCode", 2);
-                launcher.launch(intent);
             }
             if(v.getId() == btnDelete.getId()){
                 try {

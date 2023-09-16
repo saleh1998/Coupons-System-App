@@ -525,7 +525,7 @@ public class DB_Manager extends SQLiteOpenHelper{
                     amount = cr.getString(7);
                     price = cr.getString(8);
                     image = cr.getString(9);
-                    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
                     coupons.add(new Coupon( Integer.parseInt(id),Integer.parseInt(compID), Category.valueOf(category), title, desc, dateFormat.parse(start), dateFormat.parse(end), Integer.parseInt(amount), Double.parseDouble(price), image));
                 } while (cr.moveToNext());
             return coupons;

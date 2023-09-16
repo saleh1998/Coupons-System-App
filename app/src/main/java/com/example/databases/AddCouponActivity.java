@@ -160,7 +160,7 @@ public class AddCouponActivity extends AppCompatActivity {
 
                     Intent intent = new Intent();
                     intent.putExtra("Coupon",newCoupon);
-                    intent.putExtra("codeForCompanyActivity",1);
+                    intent.putExtra("codeForCompanyActivity",2);
                     setResult(RESULT_OK, intent);
                     Toast.makeText(AddCouponActivity.this, "Coupon added successfully!", Toast.LENGTH_SHORT).show();
                     finish();
