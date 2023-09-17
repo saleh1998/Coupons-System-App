@@ -9,6 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,18 +17,20 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CustomerActivity extends AppCompatActivity {
+public class CustomerActivity extends AppCompatActivity implements Serializable {
 
-    Button btnSearch,btnBuyCoupon;
+    Button btnSearch,btnBuyCoupon,btnQRCode;
     ListView lvCoupons;
     Spinner spCategory;
     EditText etMaxPrice;
@@ -35,6 +38,9 @@ public class CustomerActivity extends AppCompatActivity {
     CustomerFacade customerFacade;
     CompanyCouponsLvAdapter adapter; // ef7se etha bfreqsh
     ArrayList<Coupon> customerCoupons;
+    int selectedRow =-1;
+    int bgLineColor;
+    LinearLayout bgLayout;
 
 
     @Override
@@ -46,6 +52,7 @@ public class CustomerActivity extends AppCompatActivity {
         lvCoupons = findViewById(R.id.customer_lvCoupons);
         spCategory = findViewById(R.id.customer_categorySpinner);
         etMaxPrice = findViewById(R.id.customer_etMaxPrice);
+        btnQRCode = findViewById(R.id.customer_btnQRCode);
 
         Intent intent = getIntent();
         if(intent != null){
@@ -77,17 +84,18 @@ public class CustomerActivity extends AppCompatActivity {
         items.add(Category.Vacation.name());
         categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-       spCategory.setAdapter(categoryAdapter);
+        spCategory.setAdapter(categoryAdapter);
 
 
 
         ButtonsClick buttonsClick = new ButtonsClick();
         btnBuyCoupon.setOnClickListener(buttonsClick);
         btnSearch.setOnClickListener(buttonsClick);
+        btnQRCode.setOnClickListener(buttonsClick);
+
         spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
                 if (position != -1) {
                     Category category = Category.valueOf(items.get(position));
                     try {
@@ -106,7 +114,21 @@ public class CustomerActivity extends AppCompatActivity {
             }
         });
 
+        lvCoupons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if(selectedRow != -1){
+                    bgLayout.setBackgroundColor(bgLineColor);
+                }
+                selectedRow = position;
+                lvCoupons.setSelection(position);
 
+                bgLayout = (LinearLayout) view.findViewById(R.id.couponLine_layout);
+                bgLineColor = view.getSolidColor();
+                bgLayout.setBackgroundColor(Color.rgb(150,150,150));
+            }
+
+        });
 
 
 
@@ -154,6 +176,7 @@ public class CustomerActivity extends AppCompatActivity {
         }
     });
 
+
     class ButtonsClick implements View.OnClickListener{
 
         @Override
@@ -165,7 +188,7 @@ public class CustomerActivity extends AppCompatActivity {
                 launcher.launch(intent);
 
             }
-            else if (view.getId() == btnSearch.getId()){
+             if (view.getId() == btnSearch.getId()){
                double maxPrice = Double.parseDouble(etMaxPrice.getText().toString());
                 try {
                     ArrayList<Coupon> couponsByPrice = customerFacade.getCustomerCoupons(maxPrice);
@@ -173,6 +196,29 @@ public class CustomerActivity extends AppCompatActivity {
                     lvCoupons.setAdapter(adapter);
                 } catch (ParseException e) {
                     throw new RuntimeException(e);
+                }
+             }
+                if(view.getId() == btnQRCode.getId()){
+                    if(selectedRow != -1){
+                        String qrCode;
+                        qrCode = customerFacade.getCustomerID()+"";
+                        try {
+                            Coupon c = customerFacade.getCustomerCoupons().get(selectedRow);
+                            qrCode += c.getId() +"";
+                            Intent intent = new Intent(CustomerActivity.this, CouponQRCodeActivity.class);
+                            intent.putExtra("qrCode",qrCode );
+                            intent.putExtra("coupon",c);
+                            intent.putExtra("customerId",customerFacade.getCustomerID()+"");
+                            startActivity(intent);
+                        } catch (ParseException e) {
+                            throw new RuntimeException(e);
+                        }
+                        selectedRow = -1;
+                    }
+                    else {
+                        Toast.makeText(CustomerActivity.this, "Please choose a coupon", Toast.LENGTH_SHORT).show();
+                    }
+
                 }
 
 
@@ -197,4 +243,4 @@ public class CustomerActivity extends AppCompatActivity {
             }
         }
     }
-}
+

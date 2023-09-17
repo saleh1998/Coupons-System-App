@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/customer_toolBar"
             android:layout_width="match_parent"
@@ -74,7 +75,7 @@
 
         <LinearLayout
             android:layout_width="392dp"
-            android:layout_height="79dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <EditText
@@ -85,21 +86,24 @@
                 android:hint="Maximum Price"
                 android:inputType="text" />
 
-            <Space
-                android:layout_width="58dp"
-                android:layout_height="58dp"
-                android:layout_weight="1" />
-
             <Button
                 android:id="@+id/customer_btnSearch"
-                android:layout_width="wrap_content"
+                android:layout_width="178dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:backgroundTint="#A39305"
                 android:text="Search"
                 android:textSize="20sp" />
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/customer_btnQRCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#A39305"
+            android:text="Show QR Code"
+            android:textSize="20sp" />
 
         <ListView
             android:id="@+id/customer_lvCoupons"
