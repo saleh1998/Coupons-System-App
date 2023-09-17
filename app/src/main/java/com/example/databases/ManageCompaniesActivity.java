@@ -137,9 +137,9 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
         }
         if (item.getItemId() == R.id.nav_logout) {
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
-            Intent intent = getIntent();
+            Intent intent = new Intent(ManageCompaniesActivity.this,MainActivity.class);
             intent.putExtra("logout",1);
-            finish();
+            startActivity(intent);
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

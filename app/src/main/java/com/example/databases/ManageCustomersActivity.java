@@ -128,12 +128,15 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
     );
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.nav_home){
-            getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container, new AdminFragment()).commit();
+//            getSupportFragmentManager().beginTransaction().
+//                    replace(R.id.fragment_container, new AdminFragment()).commit();
+            finish();
         }
         if (item.getItemId() == R.id.nav_logout) {
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
-            finish();
+            Intent intent = new Intent(ManageCustomersActivity.this,MainActivity.class);
+            intent.putExtra("logout",1);
+            startActivity(intent);
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

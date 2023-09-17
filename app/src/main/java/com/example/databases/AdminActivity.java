@@ -94,6 +94,8 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                     .replace(R.id.fragment_container, new AboutFragment()).commit();
         }*/
         if (item.getItemId() == R.id.nav_logout) {
+            int id = item.getItemId();
+            boolean c =item.getItemId() == R.id.nav_logout;
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
             finish();
         }

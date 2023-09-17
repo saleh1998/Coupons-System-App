@@ -120,6 +120,7 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
         if(item.getItemId() == R.id.navCompany_profile){
            Intent intent = new Intent(CompanyActivity.this, CompanyViewProfileActivity.class);
            /*we have to send the company with the intent*/
+            intent.putExtra("companyid",companyFacade.getCompanyID());
             startActivity(intent);
         }
        /* if(item.getItemId() == R.id.nav_settings){

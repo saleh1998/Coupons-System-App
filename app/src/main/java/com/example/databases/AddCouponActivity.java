@@ -1,38 +1,36 @@
 package com.example.databases;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import androidx.appcompat.app.AppCompatActivity;
+
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import android.content.Intent;
-import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.widget.Toolbar;
-
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
 
 public class AddCouponActivity extends AppCompatActivity {
 
     Spinner categoriesSpin;
     EditText etTitle, etDescription, etStartDate, etEndDate, etAmount, etPrice, etImg;
-    ImageButton btnBack;
+    ImageButton btnBack , addImage;
     Button btnSave;
     Toolbar toolbar;
     String [] categoriesList;
@@ -41,6 +39,7 @@ public class AddCouponActivity extends AppCompatActivity {
     CompanyFacade companyFacade;
     private Calendar calendar;
     private SimpleDateFormat dateFormat;
+    Uri selectedImage;
     DB_Manager db ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,12 +56,14 @@ public class AddCouponActivity extends AppCompatActivity {
         etEndDate = findViewById(R.id.addCoupon_etEndDate);
         etAmount = findViewById(R.id.addCoupon_etAmount);
         btnBack = findViewById(R.id.addCoupon_btnBack);
-        etImg = findViewById(R.id.addCoupon_etImgSrc);
+       // etImg = findViewById(R.id.addCoupon_etImgSrc);
         btnSave = findViewById(R.id.addCoupon_btnSave);
         toolbar= findViewById(R.id.addCoupon_toolbar);
         etPrice = findViewById(R.id.addCoupon_etPrice); // this was forgot when writing  !!!!!!!!!!!!
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+        addImage = findViewById(R.id.addCoupon_addIm);
 
         categoriesSpin = findViewById(R.id.addCoupon_spCategory);
         ArrayAdapter<Category> categoryAdapter;
@@ -93,6 +94,15 @@ public class AddCouponActivity extends AppCompatActivity {
         ButtonsClick buttonsClick =new ButtonsClick();
         btnSave.setOnClickListener(buttonsClick);
         btnBack.setOnClickListener(buttonsClick);
+
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+               Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                launcher.launch(intent);
+
+            }
+        });
 
     }
     public void onStartDateClick(View view) {
@@ -127,6 +137,19 @@ public class AddCouponActivity extends AppCompatActivity {
         );
         datePickerDialog.show();
     }
+
+    ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            Intent intent = result.getData();
+            if (intent != null) {
+                if (result.getResultCode() == RESULT_OK ){
+                    selectedImage = intent.getData();
+                    addImage.setImageURI(selectedImage);
+                }
+            }
+        }
+    });
     class ButtonsClick implements View.OnClickListener{
 
         @Override
@@ -147,7 +170,8 @@ public class AddCouponActivity extends AppCompatActivity {
                 String description = etDescription.getText().toString();
                 int amount = Integer.parseInt(etAmount.getText().toString());
                 double price = Double.parseDouble(etPrice.getText().toString());
-                String imgSrc = etImg.getText().toString();
+                //String imgSrc = etImg.getText().toString();
+                String imgSrc = selectedImage.toString();
                 int companyId= companyFacade.getCompanyID();
                 Coupon newCoupon = new Coupon(companyId, selectedCategory, title, description, startDate, endDate, amount, price, imgSrc);
 

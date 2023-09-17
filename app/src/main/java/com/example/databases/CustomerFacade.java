@@ -85,7 +85,7 @@ public class CustomerFacade extends ClientFacade {
         return customerCouponsByCategory;
     }
 
-    public Customer getCustomerDetails(Company company) {
+    public Customer getCustomerDetails() {
         return(customersDAO.getOneCustomer(customerID));
     }
 

@@ -1,11 +1,18 @@
 package com.example.databases;
 
+import android.content.ContentProvider;
+import android.content.ContentUris;
 import android.content.Context;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.content.ContentResolver;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -31,6 +38,7 @@ public class CompanyCouponsLvAdapter extends ArrayAdapter {
         LayoutInflater inflater = LayoutInflater.from(ctx);
         view = inflater.inflate(res,parent,false);
         Coupon c = companyCoupons.get(position);
+        ImageView cpnImage = view.findViewById(R.id.couponLine_image);
         TextView tvCouponID = view.findViewById(R.id.couponLine_tvID);
         TextView tvCompanyID = view.findViewById(R.id.copunLine_tvCompanyID);
         TextView tvAmount = view.findViewById(R.id.copunLine_tvAmount);
@@ -42,6 +50,9 @@ public class CompanyCouponsLvAdapter extends ArrayAdapter {
         TextView tvDescription = view.findViewById(R.id.copunLine_tvDescription);
 
 
+
+//        Uri ImgUri = MediaStore.getMediaUri(getContext(),Uri.parse(c.getImage()));
+//        cpnImage.setImageURI(ImgUri);
         tvCouponID.setText(c.getId()+"");
         tvCompanyID.setText(c.getCompanyID()+"");
         tvCategory.setText(c.getCategory().toString());
