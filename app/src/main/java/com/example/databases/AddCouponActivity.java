@@ -3,6 +3,7 @@ package com.example.databases;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -63,6 +64,8 @@ public class AddCouponActivity extends AppCompatActivity {
         etPrice = findViewById(R.id.addCoupon_etPrice); // this was forgot when writing  !!!!!!!!!!!!
         calendar = Calendar.getInstance();
         dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+
 
         categoriesSpin = findViewById(R.id.addCoupon_spCategory);
         ArrayAdapter<Category> categoryAdapter;
@@ -135,35 +138,42 @@ public class AddCouponActivity extends AppCompatActivity {
             if(v.getId() == btnBack.getId()){
                 finish();
             }
-            if(v.getId() == btnSave.getId()){
-// try {
-// ArrayList<Category> categories = db.getAllCategories();
-// } catch (ParseException e) {
-// throw new RuntimeException(e);
-// }
+            if(v.getId() == btnSave.getId()) {
 
-                Category selectedCategory = (Category) categoriesSpin.getSelectedItem();
-                String title = etTitle.getText().toString();
-                String description = etDescription.getText().toString();
-                int amount = Integer.parseInt(etAmount.getText().toString());
-                double price = Double.parseDouble(etPrice.getText().toString());
-                String imgSrc = etImg.getText().toString();
-                int companyId= companyFacade.getCompanyID();
-                Coupon newCoupon = new Coupon(companyId, selectedCategory, title, description, startDate, endDate, amount, price, imgSrc);
+                if (TextUtils.isEmpty(etTitle.getText()) ||
+                        TextUtils.isEmpty(etDescription.getText()) ||
+                        TextUtils.isEmpty(etStartDate.getText()) ||
+                        TextUtils.isEmpty(etEndDate.getText()) ||
+                        TextUtils.isEmpty(etAmount.getText()) ||
+                        TextUtils.isEmpty(etPrice.getText()) ||
+                        TextUtils.isEmpty(etImg.getText())) {
 
-/*
-                Intent intent1 = new Intent();
-                intent1.putExtra("product", p);
-                intent1.putExtra("requestCode", 1);*/
+                    Toast.makeText(AddCouponActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent();
-                    intent.putExtra("coupon",newCoupon);
-                    intent.putExtra("codeForCompanyActivity",1);
-                    setResult(RESULT_OK, intent);
-                    Toast.makeText(AddCouponActivity.this, "Coupon added successfully!", Toast.LENGTH_SHORT).show();
-                    finish();
+                } else {
+
+                    Category selectedCategory = (Category) categoriesSpin.getSelectedItem();
+                    String title = etTitle.getText().toString();
+                    String description = etDescription.getText().toString();
+                    int amount = Integer.parseInt(etAmount.getText().toString());
+                    double price = Double.parseDouble(etPrice.getText().toString());
+                    String imgSrc = etImg.getText().toString();
+                    int companyId = companyFacade.getCompanyID();
+                    if (startDate.after(endDate)) {
+                        Toast.makeText(AddCouponActivity.this, "end date can not be before start date", Toast.LENGTH_SHORT).show();
+
+                    } else {
+                        Coupon newCoupon = new Coupon(companyId, selectedCategory, title, description, startDate, endDate, amount, price, imgSrc);
+
+                        Intent intent = new Intent();
+                        intent.putExtra("coupon", newCoupon);
+                        intent.putExtra("codeForCompanyActivity", 1);
+                        setResult(RESULT_OK, intent);
+                        /*Toast.makeText(AddCouponActivity.this, "Coupon added successfully!", Toast.LENGTH_SHORT).show();*/
+                        finish();
+                    }
+                }
             }
-
         }
 
     }
