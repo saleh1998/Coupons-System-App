@@ -17,14 +17,15 @@ import android.widget.Toast;
 
 import com.google.android.material.navigation.NavigationView;
 
-public class AddCustomerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class AddCustomerActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
 
     private DrawerLayout drawerLayout;
-    Button btnSave,btnCancel;
-    EditText etFName,etLName,etEmail,etPassword,etConfirmPassword;
+    Button btnSave, btnCancel;
+    EditText etFName, etLName, etEmail, etPassword, etConfirmPassword;
     Toolbar toolbar;
     NavigationView navigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,14 +45,14 @@ public class AddCustomerActivity extends AppCompatActivity implements Navigation
 
         toolbar = findViewById(R.id.addCustomer_toolbar);
         setSupportActionBar(toolbar);
-        drawerLayout=findViewById(R.id.addCustomer_drawer_layout);
-        navigationView=findViewById(R.id.nav_view);
+        drawerLayout = findViewById(R.id.addCustomer_drawer_layout);
+        navigationView = findViewById(R.id.nav_view);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         navigationView.setNavigationItemSelectedListener(this);
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_home);
         }
     }
@@ -59,7 +60,7 @@ public class AddCustomerActivity extends AppCompatActivity implements Navigation
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.nav_home){
+        if (item.getItemId() == R.id.nav_home) {
             getSupportFragmentManager().beginTransaction().
                     replace(R.id.fragment_container, new AdminFragment()).commit();
         }
@@ -71,6 +72,7 @@ public class AddCustomerActivity extends AppCompatActivity implements Navigation
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
     class ButtonsClick implements View.OnClickListener {
 
         @Override
@@ -82,19 +84,42 @@ public class AddCustomerActivity extends AppCompatActivity implements Navigation
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
                 String confirmPassword = etConfirmPassword.getText().toString();
-                if (password.equals(confirmPassword)) {
-                    Customer customer = new Customer(f_name,l_name, email, password);
+                if (!f_name.isEmpty() && !l_name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                    if (password.equals(confirmPassword)) {
+                        Customer customer = new Customer(f_name, l_name, email, password);
 
-                    Intent intent = getIntent();
+                        ///// added by rashad with advice from bayan
+                        AdminFacade adminFacade = new AdminFacade(AddCustomerActivity.this);
+
+                        if (!adminFacade.CustomerEmailExists(customer)) {
+                            try {
+                                adminFacade.addCustomer(customer);
+                                Intent intent = getIntent();
+                                intent.putExtra("customer", customer);
+                                intent.putExtra("requestCode", 2);
+                                setResult(RESULT_OK, intent);
+                                finish();
+                            } catch (myException e) {
+                                throw new RuntimeException(e);
+                            }
+                        } else {
+                            Toast.makeText(AddCustomerActivity.this, "Email is already taken", Toast.LENGTH_SHORT).show();
+                        }
+                        /////
+
+                    /*Intent intent = getIntent();
                     intent.putExtra("customer", customer);
                     intent.putExtra("requestCode", 2);
                     setResult(RESULT_OK, intent);
-                    finish();
+                    finish();*/
 
-                } else {
-                    etPassword.setText("");
-                    etConfirmPassword.setText("");
-                    Toast.makeText(AddCustomerActivity.this, "Please insert correct password confirmation!!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        etPassword.setText("");
+                        etConfirmPassword.setText("");
+                        Toast.makeText(AddCustomerActivity.this, "Please insert correct password confirmation!!", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(AddCustomerActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 }
             }
             if (view.getId() == btnCancel.getId()) {

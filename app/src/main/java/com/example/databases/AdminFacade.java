@@ -13,6 +13,24 @@ public class AdminFacade extends  ClientFacade implements Serializable {
         this.context = context;
     }
 
+    public  boolean CompanyNameExists(Company c){
+        ArrayList<Company> allCompanies = companiesDAO.getAllCompanies();
+        for (Company itr:allCompanies) {
+            if (c.getName().equals(itr.getName())){
+                return true;
+            }
+        }
+        return false;
+    }
+    public  boolean CompanyEmailExists(Company c){
+        ArrayList<Company> allCompanies = companiesDAO.getAllCompanies();
+        for (Company itr:allCompanies) {
+            if (c.getEmail().equals(itr.getEmail())){
+                return true;
+            }
+        }
+        return false;
+    }
     public void addCompany(Company company) throws myException {
         ArrayList<Company> allCompanies = companiesDAO.getAllCompanies();
         boolean nameExists = allCompanies.stream().anyMatch(c -> c.getName().equals(company.getName()));
@@ -69,6 +87,24 @@ public class AdminFacade extends  ClientFacade implements Serializable {
         return companiesDAO.getOneCompany(companyID);
     }
 
+    /*public  boolean CustomerNameExists(Customer c){
+        ArrayList<Customer> allCustomers = customersDAO.getAllCustomers();
+        for (Customer itr:allCustomers) {
+            if (c.getName().equals(itr.getName())){
+                return true;
+            }
+        }
+        return false;
+    }*/
+    public  boolean CustomerEmailExists(Customer c){
+        ArrayList<Customer> allCustomers = customersDAO.getAllCustomers();
+        for (Customer itr:allCustomers) {
+            if (c.getEmail().equals(itr.getEmail())){
+                return true;
+            }
+        }
+        return false;
+    }
     public void addCustomer(Customer customer) throws myException {
         boolean customerExists = customersDAO.isCustomerEmailExists(customer.getEmail());
         if (!customerExists) {

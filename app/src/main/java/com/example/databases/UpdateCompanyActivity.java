@@ -19,14 +19,15 @@ import com.google.android.material.navigation.NavigationView;
 
 import org.w3c.dom.Text;
 
-public class UpdateCompanyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener{
+public class UpdateCompanyActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
-    Button btnSave,btnCancel;
-    EditText etEmail,etPassword,etConfirmPassword;
+    Button btnSave, btnCancel;
+    EditText etEmail, etPassword, etConfirmPassword;
     Toolbar toolbar;
     NavigationView navigationView;
-    Company company=null;
+    Company company = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,12 +35,12 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
 
         btnSave = findViewById(R.id.updateCompany_btnSave);
         btnCancel = findViewById(R.id.updateCompany_btnCancel);
-          TextView etName = findViewById(R.id.updateCompany_etName); // CHANGE THIS TO TEXTVIEW CAUSE NOT ALLOWED TO CHANGE COMPANY'S NAME
+        TextView etName = findViewById(R.id.updateCompany_etName); // CHANGE THIS TO TEXTVIEW CAUSE NOT ALLOWED TO CHANGE COMPANY'S NAME
         etEmail = findViewById(R.id.updateCompany_etEmail);
         etPassword = findViewById(R.id.updateCompany_etPassword);
 
         Intent intent = getIntent();
-        int requestCode = intent.getIntExtra("requestCode",0);
+        int requestCode = intent.getIntExtra("requestCode", 0);
         company = (Company) intent.getSerializableExtra("company");
         etName.setText(company.getName());
         etEmail.setText(company.getEmail());
@@ -52,7 +53,7 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        if(item.getItemId() == R.id.nav_home){
+        if (item.getItemId() == R.id.nav_home) {
             getSupportFragmentManager().beginTransaction().
                     replace(R.id.fragment_container, new AdminFragment()).commit();
         }
@@ -69,7 +70,7 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
 
         @Override
         public void onClick(View view) {
-            if(view.getId() == btnSave.getId()) {
+            if (view.getId() == btnSave.getId()) {
                 ///Update Company
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
@@ -77,13 +78,39 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
                 company.setEmail(email);
                 company.setPassword(password);
 
-                Intent intent = getIntent();
+
+                if (!email.isEmpty() && !password.isEmpty()) {
+                    ///// added by rashad with advice from bayan
+                    AdminFacade adminFacade = new AdminFacade(UpdateCompanyActivity.this);
+                    if (!adminFacade.CompanyNameExists(company)) {
+                        if (!adminFacade.CompanyEmailExists(company)) {
+                            try {
+                                adminFacade.updateCompany(company);
+                                Intent intent = getIntent();
+                                intent.putExtra("company", company);
+                                intent.putExtra("requestCode", 4);
+                                setResult(RESULT_OK, intent);
+                                finish();
+                            } catch (myException e) {
+                                throw new RuntimeException(e);
+                            }
+                        } else {
+                            Toast.makeText(UpdateCompanyActivity.this, "Email is already taken", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Toast.makeText(UpdateCompanyActivity.this, "Name is already taken", Toast.LENGTH_SHORT).show();
+                    }
+                    /////
+                /*Intent intent = getIntent();
                 intent.putExtra("company", company);
                 intent.putExtra("requestCode", 4);
                 setResult(RESULT_OK, intent);
-                finish();
+                finish();*/
+                }else{
+                    Toast.makeText(UpdateCompanyActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+                }
             }
-            if(view.getId() == btnCancel.getId()){
+            if (view.getId() == btnCancel.getId()) {
                 finish();
             }
         }
