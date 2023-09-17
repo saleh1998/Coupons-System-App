@@ -1,5 +1,9 @@
 package com.example.databases;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -59,22 +63,23 @@ public class AddCompanyActivity extends AppCompatActivity implements NavigationV
         if (savedInstanceState == null) {
             navigationView.setCheckedItem(R.id.nav_home);
         }
-
-        //db = DB_Manager.getInstance(this);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.nav_home) {
-            /*getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container, new AdminFragment()).commit();*/
-            finish();
+
+            Intent intent = new Intent(AddCompanyActivity.this, AdminActivity.class);
+            startActivity(intent);
+            Toast.makeText(this, "Moving to Home", Toast.LENGTH_SHORT).show();
+
+
+
         }
         if (item.getItemId() == R.id.nav_logout) {
+            Intent intent = new Intent(AddCompanyActivity.this, MainActivity.class);
+            startActivity(intent);
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
-            Intent intent = getIntent();
-            intent.putExtra("logout", 1);
-            finish();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

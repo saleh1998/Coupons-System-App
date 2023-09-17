@@ -81,6 +81,8 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             getSupportFragmentManager().beginTransaction().
                     replace(R.id.fragment_container, new AdminFragment()).commit();
         }
+
+
        /* if(item.getItemId() == R.id.nav_settings){
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new SettingsFragment()).commit();
@@ -93,11 +95,12 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new AboutFragment()).commit();
         }*/
+
+
         if (item.getItemId() == R.id.nav_logout) {
-            int id = item.getItemId();
-            boolean c =item.getItemId() == R.id.nav_logout;
+            Intent intent = new Intent(AdminActivity.this, MainActivity.class);
+            startActivity(intent);
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
-            finish();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -129,9 +132,9 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                 //intent.putExtra("AdminFacade",adminFacade);
                 startActivity(intent);
             }
-            if(view.getId() == btnBack.getId()){
-                finish();
-            }
+//            if(view.getId() == btnBack.getId()){
+//                finish();
+//            }
         }
     }
 }

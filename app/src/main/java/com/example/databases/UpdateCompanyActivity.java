@@ -1,6 +1,11 @@
 package com.example.databases;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
@@ -49,17 +54,36 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
         ButtonsClick buttonsClick = new ButtonsClick();
         btnSave.setOnClickListener(buttonsClick);
         btnCancel.setOnClickListener(buttonsClick);
+        Toolbar toolbar = findViewById(R.id.updateCompany_toolbar);
+        setSupportActionBar(toolbar);
+        drawerLayout = findViewById(R.id.updateCompany_drawer_layout);
+        NavigationView navigationView = findViewById(R.id.nav_view);
+
+        navigationView.setNavigationItemSelectedListener(this);
+
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
+        if(savedInstanceState == null){
+
+            navigationView.setCheckedItem(R.id.nav_home);
+        }
+
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.nav_home) {
-            getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container, new AdminFragment()).commit();
+
+            Intent intent = new Intent(UpdateCompanyActivity.this, AdminActivity.class);
+            startActivity(intent);
+            Toast.makeText(this, "Moving to Home", Toast.LENGTH_SHORT).show();
+
         }
         if (item.getItemId() == R.id.nav_logout) {
+            Intent intent = new Intent(UpdateCompanyActivity.this, MainActivity.class);
+            startActivity(intent);
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
-            finish();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
