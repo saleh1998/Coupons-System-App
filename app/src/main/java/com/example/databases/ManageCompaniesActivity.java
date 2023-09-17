@@ -199,14 +199,18 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
             }
             if(view.getId() == btnSearch.getId()){
                 String searchedId = etSearchCompany.getText().toString();
-                if (!searchedId.equals(null)){
+               if (!searchedId.equals("")){
                 Company target = adminFacade.getOneCompany(Integer.parseInt(searchedId));
-                ArrayList<Company> specificCompany =new ArrayList<>();
+                if(target == null)
+                    Toast.makeText(ManageCompaniesActivity.this, "ID not found", Toast.LENGTH_SHORT).show();
+               else {
+                   ArrayList<Company> specificCompany =new ArrayList<>();
                 specificCompany.add(target);
-                lvAdapter.refreshAllCompanies(specificCompany);
+                lvAdapter.refreshAllCompanies(specificCompany);}
             }
                 else{
-                    lvAdapter.refreshAllCompanies(adminFacade.getAllCompanies());
+                    ArrayList<Company> allCompanies= adminFacade.getAllCompanies();
+                    lvAdapter.refreshAllCompanies(allCompanies);
 
                 }
             }

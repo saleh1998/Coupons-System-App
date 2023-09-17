@@ -188,11 +188,23 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
                 }
             }
             if(view.getId() == btnSearch.getId()){
+
                 String searchedId = etSearchCustomer.getText().toString();
-                Customer target = adminFacade.getOneCustomer(Integer.parseInt(searchedId));
-                ArrayList<Customer> specificCustomer =new ArrayList<>();
-                specificCustomer.add(target);
-                lvAdapter.refreshAllCustomers(specificCustomer);
+                if (!searchedId.equals("")) {
+
+                    Customer target = adminFacade.getOneCustomer(Integer.parseInt(searchedId));
+                    if(target == null)
+                        Toast.makeText(ManageCustomersActivity.this, "ID not found", Toast.LENGTH_SHORT).show();
+                    else {
+                    ArrayList<Customer> specificCustomer = new ArrayList<>();
+                    specificCustomer.add(target);
+                    lvAdapter.refreshAllCustomers(specificCustomer);
+                }}
+                else{
+                    ArrayList<Customer> allCustomers= adminFacade.getAllCustomers();
+                    lvAdapter.refreshAllCustomers(allCustomers);
+
+                }
             }
         }
     }
