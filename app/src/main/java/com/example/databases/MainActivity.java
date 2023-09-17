@@ -126,11 +126,11 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-/*
+
 // Start the background service to check for expired coupons
         myRunnable = new MyRunnable();
         myThread = new Thread(myRunnable);
-        myThread.start();*/
+        myThread.start();
     }
 
     @Override

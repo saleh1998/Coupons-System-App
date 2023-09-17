@@ -41,7 +41,7 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
     Toolbar toolbar;
     NavigationView navigationView;
     CompanyFacade companyFacade;
-
+    View vieww;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,13 +110,11 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
         btnUpdate.setOnClickListener(buttonsClick);
         btnGetBycategory.setOnClickListener(buttonsClick);
         btnGetByPrice.setOnClickListener(buttonsClick);
-
-
     }
 
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.navCompany_home){
-           /******************************/
+           /********NONEED********************/
         }
         if(item.getItemId() == R.id.navCompany_profile){
            Intent intent = new Intent(CompanyActivity.this, CompanyViewProfileActivity.class);
@@ -124,7 +122,7 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
            /*we have to send the company with the intent*/
            intent.putExtra("companyid",companyFacade.getCompanyID());
            intent.putExtra("Company",companyFacade.getCompanyDetails(companyFacade.getCompanyID()));
-           startActivity(intent);
+           launcher.launch(intent);
 
         }
        /* if(item.getItemId() == R.id.nav_settings){
@@ -165,7 +163,7 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
                     Intent intent = result.getData();
                     if(intent != null){
                         int requestCode = intent.getIntExtra("codeForCompanyActivity",0);
-                        if(requestCode==1){
+                        if(requestCode==1){ //add
                            /* int companyid = intent.getIntExtra("companyid",0);
                             companyFacade = new CompanyFacade(companyid,CompanyActivity.this);*/
                             try {
@@ -184,9 +182,8 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
                             } catch (ParseException e) {
                                 throw new RuntimeException(e);
                             }
-
                         }
-                        if(requestCode == 2)
+                        if(requestCode == 2) //update
                         {
                            try {
                                Coupon newCoupon = (Coupon)intent.getSerializableExtra("coupon");
@@ -199,16 +196,8 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
                                throw new RuntimeException(e);
                            }
                         }
-
-
                     }
-
-
-
-
-
-                    }
-
+                }
             });
     class ButtonsClick implements View.OnClickListener{
 
@@ -220,6 +209,9 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
                     intent.putExtra("companyid",companyFacade.getCompanyID());
                  //   intent.putExtra("codeForCompanyActivity",1);
                 launcher.launch(intent);
+                selectedRow = -1;
+
+
             }
             if(v.getId() == btnUpdate.getId()) {
                 if (selectedRow != -1) {
@@ -234,6 +226,8 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
                     intent.putExtra("requestCode", 2);
                     intent.putExtra("companyid", companyFacade.getCompanyID());
                     launcher.launch(intent);
+                    selectedRow = -1;
+
                 } else {
                     Toast.makeText(CompanyActivity.this, "please select first the coupon you want to update", Toast.LENGTH_SHORT).show();
                 }
@@ -257,11 +251,14 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
                 Intent intent = new Intent(CompanyActivity.this, CouponsByCategoryActivity.class);
                 intent.putExtra("companyid", companyFacade.getCompanyID());
                 startActivity(intent);
+                selectedRow = -1;
             }
             if(v.getId() == btnGetByPrice.getId()){
                 Intent intent = new Intent(CompanyActivity.this, CouponsByPriceActivity.class);
                 intent.putExtra("companyid", companyFacade.getCompanyID());
                 startActivity(intent);
+                selectedRow = -1;
+
             }
         }
     }

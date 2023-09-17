@@ -69,9 +69,11 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                 @Override
                 public void onActivityResult(ActivityResult result) {
                     Intent intent = result.getData();
-                    int logout = intent.getIntExtra("logout",0);
-                    if(logout == 1){
-                        finish();
+                    if(intent!=null) {
+                        int logout = intent.getIntExtra("logout", 0);
+                        if (logout == 1) {
+                            finish();
+                        }
                     }
                 }
             }
@@ -122,12 +124,12 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                 Toast.makeText(AdminActivity.this, "Yalla", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AdminActivity.this,ManageCompaniesActivity.class);
                 //intent.putExtra("AdminFacade",adminFacade);
-                startActivity(intent);
+                launcher.launch(intent);
             }
             if(view.getId() == btnCustomersManagment.getId()){
                 Intent intent = new Intent(AdminActivity.this,ManageCustomersActivity.class);
                 //intent.putExtra("AdminFacade",adminFacade);
-                startActivity(intent);
+                launcher.launch(intent);
             }
             if(view.getId() == btnBack.getId()){
                 finish();

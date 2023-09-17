@@ -49,10 +49,10 @@ public class CompanyCouponsLvAdapter extends ArrayAdapter {
         TextView tvCategory = view.findViewById(R.id.copunLine_tvCategory);
         TextView tvDescription = view.findViewById(R.id.copunLine_tvDescription);
 
+/*
 
-
-//        Uri ImgUri = MediaStore.getMediaUri(getContext(),Uri.parse(c.getImage()));
-//        cpnImage.setImageURI(ImgUri);
+      Uri ImgUri = MediaStore.getMediaUri(getContext(),Uri.parse(c.getImage()));
+      cpnImage.setImageURI(ImgUri);*/
         tvCouponID.setText(c.getId()+"");
         tvCompanyID.setText(c.getCompanyID()+"");
         tvCategory.setText(c.getCategory().toString());

@@ -7,71 +7,72 @@
     android:background="@android:drawable/editbox_dropdown_light_frame"
     android:backgroundTint="#F4D8AE">
 
-    <TextView
-        android:id="@+id/customerLine_tvCustomerCode"
-        android:layout_width="50dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:background="@android:drawable/editbox_background_normal"
-        android:gravity="center|start"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:id="@+id/customerLine_ll"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="3dp">
 
-    <TextView
-        android:id="@+id/customerLine_tvFName"
-        android:layout_width="150dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="8dp"
-        android:background="@android:drawable/editbox_background_normal"
-        android:gravity="center|start"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/customerLine_tvCustomerCode"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.076"
-        app:layout_constraintStart_toEndOf="@+id/customerLine_tvCustomerCode"
-        app:layout_constraintTop_toTopOf="@+id/customerLine_tvCustomerCode"
-        app:layout_constraintVertical_bias="1.0" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
 
-    <TextView
-        android:id="@+id/customerLine_tvLName"
-        android:layout_width="150dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="8dp"
-        android:background="@android:drawable/editbox_background_normal"
-        android:gravity="center|start"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/customerLine_tvFName"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.076"
-        app:layout_constraintStart_toEndOf="@+id/customerLine_tvFName"
-        app:layout_constraintTop_toTopOf="@+id/customerLine_tvFName"
-        app:layout_constraintVertical_bias="1.0" />
+            <TextView
+                android:id="@+id/customerLine_tvCustomerCode"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center|start"
+                android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/customerLine_tvEmail"
-        android:layout_width="200dp"
-        android:layout_height="48dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="12dp"
-        android:background="@android:drawable/editbox_background_normal"
-        android:gravity="center|start"
-        android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/customerLine_tvCustomerCode" />
+            <TextView
+                android:id="@+id/customerLine_tvFName"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center|start"
+                android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/customerLine_tvPassword"
-        android:layout_width="170dp"
-        android:layout_height="50dp"
-        android:layout_marginStart="12dp"
-        android:background="@android:drawable/editbox_background_normal"
-        android:gravity="center|start"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/customerLine_tvEmail"
-        app:layout_constraintStart_toEndOf="@+id/customerLine_tvEmail"
-        app:layout_constraintTop_toTopOf="@+id/customerLine_tvEmail"
-        app:layout_constraintVertical_bias="0.0" />
+            <TextView
+                android:id="@+id/customerLine_tvLName"
+                android:layout_width="173dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="8dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center|start"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/customerLine_tvEmail"
+                android:layout_width="200dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center|start"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/customerLine_tvPassword"
+                android:layout_width="175dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="12dp"
+                android:background="@android:drawable/editbox_background_normal"
+                android:gravity="center|start"
+                android:textSize="20sp" />
+        </LinearLayout>
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
