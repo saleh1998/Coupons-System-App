@@ -32,7 +32,9 @@ public class CompanyFacade extends ClientFacade {
             for (Coupon existingCoupon : companyCoupons) {
                 if (existingCoupon.getTitle().equals(coupon.getTitle())) {
                     //throw new myException("Coupon with the same title already exists for same company.");
-                    Toast.makeText(context, "Coupon with the same title already exists for same company", Toast.LENGTH_SHORT).show();
+/*
+                    Toast.makeText(context, "Coupon with the same title already exists for same company please try again", Toast.LENGTH_SHORT).show();
+*/
                     throw new myException("Coupon with the same title already exists for same company.");
 
                 }
@@ -108,8 +110,13 @@ public class CompanyFacade extends ClientFacade {
         }
 
         // V
+
         public Company getCompanyDetails() {
             return companiesDAO.getOneCompany(companyID);
+
+        public Company getCompanyDetails(int id) {
+            return companiesDAO.getOneCompany(id);
+
         }
 
 

@@ -92,7 +92,8 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
         lvCompanyCoupons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if(selectedRow != -1){
+                if(selectedRow != -1)
+                {
                     bgLayout.setBackgroundColor(bgLineColor);
                 }
                 selectedRow = position;
@@ -119,9 +120,12 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
         }
         if(item.getItemId() == R.id.navCompany_profile){
            Intent intent = new Intent(CompanyActivity.this, CompanyViewProfileActivity.class);
+
            /*we have to send the company with the intent*/
-            intent.putExtra("companyid",companyFacade.getCompanyID());
-            startActivity(intent);
+           intent.putExtra("companyid",companyFacade.getCompanyID());
+           intent.putExtra("Company",companyFacade.getCompanyDetails(companyFacade.getCompanyID()));
+           startActivity(intent);
+
         }
        /* if(item.getItemId() == R.id.nav_settings){
             getSupportFragmentManager().beginTransaction()
@@ -167,12 +171,20 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
                             try {
                                 Coupon newCoupon = (Coupon)intent.getSerializableExtra("coupon");
                                 companyFacade.addCoupon(newCoupon);
-                                companyCouponsLvAdapter.refreshAllCoupons(companyFacade.getCompanyCoupons());
+                                Toast.makeText(CompanyActivity.this, "Coupon added successfully!", Toast.LENGTH_SHORT).show();
+
                             } catch (ParseException e) {
                                 throw new RuntimeException(e);
                             } catch (myException e) {
+                                Toast.makeText(CompanyActivity.this, "Coupon with the same title already exists for same company please try again", Toast.LENGTH_SHORT).show();
+
+                            }
+                            try {
+                                companyCouponsLvAdapter.refreshAllCoupons(companyFacade.getCompanyCoupons());
+                            } catch (ParseException e) {
                                 throw new RuntimeException(e);
                             }
+
                         }
                         if(requestCode == 2)
                         {

@@ -23,7 +23,7 @@ public class CouponsByCategoryActivity extends AppCompatActivity {
     CompanyCouponsLvAdapter lvAdapter;
     ImageButton btnBack;
     Button btnSearch;
-    ArrayList<Category> categoriesList;
+    Category[] categoriesList;
     int row;
 
     DB_Manager db;
@@ -52,17 +52,11 @@ public class CouponsByCategoryActivity extends AppCompatActivity {
                 throw new RuntimeException(e);
             }
         }
-
-        try {
-            categoriesList = db.getAllCategories();
-            for (Category c : categoriesList)
+           categoriesList = Category.values();
+            for (Category c : Category.values())
             {
                 couponsbycat.add(c.toString());
             }
-        }
-        catch (ParseException e) {
-            throw new RuntimeException(e);
-        }
         ButtonsClick buttonsClick = new ButtonsClick();
         btnSearch.setOnClickListener(buttonsClick);
         btnBack.setOnClickListener(buttonsClick);
@@ -100,7 +94,7 @@ public class CouponsByCategoryActivity extends AppCompatActivity {
                 finish();
             }
             if(v.getId() == btnSearch.getId()){
-                Category category = categoriesList.get(row);
+                Category category = categoriesList[row];
                 ArrayList<Coupon> coupons = null;
                 try {
                     coupons = companyFacade.getCompanyCoupons(category);

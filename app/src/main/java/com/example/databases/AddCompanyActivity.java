@@ -66,11 +66,14 @@ public class AddCompanyActivity extends AppCompatActivity implements NavigationV
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.nav_home) {
-            getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container, new AdminFragment()).commit();
+            /*getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment_container, new AdminFragment()).commit();*/
+            finish();
         }
         if (item.getItemId() == R.id.nav_logout) {
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+            Intent intent = getIntent();
+            intent.putExtra("logout", 1);
             finish();
         }
 
@@ -88,19 +91,44 @@ public class AddCompanyActivity extends AppCompatActivity implements NavigationV
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
                 String confirmPassword = etConfirmPassword.getText().toString();
-                if (password.equals(confirmPassword)) {
-                    Company company = new Company(name, email, password);
+                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                    if (password.equals(confirmPassword)) {
+                        Company company = new Company(name, email, password);
 
-                    Intent intent = getIntent();
+                        ///// added by rashad with advice from bayan
+                        AdminFacade adminFacade = new AdminFacade(AddCompanyActivity.this);
+                        if (!adminFacade.CompanyNameExists(company)) {
+                            if (!adminFacade.CompanyEmailExists(company)) {
+                                try {
+                                    adminFacade.addCompany(company);
+                                    Intent intent = getIntent();
+                                    intent.putExtra("company", company);
+                                    intent.putExtra("requestCode", 2);
+                                    setResult(RESULT_OK, intent);
+                                    finish();
+                                } catch (myException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            } else {
+                                Toast.makeText(AddCompanyActivity.this, "Email is already taken", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            Toast.makeText(AddCompanyActivity.this, "Name is already taken", Toast.LENGTH_SHORT).show();
+                        }
+                        /////
+                    /*Intent intent = getIntent();
                     intent.putExtra("company", company);
                     intent.putExtra("requestCode", 2);
                     setResult(RESULT_OK, intent);
-                    finish();
+                    finish();*/
 
-                } else {
-                    etPassword.setText("");
-                    etConfirmPassword.setText("");
-                    Toast.makeText(AddCompanyActivity.this, "Please insert correct password confirmation!!", Toast.LENGTH_SHORT).show();
+                    } else {
+                        etPassword.setText("");
+                        etConfirmPassword.setText("");
+                        Toast.makeText(AddCompanyActivity.this, "Please insert correct password confirmation!!", Toast.LENGTH_SHORT).show();
+                    }
+                }else{
+                    Toast.makeText(AddCompanyActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 }
             }
             if (view.getId() == btnCancel.getId()) {

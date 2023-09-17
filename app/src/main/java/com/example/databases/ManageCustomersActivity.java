@@ -103,23 +103,25 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
                         if(requestCode==2){ //// returning from AddCustomerActivity
                             Customer c = (Customer) intent.getSerializableExtra("customer");
                             if(result.getResultCode()==RESULT_OK){
-                                try {
+                                /*try {
                                     adminFacade.addCustomer(c);
                                     lvAdapter.refreshCustomerAdded(c);
                                 } catch (myException e) {
                                     throw new RuntimeException(e);
-                                }
+                                }*/
+                                lvAdapter.refreshCustomerAdded(c);
                             }
                         }
                         if(requestCode==4){//// returning from UpdateCustomerActivity
-                            Customer c = (Customer) intent.getSerializableExtra("customer");
+                            //Customer c = (Customer) intent.getSerializableExtra("customer");
                             if(result.getResultCode()==RESULT_OK){
-                                try {
+                                /*try {
                                     adminFacade.updateCustomer(c);
                                     lvAdapter.refreshAllCustomers(adminFacade.getAllCustomers());
                                 } catch (myException e) {
                                     throw new RuntimeException(e);
-                                }
+                                }*/
+                                lvAdapter.refreshAllCustomers(adminFacade.getAllCustomers());
                             }
                         }
                     }
@@ -128,8 +130,9 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
     );
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.nav_home){
-//            getSupportFragmentManager().beginTransaction().
-//                    replace(R.id.fragment_container, new AdminFragment()).commit();
+            /*getSupportFragmentManager().beginTransaction().
+                    replace(R.id.fragment_container, new AdminFragment()).commit();*/
+
             finish();
         }
         if (item.getItemId() == R.id.nav_logout) {
