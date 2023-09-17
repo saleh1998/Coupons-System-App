@@ -176,6 +176,7 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
 
             }
             if(view.getId() == btnUpdate.getId()){
+                if(selectedRow!=-1){
                 Intent intent = new Intent(ManageCustomersActivity.this, UpdateCustomerActivity.class);
                 Customer c = adminFacade.getOneCustomer(selectedCustomerID);
                 if(c!=null){
@@ -185,10 +186,16 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
                 launcher.launch(intent);
                 selectedCustomerFName="";
                 selectedRow=-1;
+
                 bgLayout.setBackgroundColor(bgLineColor);
 
+
+            } else{
+                    Toast.makeText(ManageCustomersActivity.this, "Please select company", Toast.LENGTH_SHORT).show();
+                }
             }
             if(view.getId() == btnDelete.getId()){
+                if(selectedRow!=-1){
                 Customer c = adminFacade.getOneCustomer(selectedCustomerID);
                 try {
                     adminFacade.deleteCustomer(selectedCustomerID);
@@ -198,19 +205,33 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
                 }
                 selectedCustomerFName="";
                 selectedRow=-1;
+
                 bgLayout.setBackgroundColor(bgLineColor);
+
+
+            } else{
+                    Toast.makeText(ManageCustomersActivity.this, "Please select company", Toast.LENGTH_SHORT).show();
+                }
 
             }
             if(view.getId() == btnSearch.getId()){
+
                 String searchedId = etSearchCustomer.getText().toString();
-                if(!searchedId.isEmpty() && !searchedId.equals("")) {
+
+                if (!searchedId.equals("")) {
+
                     Customer target = adminFacade.getOneCustomer(Integer.parseInt(searchedId));
+                    if(target == null)
+                        Toast.makeText(ManageCustomersActivity.this, "ID not found", Toast.LENGTH_SHORT).show();
+                    else {
                     ArrayList<Customer> specificCustomer = new ArrayList<>();
                     specificCustomer.add(target);
                     lvAdapter.refreshAllCustomers(specificCustomer);
-                }else{
-                    ArrayList<Customer> allCustomers = adminFacade.getAllCustomers();
+                }}
+                else{
+                    ArrayList<Customer> allCustomers= adminFacade.getAllCustomers();
                     lvAdapter.refreshAllCustomers(allCustomers);
+
                 }
             }
         }

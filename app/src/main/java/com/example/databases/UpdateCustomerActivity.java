@@ -70,12 +70,16 @@ public class UpdateCustomerActivity extends AppCompatActivity implements Navigat
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if (item.getItemId() == R.id.nav_home) {
-            getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container, new AdminFragment()).commit();
+
+            Intent intent = new Intent(UpdateCustomerActivity.this, AdminActivity.class);
+            startActivity(intent);
+            Toast.makeText(this, "Moving to Home", Toast.LENGTH_SHORT).show();
+
         }
         if (item.getItemId() == R.id.nav_logout) {
+            Intent intent = new Intent(UpdateCustomerActivity.this, MainActivity.class);
+            startActivity(intent);
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
-            finish();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);

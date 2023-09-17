@@ -115,8 +115,7 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
 
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.nav_home){
-            /*getSupportFragmentManager().beginTransaction().
-                    replace(R.id.fragment_container, new AdminFragment()).commit();*/
+
             finish();
         }
         if (item.getItemId() == R.id.nav_logout) {
@@ -191,6 +190,7 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
 
             }
             if(view.getId() == btnUpdate.getId()){
+                if(selectedRow !=-1){
                 Intent intent = new Intent(ManageCompaniesActivity.this,UpdateCompanyActivity.class);
                 Company c = adminFacade.getOneCompany(selectedCompanyID);
                 if(c!=null){
@@ -202,8 +202,15 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
                 selectedRow=-1;
                 bgLayout.setBackgroundColor(bgLineColor);
 
+
+                   }
+                else{
+                    Toast.makeText(ManageCompaniesActivity.this, "Please select company", Toast.LENGTH_SHORT).show();
+                }
             }
+
             if(view.getId() == btnDelete.getId()){
+                if(selectedRow !=-1){
                 Company c = adminFacade.getOneCompany(selectedCompanyID);
                 try {
                     adminFacade.deleteCompany(c);
@@ -216,16 +223,26 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
                 bgLayout.setBackgroundColor(bgLineColor);
 
             }
+                else{
+                    Toast.makeText(ManageCompaniesActivity.this, "Please select company", Toast.LENGTH_SHORT).show();
+                }
+            }
             if(view.getId() == btnSearch.getId()){
                 String searchedId = etSearchCompany.getText().toString();
-                if(!searchedId.isEmpty() && !searchedId.equals("")) {
-                    Company target = adminFacade.getOneCompany(Integer.parseInt(searchedId));
-                    ArrayList<Company> specificCompany = new ArrayList<>();
-                    specificCompany.add(target);
-                    lvAdapter.refreshAllCompanies(specificCompany);
-                }else{
-                    ArrayList<Company> allCompanies = adminFacade.getAllCompanies();
+
+               if (!searchedId.equals("")){
+                Company target = adminFacade.getOneCompany(Integer.parseInt(searchedId));
+                if(target == null)
+                    Toast.makeText(ManageCompaniesActivity.this, "ID not found", Toast.LENGTH_SHORT).show();
+               else {
+                   ArrayList<Company> specificCompany =new ArrayList<>();
+                specificCompany.add(target);
+                lvAdapter.refreshAllCompanies(specificCompany);}
+            }
+                else{
+                    ArrayList<Company> allCompanies= adminFacade.getAllCompanies();
                     lvAdapter.refreshAllCompanies(allCompanies);
+
                 }
             }
         }
