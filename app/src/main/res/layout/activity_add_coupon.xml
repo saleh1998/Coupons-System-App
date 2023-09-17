@@ -138,16 +138,26 @@
         app:layout_constraintTop_toBottomOf="@+id/addCoupon_toolbar"
         app:srcCompat="@drawable/back" />
 
-    <EditText
-        android:id="@+id/addCoupon_etImgSrc"
+    <ImageButton
+        android:id="@+id/addCoupon_addIm"
+        android:layout_width="177dp"
+        android:layout_height="104dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.051"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addCoupon_etPrice"
+        app:srcCompat="@drawable/add_photo_icon" />
+
+    <TextView
+        android:id="@+id/textView5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:ems="10"
-        android:hint="Image src"
-        android:inputType="text"
-        app:layout_constraintEnd_toEndOf="@+id/addCoupon_etPrice"
-        app:layout_constraintStart_toStartOf="@+id/addCoupon_etPrice"
+        android:text="add image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.191"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addCoupon_etPrice" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

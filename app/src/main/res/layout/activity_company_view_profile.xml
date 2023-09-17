@@ -8,7 +8,20 @@
     android:background="#F0F0F0"
     tools:context=".CompanyViewProfileActivity">
 
-    <!-- Company Name Label -->
+    <ImageButton
+        android:id="@+id/fragCompViewProfile_btnBack"
+        android:layout_width="63dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#F6F2F2"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/fragCompViewProfile_tvComID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.64"
+        app:srcCompat="@drawable/back" />
+
     <TextView
         android:id="@+id/textViewCompanyNameLabel"
         android:layout_width="wrap_content"

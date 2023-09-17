@@ -3,6 +3,7 @@ package com.example.databases;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
 import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 public class CompanyViewProfileActivity extends AppCompatActivity {
     TextView tvComID, tvComName, tvComEmail, tvComPass,passwordhint;
     ImageView backbtn;
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +23,7 @@ public class CompanyViewProfileActivity extends AppCompatActivity {
         tvComName = findViewById(R.id.fragCompViewProfile_tvComName);
         tvComEmail = findViewById(R.id.fragCompViewProfile_tvComEmail);
         tvComPass = findViewById(R.id.fragCompViewProfile_tvComPassword);
+
         backbtn = findViewById(R.id.companyprofi_backbtn);
         Company c = (Company) getIntent().getSerializableExtra("Company");
         tvComID.setText(c.getId()+"");

@@ -5,8 +5,11 @@ import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -22,13 +25,17 @@ import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+
+import com.google.android.material.navigation.NavigationView;
+
 import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class CustomerActivity extends AppCompatActivity implements Serializable {
+
+public class CustomerActivity extends AppCompatActivity implements Serializable,NavigationView.OnNavigationItemSelectedListener{
 
     Button btnSearch,btnBuyCoupon,btnQRCode;
     ListView lvCoupons;
@@ -42,6 +49,11 @@ public class CustomerActivity extends AppCompatActivity implements Serializable 
     int bgLineColor;
     LinearLayout bgLayout;
 
+    Toolbar toolbar;
+    NavigationView navigationView;
+    private DrawerLayout drawerLayout;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +65,18 @@ public class CustomerActivity extends AppCompatActivity implements Serializable 
         spCategory = findViewById(R.id.customer_categorySpinner);
         etMaxPrice = findViewById(R.id.customer_etMaxPrice);
         btnQRCode = findViewById(R.id.customer_btnQRCode);
+
+        drawerLayout = findViewById(R.id.customer_drawLayout);
+        toolbar = findViewById(R.id.customer_toolBar);
+
+        setSupportActionBar(toolbar);
+        drawerLayout=findViewById(R.id.customer_drawLayout);
+        navigationView=findViewById(R.id.customer_nv);
+
+        navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
+        drawerLayout.addDrawerListener(toggle);
+        toggle.syncState();
 
         Intent intent = getIntent();
         if(intent != null){
@@ -135,14 +159,19 @@ public class CustomerActivity extends AppCompatActivity implements Serializable 
     }
 
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        ////////// esale tayma hon
 
         if(item.getItemId() == R.id.navCustomer_profile){
-            Intent intent = new Intent(CustomerActivity.this, CompanyViewProfileActivity.class);
+            Intent intent = new Intent(CustomerActivity.this, CustomerViewProfileActivity.class);
             /*we have to send the company with the intent*/
+            intent.putExtra("customerid",customerFacade.getCustomerID());
             startActivity(intent);
         }
+        if (item.getItemId() == R.id.navCustomer_logout) {
+            Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+            finish();
+        }
 
+        drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
 

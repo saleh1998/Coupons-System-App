@@ -6,7 +6,21 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".CustomerViewProfileActivity">
 
-<TextView
+    <ImageButton
+        android:id="@+id/fragCustViewProfile_btnBack"
+        android:layout_width="63dp"
+        android:layout_height="51dp"
+        android:backgroundTint="#F6F2F2"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toTopOf="@+id/fragCustViewProfile_tvCustID"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.045"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.64"
+        app:srcCompat="@drawable/back" />
+
+    <TextView
     android:id="@+id/fragCustViewProfile_tvCustID"
     android:layout_width="140dp"
     android:layout_height="44dp"

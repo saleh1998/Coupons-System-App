@@ -110,8 +110,13 @@ public class CompanyFacade extends ClientFacade {
         }
 
         // V
+
+        public Company getCompanyDetails() {
+            return companiesDAO.getOneCompany(companyID);
+
         public Company getCompanyDetails(int id) {
             return companiesDAO.getOneCompany(id);
+
         }
 
 
