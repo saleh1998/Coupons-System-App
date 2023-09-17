@@ -12,6 +12,7 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +44,8 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
     NavigationView navigationView;
     CustomerLvAdapter lvAdapter;
     AdminFacade adminFacade;
+    int bgLineColor;
+    LinearLayout bgLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,7 +87,18 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
         lvCustomers.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedRow=position;
+                if(selectedRow != -1)
+                {
+                    bgLayout.setBackgroundColor(bgLineColor);
+                }
+                selectedRow = position;
+                lvCustomers.setSelection(position);
+
+                bgLayout = (LinearLayout) view.findViewById(R.id.customerLine_ll);
+                bgLineColor = view.getSolidColor();
+                bgLayout.setBackgroundColor(Color.rgb(150,150,150));
+
+
                 TextView etName1 = (TextView)view.findViewById(R.id.customerLine_tvFName);
                 selectedCustomerFName = etName1.getText().toString();
                 TextView etId1 = (TextView)view.findViewById(R.id.customerLine_tvCustomerCode);
@@ -139,7 +154,8 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ManageCustomersActivity.this,MainActivity.class);
             intent.putExtra("logout",1);
-            startActivity(intent);
+            setResult(RESULT_OK, intent);
+            finish();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -156,6 +172,8 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
                 launcher.launch(intent);
                 selectedCustomerFName="";
                 selectedRow=-1;
+                bgLayout.setBackgroundColor(bgLineColor);
+
             }
             if(view.getId() == btnUpdate.getId()){
                 if(selectedRow!=-1){
@@ -168,6 +186,10 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
                 launcher.launch(intent);
                 selectedCustomerFName="";
                 selectedRow=-1;
+
+                bgLayout.setBackgroundColor(bgLineColor);
+
+
             } else{
                     Toast.makeText(ManageCustomersActivity.this, "Please select company", Toast.LENGTH_SHORT).show();
                 }
@@ -183,13 +205,19 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
                 }
                 selectedCustomerFName="";
                 selectedRow=-1;
+
+                bgLayout.setBackgroundColor(bgLineColor);
+
+
             } else{
                     Toast.makeText(ManageCustomersActivity.this, "Please select company", Toast.LENGTH_SHORT).show();
                 }
+
             }
             if(view.getId() == btnSearch.getId()){
 
                 String searchedId = etSearchCustomer.getText().toString();
+
                 if (!searchedId.equals("")) {
 
                     Customer target = adminFacade.getOneCustomer(Integer.parseInt(searchedId));

@@ -7,11 +7,13 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,6 +47,8 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
     NavigationView navigationView;
     CompanyLvAdapter lvAdapter;
     AdminFacade adminFacade;
+    int bgLineColor;
+    LinearLayout bgLayout;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,24 +92,41 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
         lvCompanies.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                selectedRow=position;
+                if(selectedRow != -1)
+                {
+                    bgLayout.setBackgroundColor(bgLineColor);
+                }
+                selectedRow = position;
+                lvCompanies.setSelection(position);
+
+                bgLayout = (LinearLayout) view.findViewById(R.id.company_LLline);
+                bgLineColor = view.getSolidColor();
+                bgLayout.setBackgroundColor(Color.rgb(150,150,150));
+
+
                 TextView etName1 = (TextView)view.findViewById(R.id.companyLine_tvComName);
                 selectedCompanyName = etName1.getText().toString();
                 TextView etId1 = (TextView)view.findViewById(R.id.companyLine_tvComCode);
                 selectedCompanyID = Integer.parseInt(etId1.getText().toString());
+
             }
         });
     }
 
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.nav_home){
-             finish();
+
+            finish();
         }
         if (item.getItemId() == R.id.nav_logout) {
-            Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
+            /*Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(ManageCompaniesActivity.this,MainActivity.class);
             intent.putExtra("logout",1);
-            startActivity(intent);
+            startActivity(intent);*/
+            Intent intent = getIntent();
+            intent.putExtra("logout",1);
+            setResult(RESULT_OK, intent);
+            finish();
         }
 
         drawerLayout.closeDrawer(GravityCompat.START);
@@ -164,6 +186,8 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
                 launcher.launch(intent);
                 selectedCompanyName="";
                 selectedRow=-1;
+                bgLayout.setBackgroundColor(bgLineColor);
+
             }
             if(view.getId() == btnUpdate.getId()){
                 if(selectedRow !=-1){
@@ -175,7 +199,11 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
                 intent.putExtra("requestCode",3);
                 launcher.launch(intent);
                 selectedCompanyName="";
-                selectedRow=-1;}
+                selectedRow=-1;
+                bgLayout.setBackgroundColor(bgLineColor);
+
+
+                   }
                 else{
                     Toast.makeText(ManageCompaniesActivity.this, "Please select company", Toast.LENGTH_SHORT).show();
                 }
@@ -192,6 +220,8 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
                 }
                 selectedCompanyName="";
                 selectedRow=-1;
+                bgLayout.setBackgroundColor(bgLineColor);
+
             }
                 else{
                     Toast.makeText(ManageCompaniesActivity.this, "Please select company", Toast.LENGTH_SHORT).show();
@@ -199,6 +229,7 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
             }
             if(view.getId() == btnSearch.getId()){
                 String searchedId = etSearchCompany.getText().toString();
+
                if (!searchedId.equals("")){
                 Company target = adminFacade.getOneCompany(Integer.parseInt(searchedId));
                 if(target == null)
