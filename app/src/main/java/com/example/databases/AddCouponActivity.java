@@ -150,6 +150,7 @@ public class AddCouponActivity extends AppCompatActivity {
                 if (result.getResultCode() == RESULT_OK ){
                     selectedImage = intent.getData();
                     addImage.setImageURI(selectedImage);
+
                 }
             }
         }
@@ -170,8 +171,7 @@ public class AddCouponActivity extends AppCompatActivity {
                         TextUtils.isEmpty(etStartDate.getText()) ||
                         TextUtils.isEmpty(etEndDate.getText()) ||
                         TextUtils.isEmpty(etAmount.getText()) ||
-                        TextUtils.isEmpty(etPrice.getText()) ||
-                        TextUtils.isEmpty(etImg.getText())) {
+                        TextUtils.isEmpty(etPrice.getText()) ) {
 
                     Toast.makeText(AddCouponActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
 
@@ -182,7 +182,10 @@ public class AddCouponActivity extends AppCompatActivity {
                     String description = etDescription.getText().toString();
                     int amount = Integer.parseInt(etAmount.getText().toString());
                     double price = Double.parseDouble(etPrice.getText().toString());
+/*
                     String imgSrc = etImg.getText().toString();
+*/
+                    String imgSrc = selectedImage.toString();
                     int companyId = companyFacade.getCompanyID();
                     if (startDate.after(endDate)) {
                         Toast.makeText(AddCouponActivity.this, "end date can not be before start date", Toast.LENGTH_SHORT).show();
