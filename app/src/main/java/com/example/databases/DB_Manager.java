@@ -20,7 +20,7 @@ public class DB_Manager extends SQLiteOpenHelper{
 
 
     private final static String DB_NAME = "DB_1";
-    private final static int DB_VER = 4;
+    private final static int DB_VER = 5;
     private Context context;
     ArrayList<Company> companies;
     ArrayList<Customer> customers;
@@ -131,7 +131,6 @@ public class DB_Manager extends SQLiteOpenHelper{
         db.execSQL(CREATE_TABLE_COMPANIES);
         db.execSQL(CREATE_TABLE_CUSTOMERS);
         db.execSQL(CREATE_TABLE_COUPONS);
-        db.execSQL("DROP TABLE IF EXISTS " + TBL_CATEGORIES);
         db.execSQL(CREATE_TABLE_CATEGORIES);
         db.execSQL(CREATE_TABLE_CUSTOMERS_VS_COUPONS);
 
