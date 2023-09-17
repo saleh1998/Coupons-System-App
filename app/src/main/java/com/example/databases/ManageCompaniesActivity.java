@@ -67,7 +67,7 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
         drawerLayout=findViewById(R.id.manageCompanies_drawer_layout);
         navigationView=findViewById(R.id.nav_view);
 
-        navigationView.setNavigationItemSelectedListener(this);
+        navigationView.setNavigationItemSelectedListener(ManageCompaniesActivity.this);
 
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open_nav, R.string.close_nav);
         drawerLayout.addDrawerListener(toggle);
@@ -96,44 +96,11 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
         });
     }
 
-    ActivityResultLauncher<Intent> launcher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-                new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    Intent intent = result.getData();
-                    if(intent != null){
-                        int requestCode = intent.getIntExtra("requestCode",0);
-                        if(requestCode==2){ //// returning from AddCompanyActivity
-                            Company c = (Company) intent.getSerializableExtra("company");
-                            if(result.getResultCode()==RESULT_OK){
-                                try {
-                                    adminFacade.addCompany(c);
-                                    lvAdapter.refreshCompanyAdded(c);
-                                } catch (myException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
-                        }
-                        if(requestCode==4){//// returning from UpdateCompanyActivity
-                            Company c = (Company) intent.getSerializableExtra("company");
-                            if(result.getResultCode()==RESULT_OK){
-                                try {
-                                    adminFacade.updateCompany(c);
-                                    lvAdapter.refreshAllCompanies(adminFacade.getAllCompanies());
-                                } catch (myException e) {
-                                    throw new RuntimeException(e);
-                                }
-                            }
-                        }
-                    }
-                }
-            });
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.nav_home){
             /*getSupportFragmentManager().beginTransaction().
                     replace(R.id.fragment_container, new AdminFragment()).commit();*/
-            finish();
+            //finish();
         }
         if (item.getItemId() == R.id.nav_logout) {
             Toast.makeText(this, "Logout", Toast.LENGTH_SHORT).show();
@@ -145,6 +112,49 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
         drawerLayout.closeDrawer(GravityCompat.START);
         return true;
     }
+
+    ActivityResultLauncher<Intent> launcher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+                new ActivityResultCallback<ActivityResult>() {
+                @Override
+                public void onActivityResult(ActivityResult result) {
+                    Intent intent = result.getData();
+                    if(intent != null){
+                        int requestCode = intent.getIntExtra("requestCode",0);
+                        if(requestCode==2){ //// returning from AddCompanyActivity
+                            Company c = (Company) intent.getSerializableExtra("company");
+                            if(result.getResultCode()==RESULT_OK){
+                                /*try {
+                                    //adminFacade.addCompany(c);
+                                    lvAdapter.refreshCompanyAdded(c);
+                                } catch (myException e) {
+                                    throw new RuntimeException(e);
+                                }*/
+                                lvAdapter.refreshCompanyAdded(c);
+                            }
+                        }
+                        if(requestCode==4){//// returning from UpdateCompanyActivity
+                            //Company c = (Company) intent.getSerializableExtra("company");
+                            if(result.getResultCode()==RESULT_OK){
+                                /*try {
+                                    adminFacade.updateCompany(c);
+                                    lvAdapter.refreshAllCompanies(adminFacade.getAllCompanies());
+                                } catch (myException e) {
+                                    throw new RuntimeException(e);
+                                }*/
+                                lvAdapter.refreshAllCompanies(adminFacade.getAllCompanies());
+                            }
+                        }
+                        /// for navigationbar click in child activity
+                        int logout=intent.getIntExtra("logout",0);
+                        if(logout==1){
+                            finish();
+                        }
+                        ///
+                    }
+                }
+            });
+
 
     class ButtonsClick implements View.OnClickListener {
 
