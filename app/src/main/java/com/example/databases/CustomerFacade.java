@@ -41,7 +41,7 @@ public class CustomerFacade extends ClientFacade {
     public void purchaseCoupon(Coupon coupon) throws myException, ParseException {
         ArrayList<Coupon> customerCpn = getCustomerCoupons();
         for(Coupon c : customerCpn)
-            if(customerCpn.contains(c))
+            if(c.getId() == coupon.getId())
                 throw new myException(" You already have this coupon") ;
         if (coupon.getAmount() != 0) {
             coupon.getEndDate();

@@ -13,6 +13,9 @@
         android:theme="@style/Theme.DataBases"
         tools:targetApi="34">
         <activity
+            android:name=".CouponQRCodeActivity"
+            android:exported="false" />
+        <activity
             android:name=".CustomerViewProfileActivity"
             android:exported="false" />
         <activity
