@@ -26,10 +26,10 @@ public class CompanyViewProfileActivity extends AppCompatActivity {
 
         backbtn = findViewById(R.id.companyprofi_backbtn);
         Company c = (Company) getIntent().getSerializableExtra("Company");
-        tvComID.setText(c.getId()+"");
-        tvComName.setText(c.getName());
-        tvComEmail.setText(c.getEmail());
-        tvComPass.setText(c.getPassword());
+        tvComID.setText(" "+c.getId()+"");
+        tvComName.setText(" "+c.getName());
+        tvComEmail.setText(" "+c.getEmail());
+        tvComPass.setText(" "+c.getPassword());
         backbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

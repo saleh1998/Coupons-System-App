@@ -25,7 +25,6 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
 
     private DrawerLayout drawerLayout;
     Button btnCompaniesManagment, btnCustomersManagment;
-    ImageButton btnBack;
     //ClientFacade adminFacade;
 
     @Override
@@ -38,10 +37,8 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
 
         btnCompaniesManagment = findViewById(R.id.admin_btnCompaniesMang);
         btnCustomersManagment = findViewById(R.id.admin_btnCustomersMang);
-        btnBack = findViewById(R.id.admin_btnBack);
 
         ButtonsClick buttonsClick = new ButtonsClick();
-        btnBack.setOnClickListener(buttonsClick);
         btnCustomersManagment.setOnClickListener(buttonsClick);
         btnCompaniesManagment.setOnClickListener(buttonsClick);
 
@@ -134,9 +131,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
                 //intent.putExtra("AdminFacade",adminFacade);
                 launcher.launch(intent);
             }
-//            if(view.getId() == btnBack.getId()){
-//                finish();
-//            }
+
         }
     }
 }

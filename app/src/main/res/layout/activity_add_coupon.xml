@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".AddCouponActivity">
 
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/addCoupon_toolbar"
         android:layout_width="409dp"
@@ -25,6 +26,7 @@
         android:id="@+id/addCoupon_spCategory"
         android:layout_width="383dp"
         android:layout_height="54dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.428"
@@ -129,6 +131,7 @@
         android:id="@+id/addCoupon_btnBack"
         android:layout_width="54dp"
         android:layout_height="51dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="8dp"
         android:backgroundTint="#00EDE5E5"
         android:scaleType="fitCenter"
@@ -142,6 +145,7 @@
         android:id="@+id/addCoupon_addIm"
         android:layout_width="177dp"
         android:layout_height="104dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.051"

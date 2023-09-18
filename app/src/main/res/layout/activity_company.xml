@@ -8,30 +8,36 @@
     android:fitsSystemWindows="true"
     tools:context=".CompanyActivity">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/company_toolBar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="71dp"
             android:background="#F3C84A"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:title="Company Coupons"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
             app:titleTextColor="#080909" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="22dp" />
-
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:orientation="vertical">
+            android:id="@+id/linearLayout2"
+            android:layout_width="373dp"
+            android:layout_height="104dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="10dp"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/company_toolBar">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -113,16 +119,25 @@
 
         </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="26dp" />
-
         <ListView
             android:id="@+id/company_lvCoupons"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_width="367dp"
+            android:layout_height="496dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="44dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="5dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/company_nv"

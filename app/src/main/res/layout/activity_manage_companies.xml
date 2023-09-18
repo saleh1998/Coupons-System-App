@@ -10,10 +10,9 @@
     tools:context=".MainActivity"
     tools:openDrawer="start">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/manageCompanies_toolbar"
@@ -21,16 +20,22 @@
             android:layout_height="wrap_content"
             android:background="#F3C84A"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="66dp"
-            android:orientation="horizontal">
+            android:id="@+id/linearLayout3"
+            android:layout_width="365dp"
+            android:layout_height="69dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/manageCompanies_toolbar">
 
             <Button
                 android:id="@+id/manageCompanies_btnAdd"
@@ -74,9 +79,16 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:id="@+id/linearLayout4"
+            android:layout_width="365dp"
             android:layout_height="55dp"
-            android:orientation="horizontal">
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="12dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout3"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout3"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
             <EditText
                 android:id="@+id/manageCompanies_etCompanyCode"
@@ -95,14 +107,15 @@
                 app:srcCompat="@android:drawable/ic_menu_search" />
         </LinearLayout>
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
-
         <FrameLayout
             android:id="@+id/manageCompanies_fragContainer"
-            android:layout_width="match_parent"
-            android:layout_height="521dp">
+            android:layout_width="365dp"
+            android:layout_height="459dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <ListView
                 android:id="@+id/manageCompanies_lv"
@@ -110,7 +123,8 @@
                 android:layout_height="match_parent" />
 
         </FrameLayout>
-    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
