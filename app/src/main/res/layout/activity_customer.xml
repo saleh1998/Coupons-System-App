@@ -111,21 +111,49 @@
                 android:text="Search"
                 android:textSize="20sp" />
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"></LinearLayout>
+
         </LinearLayout>
 
-        <Button
-            android:id="@+id/customer_btnQRCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:backgroundTint="#A39305"
-            android:text="Show QR Code"
-            android:textSize="20sp" />
-
-        <ListView
-            android:id="@+id/customer_lvCoupons"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="404dp" />
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="15dp"
+                android:layout_height="match_parent" />
+
+            <Button
+                android:id="@+id/customer_btnQRCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="#A39305"
+                android:text="Show QR Code"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="15dp"
+                android:layout_height="match_parent" />
+
+            <ListView
+                android:id="@+id/customer_lvCoupons"
+                android:layout_width="match_parent"
+                android:layout_height="411dp" />
+
+        </LinearLayout>
 
     </LinearLayout>
 

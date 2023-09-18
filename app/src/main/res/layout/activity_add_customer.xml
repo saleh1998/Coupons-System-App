@@ -19,18 +19,25 @@
             android:id="@+id/addCustomer_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F3C84A"
+            android:background="#A57E0A"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
+            android:theme="?attr/actionBarTheme"
+            app:title="  Add New Customer"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            android:layout_height="53dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="66dp"
             android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/addCustomer_btnSave"
@@ -57,68 +64,86 @@
                 android:text="Cancel"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </LinearLayout>
 
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            android:layout_height="13dp" />
 
-        <EditText
-            android:id="@+id/addCustomer_etFName"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter Customer First Name"
-            android:inputType="text" />
+            android:layout_height="match_parent">
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            <EditText
+                android:id="@+id/addCustomer_etFName"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="28dp"
+                android:ems="10"
+                android:hint="Enter Customer First Name"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.516"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <EditText
-            android:id="@+id/addCustomer_etLName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter Customer Last Name"
-            android:inputType="text" />
+            <EditText
+                android:id="@+id/addCustomer_etLName"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="44dp"
+                android:ems="10"
+                android:hint="Enter Customer Last Name"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@+id/addCustomer_etFName"
+                app:layout_constraintHorizontal_bias="0.482"
+                app:layout_constraintStart_toStartOf="@+id/addCustomer_etFName"
+                app:layout_constraintTop_toBottomOf="@+id/addCustomer_etFName" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            <EditText
+                android:id="@+id/addCustomer_etEmail"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="44dp"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="text|textEmailAddress"
+                app:layout_constraintEnd_toEndOf="@+id/addCustomer_etLName"
+                app:layout_constraintStart_toStartOf="@+id/addCustomer_etLName"
+                app:layout_constraintTop_toBottomOf="@+id/addCustomer_etLName" />
 
-        <EditText
-            android:id="@+id/addCustomer_etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="text|textEmailAddress" />
+            <EditText
+                android:id="@+id/addCustomer_etPassword"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="44dp"
+                android:ems="10"
+                android:hint="Enter Password"
+                android:inputType="text|textPassword"
+                app:layout_constraintEnd_toEndOf="@+id/addCustomer_etEmail"
+                app:layout_constraintHorizontal_bias="0.513"
+                app:layout_constraintStart_toStartOf="@+id/addCustomer_etEmail"
+                app:layout_constraintTop_toBottomOf="@+id/addCustomer_etEmail" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
-
-        <EditText
-            android:id="@+id/addCustomer_etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter Password"
-            android:inputType="text|textPassword" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
-
-        <EditText
-            android:id="@+id/addCustomer_etConfirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Confirm Password"
-            android:inputType="text|textPassword" />
+            <EditText
+                android:id="@+id/addCustomer_etConfirmPassword"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="44dp"
+                android:ems="10"
+                android:hint="Confirm Password"
+                android:inputType="text|textPassword"
+                app:layout_constraintEnd_toEndOf="@+id/addCustomer_etPassword"
+                app:layout_constraintHorizontal_bias="0.533"
+                app:layout_constraintStart_toStartOf="@+id/addCustomer_etPassword"
+                app:layout_constraintTop_toBottomOf="@+id/addCustomer_etPassword" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </LinearLayout>

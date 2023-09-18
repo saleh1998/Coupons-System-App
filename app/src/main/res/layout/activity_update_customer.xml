@@ -10,27 +10,33 @@
     tools:context=".UpdateCustomerActivity"
     tools:openDrawer="start">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/updateCustomer_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F3C84A"
+            android:background="#A57E0A"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="   Update Customer"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1" />
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="66dp"
-            android:orientation="horizontal">
+            android:id="@+id/linearLayout8"
+            android:layout_width="368dp"
+            android:layout_height="65dp"
+            android:layout_marginTop="30dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/updateCustomer_toolbar">
 
             <Button
                 android:id="@+id/updateCustomer_btnSave"
@@ -60,68 +66,72 @@
         </LinearLayout>
 
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
-
         <EditText
             android:id="@+id/updateCustomer_etFName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="343dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="100dp"
+            android:layout_marginEnd="12dp"
             android:ems="10"
             android:hint="Enter Customer First Name"
-            android:inputType="text" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout8"
+            app:layout_constraintHorizontal_bias="0.75"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout8"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
         <EditText
             android:id="@+id/updateCustomer_etLName"
-            android:layout_width="match_parent"
+            android:layout_width="343dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
             android:ems="10"
             android:hint="Enter Customer Last Name"
-            android:inputType="text" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@+id/updateCustomer_etFName"
+            app:layout_constraintTop_toBottomOf="@+id/updateCustomer_etFName" />
 
         <EditText
             android:id="@+id/updateCustomer_etEmail"
-            android:layout_width="match_parent"
+            android:layout_width="343dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
             android:ems="10"
             android:hint="Email"
-            android:inputType="text|textEmailAddress" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            android:inputType="text|textEmailAddress"
+            app:layout_constraintEnd_toEndOf="@+id/updateCustomer_etLName"
+            app:layout_constraintStart_toStartOf="@+id/updateCustomer_etLName"
+            app:layout_constraintTop_toBottomOf="@+id/updateCustomer_etLName" />
 
         <EditText
             android:id="@+id/updateCustomer_etPassword"
-            android:layout_width="match_parent"
+            android:layout_width="343dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
             android:ems="10"
             android:hint="Enter Password"
-            android:inputType="text|textPassword" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            android:inputType="text|textPassword"
+            app:layout_constraintEnd_toEndOf="@+id/updateCustomer_etEmail"
+            app:layout_constraintStart_toStartOf="@+id/updateCustomer_etEmail"
+            app:layout_constraintTop_toBottomOf="@+id/updateCustomer_etEmail" />
 
         <EditText
             android:id="@+id/updateCustomer_etConfirmPassword"
-            android:layout_width="match_parent"
+            android:layout_width="343dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="45dp"
             android:ems="10"
             android:hint="Confirm Password"
-            android:inputType="text|textPassword" />
+            android:inputType="text|textPassword"
+            app:layout_constraintEnd_toEndOf="@+id/updateCustomer_etPassword"
+            app:layout_constraintStart_toStartOf="@+id/updateCustomer_etPassword"
+            app:layout_constraintTop_toBottomOf="@+id/updateCustomer_etPassword" />
 
 
-    </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"

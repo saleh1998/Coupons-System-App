@@ -19,18 +19,25 @@
             android:id="@+id/addCompany_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F3C84A"
+            android:background="#A57E0A"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
+            android:theme="?attr/actionBarTheme"
+            app:title="  Add New Company"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1" />
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            android:layout_height="17dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="66dp"
             android:orientation="horizontal">
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/addCompany_btnSave"
@@ -57,56 +64,69 @@
                 android:text="Cancel"
                 android:textSize="20sp"
                 android:textStyle="bold" />
+
+            <Space
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
         </LinearLayout>
 
 
-        <Space
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/addCompany_etName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter Company Name"
-            android:inputType="text" />
+            <EditText
+                android:id="@+id/addCompany_etEmail"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="80dp"
+                android:ems="10"
+                android:hint="Email"
+                android:inputType="text|textEmailAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            <EditText
+                android:id="@+id/addCompany_etName"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="48dp"
+                android:ems="10"
+                android:hint="Enter Company Name"
+                android:inputType="text"
+                app:layout_constraintEnd_toEndOf="@+id/addCompany_etEmail"
+                app:layout_constraintHorizontal_bias="1.0"
+                app:layout_constraintStart_toStartOf="@+id/addCompany_etEmail"
+                app:layout_constraintTop_toBottomOf="@+id/addCompany_etEmail" />
 
-        <EditText
-            android:id="@+id/addCompany_etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Email"
-            android:inputType="text|textEmailAddress" />
+            <EditText
+                android:id="@+id/addCompany_etPassword"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="48dp"
+                android:ems="10"
+                android:hint="Enter Password"
+                android:inputType="text|textPassword"
+                app:layout_constraintEnd_toEndOf="@+id/addCompany_etName"
+                app:layout_constraintHorizontal_bias="0.2"
+                app:layout_constraintStart_toStartOf="@+id/addCompany_etName"
+                app:layout_constraintTop_toBottomOf="@+id/addCompany_etName" />
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
-
-        <EditText
-            android:id="@+id/addCompany_etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Enter Password"
-            android:inputType="text|textPassword" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
-
-        <EditText
-            android:id="@+id/addCompany_etConfirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Confirm Password"
-            android:inputType="text|textPassword" />
+            <EditText
+                android:id="@+id/addCompany_etConfirmPassword"
+                android:layout_width="350dp"
+                android:layout_height="50dp"
+                android:layout_marginTop="48dp"
+                android:ems="10"
+                android:hint="Confirm Password"
+                android:inputType="text|textPassword"
+                app:layout_constraintEnd_toEndOf="@+id/addCompany_etPassword"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/addCompany_etPassword"
+                app:layout_constraintTop_toBottomOf="@+id/addCompany_etPassword" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
     </LinearLayout>
