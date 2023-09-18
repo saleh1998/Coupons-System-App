@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.databases"
-        minSdk = 30
+        minSdk = 27
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"

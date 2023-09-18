@@ -172,7 +172,9 @@ public class ManageCustomersActivity extends AppCompatActivity implements Naviga
                 launcher.launch(intent);
                 selectedCustomerFName="";
                 selectedRow=-1;
-                bgLayout.setBackgroundColor(bgLineColor);
+                if(bgLayout!=null) {
+                    bgLayout.setBackgroundColor(bgLineColor);
+                }
 
             }
             if(view.getId() == btnUpdate.getId()){

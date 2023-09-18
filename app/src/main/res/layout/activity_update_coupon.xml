@@ -24,8 +24,9 @@
 
     <Spinner
         android:id="@+id/updateCoupon_spCategory"
-        android:layout_width="383dp"
+        android:layout_width="350dp"
         android:layout_height="54dp"
+        android:layout_marginStart="10dp"
         android:layout_marginTop="64dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.428"
@@ -34,7 +35,7 @@
 
     <EditText
         android:id="@+id/updateCoupon_etTitle"
-        android:layout_width="280dp"
+        android:layout_width="350dp"
         android:layout_height="44dp"
         android:layout_marginTop="20dp"
         android:ems="10"
@@ -47,7 +48,7 @@
 
     <EditText
         android:id="@+id/updateCoupon_etDescription"
-        android:layout_width="388dp"
+        android:layout_width="350dp"
         android:layout_height="41dp"
         android:layout_marginTop="20dp"
         android:ems="10"
@@ -131,7 +132,8 @@
         android:id="@+id/updateCoupon_btnBack"
         android:layout_width="54dp"
         android:layout_height="51dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
         android:backgroundTint="#00EDE5E5"
         android:scaleType="fitCenter"
         app:layout_constraintEnd_toEndOf="parent"

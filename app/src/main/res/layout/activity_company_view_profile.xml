@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,122 +7,125 @@
     android:background="#F0F0F0"
     tools:context=".CompanyViewProfileActivity">
 
-    <ImageButton
-        android:id="@+id/fragCompViewProfile_btnBack"
-        android:layout_width="63dp"
-        android:layout_height="51dp"
-        android:backgroundTint="#F6F2F2"
-        android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/fragCompViewProfile_tvComID"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.64"
-        app:srcCompat="@drawable/back" />
+    <!-- Company Name -->
+
+    <!-- Company ID Label -->
+
+    <!-- Company ID -->
+
+    <!-- Company Email Label -->
+
+    <!-- Company Email -->
 
     <TextView
         android:id="@+id/textViewCompanyNameLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="122dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="136dp"
+        android:gravity="center|start"
         android:text="Company Name:"
         android:textColor="#000000"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
-    <!-- Company Name -->
     <TextView
         android:id="@+id/fragCompViewProfile_tvComName"
-        android:layout_width="0dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="16dp"
-        android:background="#D6C424"
+        android:layout_width="245dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="136dp"
+        android:background="@drawable/border"
         android:gravity="center|start"
         android:text="Company Name"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.428"
         app:layout_constraintStart_toEndOf="@+id/textViewCompanyNameLabel"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCompanyNameLabel" />
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2" />
 
-    <!-- Company ID Label -->
     <TextView
         android:id="@+id/textViewCompanyIDLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="122dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="44dp"
         android:text="Company ID:"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragCompViewProfile_tvComName" />
+        app:layout_constraintStart_toStartOf="@+id/textViewCompanyNameLabel"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCompanyNameLabel" />
 
-    <!-- Company ID -->
     <TextView
         android:id="@+id/fragCompViewProfile_tvComID"
-        android:layout_width="0dp"
-        android:layout_height="44dp"
-        android:layout_marginTop="16dp"
-        android:background="#D6C424"
+        android:layout_width="245dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/border"
         android:gravity="center|start"
         android:text="Company ID"
         android:textColor="#000000"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewCompanyIDLabel"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCompanyIDLabel" />
+        app:layout_constraintStart_toStartOf="@+id/fragCompViewProfile_tvComName"
+        app:layout_constraintTop_toBottomOf="@+id/fragCompViewProfile_tvComName" />
 
-    <!-- Company Email Label -->
     <TextView
         android:id="@+id/textViewCompanyEmailLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="122dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="44dp"
         android:text="Company Email:"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragCompViewProfile_tvComID" />
+        app:layout_constraintEnd_toEndOf="@+id/textViewCompanyIDLabel"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/textViewCompanyIDLabel"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCompanyIDLabel" />
 
-    <!-- Company Email -->
+    <!-- Password Label -->
+
+    <!-- Password -->
+
     <TextView
         android:id="@+id/fragCompViewProfile_tvComEmail"
-        android:layout_width="0dp"
-        android:layout_height="45dp"
-        android:layout_marginTop="16dp"
-        android:background="#D6C424"
+        android:layout_width="245dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/edit_text_boarder"
         android:gravity="center|start"
         android:text="Company Email"
         android:textColor="#000000"
         android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fragCompViewProfile_tvComID"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewCompanyEmailLabel"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCompanyEmailLabel" />
+        app:layout_constraintStart_toStartOf="@+id/fragCompViewProfile_tvComID"
+        app:layout_constraintTop_toBottomOf="@+id/fragCompViewProfile_tvComID" />
 
-    <!-- Password Label -->
     <TextView
         android:id="@+id/textViewPasswordLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="122dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="44dp"
         android:text="Password:"
         android:textColor="#000000"
         android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragCompViewProfile_tvComEmail" />
+        app:layout_constraintEnd_toEndOf="@+id/textViewCompanyEmailLabel"
+        app:layout_constraintHorizontal_bias="0.51"
+        app:layout_constraintStart_toStartOf="@+id/textViewCompanyEmailLabel"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCompanyEmailLabel" />
 
-    <!-- Password -->
     <RelativeLayout
         android:id="@+id/passwordLayout"
-        android:layout_width="0dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="16dp"
-        android:background="#D6C424"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_width="241dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/edit_text_boarder"
+        app:layout_constraintEnd_toEndOf="@+id/fragCompViewProfile_tvComEmail"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/textViewPasswordLabel"
-        app:layout_constraintTop_toBottomOf="@+id/textViewPasswordLabel" >
+        app:layout_constraintStart_toStartOf="@+id/fragCompViewProfile_tvComEmail"
+        app:layout_constraintTop_toBottomOf="@+id/fragCompViewProfile_tvComEmail">
 
         <TextView
             android:id="@+id/fragCompViewProfile_tvComPassword"
@@ -148,18 +150,28 @@
     </RelativeLayout>
 
     <!-- Back Button -->
+
     <ImageView
         android:id="@+id/companyprofi_backbtn"
-        android:layout_width="61dp"
-        android:layout_height="75dp"
-        android:layout_marginTop="16dp"
-        android:background="#D6C424"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.045"
+        android:layout_width="66dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordLayout"
-        app:layout_constraintVertical_bias="0.821"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar2"
         app:srcCompat="@drawable/back" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar2"
+        android:layout_width="match_parent"
+        android:layout_height="77dp"
+        android:background="#F3C84A"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:title="    Profile"
+        app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
