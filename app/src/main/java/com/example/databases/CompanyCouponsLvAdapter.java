@@ -3,6 +3,8 @@ package com.example.databases;
 import android.content.ContentProvider;
 import android.content.ContentUris;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.MediaStore;
@@ -17,12 +19,16 @@ import android.content.ContentResolver;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
 import java.util.ArrayList;
 
 public class CompanyCouponsLvAdapter extends ArrayAdapter {
     Context ctx;
     int res;
     ArrayList<Coupon> companyCoupons;
+
     public CompanyCouponsLvAdapter(@NonNull Context context, int resource, ArrayList<Coupon> companyCoupons) {
         super(context, resource,companyCoupons);
 
@@ -38,6 +44,7 @@ public class CompanyCouponsLvAdapter extends ArrayAdapter {
         LayoutInflater inflater = LayoutInflater.from(ctx);
         view = inflater.inflate(res,parent,false);
         Coupon c = companyCoupons.get(position);
+
         ImageView cpnImage = view.findViewById(R.id.couponLine_image);
         TextView tvCouponID = view.findViewById(R.id.couponLine_tvID);
         TextView tvCompanyID = view.findViewById(R.id.copunLine_tvCompanyID);
@@ -62,6 +69,15 @@ public class CompanyCouponsLvAdapter extends ArrayAdapter {
         tvEndDate.setText(c.getEndDate().toString());
         tvAmount.setText(c.getAmount()+"");
         tvPrice.setText(c.getPrice()+"");
+
+//        Uri imgUri = Uri.parse(c.getImage());
+//        cpnImage.setImageURI(imgUri);
+
+//        Bitmap bitmap = BitmapFactory.decodeFile(c.getImage());
+//        cpnImage.setImageBitmap(bitmap);
+
+        Picasso.get().load(c.getImage()).into(cpnImage);
+
 
 
 
