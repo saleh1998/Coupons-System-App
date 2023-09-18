@@ -10,27 +10,35 @@
     tools:context=".UpdateCompanyActivity"
     tools:openDrawer="start">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/updateCompany_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#F3C84A"
+            android:background="#A57E0A"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            android:theme="?attr/actionBarTheme"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:title="   Update Company"
+            app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1" />
 
         <LinearLayout
+            android:id="@+id/linearLayout7"
             android:layout_width="match_parent"
             android:layout_height="66dp"
-            android:orientation="horizontal">
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="50dp"
+            android:layout_marginEnd="15dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/updateCompany_toolbar">
 
             <Button
                 android:id="@+id/updateCompany_btnSave"
@@ -60,49 +68,46 @@
         </LinearLayout>
 
 
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
-
         <EditText
             android:id="@+id/updateCompany_etName"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="144dp"
             android:ems="10"
             android:hint="Enter Company Name"
-            android:inputType="text" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@+id/linearLayout7"
+            app:layout_constraintHorizontal_bias="0.468"
+            app:layout_constraintStart_toStartOf="@+id/linearLayout7"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
 
         <EditText
             android:id="@+id/updateCompany_etEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="45dp"
             android:ems="10"
             android:hint="Email"
-            android:inputType="text|textEmailAddress" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
+            android:inputType="text|textEmailAddress"
+            app:layout_constraintEnd_toEndOf="@+id/updateCompany_etName"
+            app:layout_constraintStart_toStartOf="@+id/updateCompany_etName"
+            app:layout_constraintTop_toBottomOf="@+id/updateCompany_etName" />
 
         <EditText
             android:id="@+id/updateCompany_etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="350dp"
+            android:layout_height="55dp"
+            android:layout_marginTop="45dp"
             android:ems="10"
             android:hint="Enter Password"
-            android:inputType="text" />
-
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="11dp" />
-
+            android:inputType="text"
+            app:layout_constraintEnd_toEndOf="@+id/updateCompany_etEmail"
+            app:layout_constraintStart_toStartOf="@+id/updateCompany_etEmail"
+            app:layout_constraintTop_toBottomOf="@+id/updateCompany_etEmail" />
 
 
-    </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/nav_view"
         android:layout_width="wrap_content"

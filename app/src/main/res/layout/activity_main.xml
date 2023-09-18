@@ -27,7 +27,7 @@
         android:background="@android:drawable/zoom_plate"
         android:backgroundTint="#D6C424"
         android:gravity="center"
-        android:text="Coupons Managment App"
+        android:text="COUPIFY "
         android:textAlignment="center"
         android:textSize="20sp"
         android:textStyle="bold"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#937007"
             android:buttonTint="#937007"
-            android:text="User"
+            android:text="Customer"
             android:textSize="20sp"
             android:textStyle="bold" />
     </RadioGroup>

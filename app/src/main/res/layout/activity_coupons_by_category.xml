@@ -44,14 +44,18 @@
 
     <ListView
         android:id="@+id/cpnByCategory_lv"
-        android:layout_width="393dp"
-        android:layout_height="436dp"
+        android:layout_width="382dp"
+        android:layout_height="418dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
         android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.333"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cpnByCategory_btnSearch"
-        app:layout_constraintVertical_bias="0.916" />
+        app:layout_constraintVertical_bias="0.56" />
 
     <Button
         android:id="@+id/cpnByCategory_btnSearch"
@@ -73,7 +77,7 @@
         android:layout_height="51dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="8dp"
-        android:backgroundTint="#F6F2F2"
+        android:backgroundTint="#FFFFFF"
         android:scaleType="fitCenter"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cpnByCategory_toolBar"
