@@ -22,27 +22,14 @@
 
     <ListView
         android:id="@+id/cpnByPrice_lv"
-        android:layout_width="393dp"
-        android:layout_height="436dp"
+        android:layout_width="399dp"
+        android:layout_height="514dp"
         android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cpnByPrice_btnSearch"
-        app:layout_constraintVertical_bias="0.659" />
-
-    <Button
-        android:id="@+id/cpnByPrice_btnSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="#A39305"
-        android:text="Search"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/cpnByPrice_etPrice"
-        app:layout_constraintStart_toStartOf="@+id/cpnByPrice_etPrice"
-        app:layout_constraintTop_toBottomOf="@+id/cpnByPrice_etPrice" />
+        app:layout_constraintVertical_bias="0.952" />
 
     <ImageButton
         android:id="@+id/cpnByPrice_btnBack"
@@ -61,13 +48,23 @@
         android:id="@+id/cpnByPrice_etPrice"
         android:layout_width="273dp"
         android:layout_height="48dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="Maximum Price"
         android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/cpnByPrice_btnBack"
         app:layout_constraintTop_toBottomOf="@+id/cpnByPrice_toolBar" />
+
+    <ImageButton
+        android:id="@+id/cpnByPrice_btnSearch"
+        android:layout_width="90dp"
+        android:layout_height="58dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/cpnByPrice_etPrice"
+        app:layout_constraintHorizontal_bias="0.415"
+        app:layout_constraintStart_toStartOf="@+id/cpnByPrice_etPrice"
+        app:layout_constraintTop_toBottomOf="@+id/cpnByPrice_etPrice"
+        app:srcCompat="@android:drawable/ic_menu_search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

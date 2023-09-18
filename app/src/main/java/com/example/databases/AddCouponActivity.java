@@ -76,26 +76,10 @@ public class AddCouponActivity extends AppCompatActivity {
         categoriesSpin.setAdapter(categoryAdapter);
 
 
-        /* we have to get allCategories from db manager then put them in categoriesList
-        *******************************************************************************
-        ArrayAdapter aa = new ArrayAdapter(this, android.R.layout.simple_spinner_item, categoriesList);
-        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(aa);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                row = position;
-                ((TextView) parent.getChildAt(0)).setTextSize(30);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });*/
 
 
-        ButtonsClick buttonsClick =new ButtonsClick();
+
+        ButtonsClick buttonsClick = new ButtonsClick();
         btnSave.setOnClickListener(buttonsClick);
         btnBack.setOnClickListener(buttonsClick);
 
@@ -171,7 +155,9 @@ public class AddCouponActivity extends AppCompatActivity {
                         TextUtils.isEmpty(etStartDate.getText()) ||
                         TextUtils.isEmpty(etEndDate.getText()) ||
                         TextUtils.isEmpty(etAmount.getText()) ||
-                        TextUtils.isEmpty(etPrice.getText()) ) {
+                        TextUtils.isEmpty(etPrice.getText()) ||
+                        selectedImage == null) {
+
 
                     Toast.makeText(AddCouponActivity.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
 

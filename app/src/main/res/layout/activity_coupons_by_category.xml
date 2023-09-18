@@ -22,49 +22,34 @@
 
     <Spinner
         android:id="@+id/cpnByCategory_sp"
-        android:layout_width="330dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintStart_toStartOf="@+id/textView2"
+        android:layout_width="277dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <TextView
         android:id="@+id/textView2"
         android:layout_width="264dp"
         android:layout_height="40dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
         android:gravity="center|start"
         android:text="choose category "
         android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.272"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cpnByCategory_toolBar" />
 
     <ListView
         android:id="@+id/cpnByCategory_lv"
-        android:layout_width="393dp"
-        android:layout_height="436dp"
+        android:layout_width="397dp"
+        android:layout_height="524dp"
         android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cpnByCategory_btnSearch"
-        app:layout_constraintVertical_bias="0.916" />
-
-    <Button
-        android:id="@+id/cpnByCategory_btnSearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:backgroundTint="#A39305"
-        android:text="Search"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="@+id/cpnByCategory_sp"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/cpnByCategory_sp"
         app:layout_constraintTop_toBottomOf="@+id/cpnByCategory_sp" />
 
     <ImageButton
@@ -72,11 +57,24 @@
         android:layout_width="63dp"
         android:layout_height="51dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="4dp"
         android:backgroundTint="#F6F2F2"
         android:scaleType="fitCenter"
+        app:layout_constraintEnd_toStartOf="@+id/textView2"
+        app:layout_constraintHorizontal_bias="0.338"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cpnByCategory_toolBar"
         app:srcCompat="@drawable/back" />
+
+    <ImageButton
+        android:id="@+id/cpnByCategory_btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.652"
+        app:layout_constraintStart_toEndOf="@+id/cpnByCategory_sp"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:srcCompat="@android:drawable/ic_menu_search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

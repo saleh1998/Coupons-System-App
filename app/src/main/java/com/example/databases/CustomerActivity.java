@@ -151,11 +151,7 @@ public class CustomerActivity extends AppCompatActivity implements Serializable,
                 bgLineColor = view.getSolidColor();
                 bgLayout.setBackgroundColor(Color.rgb(150,150,150));
             }
-
         });
-
-
-
     }
 
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {

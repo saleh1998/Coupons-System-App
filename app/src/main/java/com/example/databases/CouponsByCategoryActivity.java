@@ -22,7 +22,7 @@ public class CouponsByCategoryActivity extends AppCompatActivity {
     ListView couponsLv;
     CompanyCouponsLvAdapter lvAdapter;
     ImageButton btnBack;
-    Button btnSearch;
+    ImageButton btnSearch;
     Category[] categoriesList;
     int row;
 
