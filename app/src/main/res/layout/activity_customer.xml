@@ -39,12 +39,12 @@
 
             <Button
                 android:id="@+id/customer_btnBuy"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_width="262dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:backgroundTint="#A39305"
                 android:text="Buy new Coupon"
-                android:textSize="20sp" />
+                android:textSize="24sp" />
 
             <Space
                 android:layout_width="wrap_content"
@@ -59,25 +59,41 @@
 
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="match_parent"
+            android:layout_width="381dp"
             android:layout_height="wrap_content"
-            android:text="choose category"
+            android:text="   choose category"
             android:textSize="24sp" />
 
-        <Spinner
-            android:id="@+id/customer_categorySpinner"
-            android:layout_width="348dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:orientation="horizontal">
+
+            <Space
+                android:layout_width="15dp"
+                android:layout_height="match_parent" />
+            <Spinner
+                android:id="@+id/customer_categorySpinner"
+                android:layout_width="348dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+
 
         <Space
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="11dp" />
 
         <LinearLayout
-            android:layout_width="392dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
+            <Space
+                android:layout_width="15dp"
+                android:layout_height="match_parent" />
 
             <EditText
                 android:id="@+id/customer_etMaxPrice"
@@ -109,7 +125,7 @@
         <ListView
             android:id="@+id/customer_lvCoupons"
             android:layout_width="match_parent"
-            android:layout_height="417dp" />
+            android:layout_height="404dp" />
 
     </LinearLayout>
 

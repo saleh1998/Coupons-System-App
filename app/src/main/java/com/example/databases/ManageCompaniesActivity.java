@@ -186,8 +186,9 @@ public class ManageCompaniesActivity extends AppCompatActivity implements Naviga
                 launcher.launch(intent);
                 selectedCompanyName="";
                 selectedRow=-1;
-                bgLayout.setBackgroundColor(bgLineColor);
-
+                if(bgLayout!=null) {
+                    bgLayout.setBackgroundColor(bgLineColor);
+                }
             }
             if(view.getId() == btnUpdate.getId()){
                 if(selectedRow !=-1){
