@@ -70,16 +70,8 @@ public class CompanyCouponsLvAdapter extends ArrayAdapter {
         tvAmount.setText(c.getAmount()+"");
         tvPrice.setText(c.getPrice()+"");
 
-//        Uri imgUri = Uri.parse(c.getImage());
-//        cpnImage.setImageURI(imgUri);
-
-//        Bitmap bitmap = BitmapFactory.decodeFile(c.getImage());
-//        cpnImage.setImageBitmap(bitmap);
 
         Picasso.get().load(c.getImage()).into(cpnImage);
-
-
-
 
         return view;
     }

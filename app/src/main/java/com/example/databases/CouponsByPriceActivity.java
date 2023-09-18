@@ -19,7 +19,7 @@ public class CouponsByPriceActivity extends AppCompatActivity {
     ListView couponsLv;
     CompanyCouponsLvAdapter lvAdapter;
     ImageButton btnBack;
-    Button btnSearch;
+    ImageButton btnSearch;
     CompanyFacade companyFacade;
     Double price = 0.0;
 
