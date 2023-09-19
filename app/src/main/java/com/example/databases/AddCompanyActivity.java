@@ -96,44 +96,50 @@ public class AddCompanyActivity extends AppCompatActivity implements NavigationV
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
                 String confirmPassword = etConfirmPassword.getText().toString();
-                if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    if (password.equals(confirmPassword)) {
-                        Company company = new Company(name, email, password);
+                if(ValidInput.isValidEmail(email)){
+                    if (!name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                        if (password.equals(confirmPassword)) {
+                            Company company = new Company(name, email, password);
 
-                        ///// added by rashad with advice from bayan
-                        AdminFacade adminFacade = new AdminFacade(AddCompanyActivity.this);
-                        if (!adminFacade.CompanyNameExists(company)) {
-                            if (!adminFacade.CompanyEmailExists(company)) {
-                                try {
-                                    adminFacade.addCompany(company);
-                                    Intent intent = getIntent();
-                                    intent.putExtra("company", company);
-                                    intent.putExtra("requestCode", 2);
-                                    setResult(RESULT_OK, intent);
-                                    finish();
-                                } catch (myException e) {
-                                    throw new RuntimeException(e);
+                            ///// added by rashad with advice from bayan
+                            AdminFacade adminFacade = new AdminFacade(AddCompanyActivity.this);
+                            if (!adminFacade.CompanyNameExists(company)) {
+                                if (!adminFacade.CompanyEmailExists(company)) {
+                                    try {
+                                        adminFacade.addCompany(company);
+                                        Intent intent = getIntent();
+                                        intent.putExtra("company", company);
+                                        intent.putExtra("requestCode", 2);
+                                        setResult(RESULT_OK, intent);
+                                        finish();
+                                    } catch (myException e) {
+                                        throw new RuntimeException(e);
+                                    }
+                                } else {
+                                    Toast.makeText(AddCompanyActivity.this, "Email is already taken", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Toast.makeText(AddCompanyActivity.this, "Email is already taken", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(AddCompanyActivity.this, "Name is already taken", Toast.LENGTH_SHORT).show();
                             }
-                        } else {
-                            Toast.makeText(AddCompanyActivity.this, "Name is already taken", Toast.LENGTH_SHORT).show();
-                        }
-                        /////
+                            /////
                     /*Intent intent = getIntent();
                     intent.putExtra("company", company);
                     intent.putExtra("requestCode", 2);
                     setResult(RESULT_OK, intent);
                     finish();*/
 
-                    } else {
-                        etPassword.setText("");
-                        etConfirmPassword.setText("");
-                        Toast.makeText(AddCompanyActivity.this, "Please insert correct password confirmation!!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            etPassword.setText("");
+                            etConfirmPassword.setText("");
+                            Toast.makeText(AddCompanyActivity.this, "Please insert correct password confirmation!!", Toast.LENGTH_SHORT).show();
+                        }
+                    }else{
+                        Toast.makeText(AddCompanyActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                     }
-                }else{
-                    Toast.makeText(AddCompanyActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+
+                }
+                else{
+                    Toast.makeText(AddCompanyActivity.this, "not valid email", Toast.LENGTH_SHORT).show();
                 }
             }
             if (view.getId() == btnCancel.getId()) {

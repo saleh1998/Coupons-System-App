@@ -82,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     RadioButton selected = findViewById(selectedRadioBtnRow);
                     String userName = etUserName.getText().toString();
                     String pass = etPassword.getText().toString();
+                    if(ValidInput.isValidEmail(userName)){
                     if(selected.getId() == rdAdmin.getId()){
                         AdminFacade adminFacade = (AdminFacade) loginManager.login(userName,pass,ClientType.Administrator);
                         if(adminFacade != null) {
@@ -120,8 +121,11 @@ public class MainActivity extends AppCompatActivity {
                         }
                         else {
                             Toast.makeText(MainActivity.this,"User Name or Password incorrect", Toast.LENGTH_LONG).show();
-                        }
+                        }}
 
+                    }
+                    else {
+                        Toast.makeText(MainActivity.this,"this is not valid email", Toast.LENGTH_LONG).show();
                     }
                 }
             }

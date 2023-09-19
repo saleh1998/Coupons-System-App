@@ -89,27 +89,28 @@ public class AddCustomerActivity extends AppCompatActivity implements Navigation
                 String password = etPassword.getText().toString();
                 String confirmPassword = etConfirmPassword.getText().toString();
                 if (!f_name.isEmpty() && !l_name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    if (password.equals(confirmPassword)) {
-                        Customer customer = new Customer(f_name, l_name, email, password);
+                    if(ValidInput.isValidEmail(email)){
+                        if (password.equals(confirmPassword)) {
+                            Customer customer = new Customer(f_name, l_name, email, password);
 
-                        ///// added by rashad with advice from bayan
-                        AdminFacade adminFacade = new AdminFacade(AddCustomerActivity.this);
+                            ///// added by rashad with advice from bayan
+                            AdminFacade adminFacade = new AdminFacade(AddCustomerActivity.this);
 
-                        if (!adminFacade.CustomerEmailExists(customer)) {
-                            try {
-                                adminFacade.addCustomer(customer);
-                                Intent intent = getIntent();
-                                intent.putExtra("customer", customer);
-                                intent.putExtra("requestCode", 2);
-                                setResult(RESULT_OK, intent);
-                                finish();
-                            } catch (myException e) {
-                                throw new RuntimeException(e);
+                            if (!adminFacade.CustomerEmailExists(customer)) {
+                                try {
+                                    adminFacade.addCustomer(customer);
+                                    Intent intent = getIntent();
+                                    intent.putExtra("customer", customer);
+                                    intent.putExtra("requestCode", 2);
+                                    setResult(RESULT_OK, intent);
+                                    finish();
+                                } catch (myException e) {
+                                    throw new RuntimeException(e);
+                                }
+                            } else {
+                                Toast.makeText(AddCustomerActivity.this, "Email is already taken", Toast.LENGTH_SHORT).show();
                             }
-                        } else {
-                            Toast.makeText(AddCustomerActivity.this, "Email is already taken", Toast.LENGTH_SHORT).show();
-                        }
-                        /////
+                            /////
 
                     /*Intent intent = getIntent();
                     intent.putExtra("customer", customer);
@@ -117,11 +118,18 @@ public class AddCustomerActivity extends AppCompatActivity implements Navigation
                     setResult(RESULT_OK, intent);
                     finish();*/
 
-                    } else {
-                        etPassword.setText("");
-                        etConfirmPassword.setText("");
-                        Toast.makeText(AddCustomerActivity.this, "Please insert correct password confirmation!!", Toast.LENGTH_SHORT).show();
+                        } else {
+                            etPassword.setText("");
+                            etConfirmPassword.setText("");
+                            Toast.makeText(AddCustomerActivity.this, "Please insert correct password confirmation!!", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
+                    else{
+                        Toast.makeText(AddCustomerActivity.this, "not valid email", Toast.LENGTH_SHORT).show();
+                    }
+
+
                 }else{
                     Toast.makeText(AddCustomerActivity.this, "Please fill all fields", Toast.LENGTH_SHORT).show();
                 }
