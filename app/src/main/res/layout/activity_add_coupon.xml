@@ -7,6 +7,19 @@
     tools:context=".AddCouponActivity">
 
 
+    <ImageView
+        android:id="@+id/addCoupon_imEnd"
+        android:layout_width="34dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/addCoupon_etEndDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/addCoupon_etEndDate"
+        app:layout_constraintTop_toTopOf="@+id/addCoupon_etEndDate"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/calendar"
+        android:onClick="onEndDateClick"/>
+
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/addCoupon_toolbar"
         android:layout_width="409dp"
@@ -163,5 +176,18 @@
         app:layout_constraintHorizontal_bias="0.191"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addCoupon_etPrice" />
+
+    <ImageView
+        android:id="@+id/addcoupon_imStart"
+        android:layout_width="34dp"
+        android:layout_height="40dp"
+        app:layout_constraintBottom_toBottomOf="@+id/addCoupon_etStartDate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/addCoupon_etStartDate"
+        app:layout_constraintTop_toTopOf="@+id/addCoupon_etStartDate"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/calendar"
+        android:onClick="onStartDateClick"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

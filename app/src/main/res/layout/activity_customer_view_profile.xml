@@ -28,6 +28,7 @@ tools:context=".CustomerViewProfileActivity">
         android:layout_marginTop="180dp"
         android:background="@drawable/border"
         android:gravity="center|start"
+        android:text="customerID"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.074"
@@ -35,17 +36,18 @@ tools:context=".CustomerViewProfileActivity">
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/fragCustViewProfile_tvCustName"
-        android:layout_width="211dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="44dp"
-        android:background="@drawable/border"
-        android:gravity="center|start"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/fragCustViewProfile_tvCustID"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/fragCustViewProfile_tvCustID"
-        app:layout_constraintTop_toBottomOf="@+id/fragCustViewProfile_tvCustID" />
+    android:id="@+id/fragCustViewProfile_tvCustName"
+    android:layout_width="211dp"
+    android:layout_height="46dp"
+    android:layout_marginTop="44dp"
+    android:background="@drawable/border"
+    android:gravity="center|start"
+    android:text="name"
+    android:textSize="20sp"
+    app:layout_constraintEnd_toEndOf="@+id/fragCustViewProfile_tvCustID"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="@+id/fragCustViewProfile_tvCustID"
+    app:layout_constraintTop_toBottomOf="@+id/fragCustViewProfile_tvCustID" />
 
     <TextView
         android:id="@+id/fragCustViewProfile_tvCustEmail"
@@ -54,6 +56,7 @@ tools:context=".CustomerViewProfileActivity">
         android:layout_marginTop="44dp"
         android:background="@drawable/border"
         android:gravity="center|start"
+        android:text="email"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@+id/fragCustViewProfile_tvCustName"
         app:layout_constraintHorizontal_bias="0.0"
@@ -61,17 +64,18 @@ tools:context=".CustomerViewProfileActivity">
         app:layout_constraintTop_toBottomOf="@+id/fragCustViewProfile_tvCustName" />
 
     <TextView
-        android:id="@+id/fragCustViewProfile_tvCustPassword"
-        android:layout_width="243dp"
-        android:layout_height="43dp"
-        android:layout_marginTop="44dp"
-        android:background="@drawable/border"
-        android:gravity="center|start"
-        android:textSize="20sp"
-        app:layout_constraintEnd_toEndOf="@+id/fragCustViewProfile_tvCustEmail"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/fragCustViewProfile_tvCustEmail"
-        app:layout_constraintTop_toBottomOf="@+id/fragCustViewProfile_tvCustEmail" />
+    android:id="@+id/fragCustViewProfile_tvCustPassword"
+    android:layout_width="243dp"
+    android:layout_height="43dp"
+    android:layout_marginTop="44dp"
+    android:background="@drawable/border"
+    android:gravity="center|start"
+    android:text="password"
+    android:textSize="20sp"
+    app:layout_constraintEnd_toEndOf="@+id/fragCustViewProfile_tvCustEmail"
+    app:layout_constraintHorizontal_bias="0.0"
+    app:layout_constraintStart_toStartOf="@+id/fragCustViewProfile_tvCustEmail"
+    app:layout_constraintTop_toBottomOf="@+id/fragCustViewProfile_tvCustEmail" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar3"

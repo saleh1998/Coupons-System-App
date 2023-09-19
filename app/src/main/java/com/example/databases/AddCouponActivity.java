@@ -73,7 +73,6 @@ public class AddCouponActivity extends AppCompatActivity {
 
         addImage = findViewById(R.id.addCoupon_addIm);
 
-
         categoriesSpin = findViewById(R.id.addCoupon_spCategory);
         ArrayAdapter<Category> categoryAdapter;
         categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());
