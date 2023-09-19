@@ -27,7 +27,6 @@ public class BuyCouponActivity extends AppCompatActivity implements Serializable
     int selectedRow = -1;
     int bgLineColor;
     LinearLayout bgLayout;
-
     ListView lvCoupons;
     ImageButton imBack;
     Button btnBuy;
@@ -41,9 +40,6 @@ public class BuyCouponActivity extends AppCompatActivity implements Serializable
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_buy_coupon);
-
-
-
         lvCoupons = findViewById(R.id.buyCpn_lvCoupons);
         imBack = findViewById(R.id.buyCpn_btnBack);
         btnBuy = findViewById(R.id.buyCpn_btnbuy);
