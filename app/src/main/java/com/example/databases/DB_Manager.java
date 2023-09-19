@@ -567,11 +567,6 @@ public class DB_Manager extends SQLiteOpenHelper{
         if (coupon != null && customer != null) {
             if (coupon.getAmount() > 0) {
                 coupon.setAmount(coupon.getAmount() - 1);
-
-/*
-                customer.getCoupons().add(coupon);
-*/
-
                 try {
                     updateCoupon(coupon);
                     updateCustomer(customer);

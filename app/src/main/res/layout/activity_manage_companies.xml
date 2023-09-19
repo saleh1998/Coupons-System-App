@@ -97,7 +97,7 @@
                 android:layout_weight="1"
                 android:ems="10"
                 android:hint="Company Code"
-                android:inputType="text" />
+                android:inputType="number" />
 
             <ImageButton
                 android:id="@+id/manageCompanies_btnSearch"

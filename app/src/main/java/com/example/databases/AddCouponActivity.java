@@ -6,6 +6,8 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.DatePickerDialog;
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -16,6 +18,9 @@ import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -79,7 +84,8 @@ public class AddCouponActivity extends AppCompatActivity {
 
 
 
-        ButtonsClick buttonsClick = new ButtonsClick();
+
+        ButtonsClick buttonsClick =new ButtonsClick();
         btnSave.setOnClickListener(buttonsClick);
         btnBack.setOnClickListener(buttonsClick);
 
@@ -92,6 +98,25 @@ public class AddCouponActivity extends AppCompatActivity {
             }
         });
 
+    }
+    private String saveImageToInternalStorage(Bitmap bitmap, Context context) {
+        try {
+            // Use the app's private directory.
+
+            String add =System.currentTimeMillis()+"";
+            File directory = context.getDir("imageDir", Context.MODE_PRIVATE);
+            // Name the file.
+            File myImageFile = new File(directory, "selectedImage_"+add+".jpg");
+
+            FileOutputStream fos = new FileOutputStream(myImageFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos);
+            fos.close();
+
+            return myImageFile.getAbsolutePath();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
     public void onStartDateClick(View view) {
         showDatePickerDialog(etStartDate);
@@ -132,7 +157,7 @@ public class AddCouponActivity extends AppCompatActivity {
             Intent intent = result.getData();
             if (intent != null) {
                 if (result.getResultCode() == RESULT_OK ){
-                    selectedImage = intent.getData();
+                    selectedImage = Uri.parse(String.valueOf(intent.getData()));
                     addImage.setImageURI(selectedImage);
 
                 }
@@ -172,12 +197,20 @@ public class AddCouponActivity extends AppCompatActivity {
                     String imgSrc = etImg.getText().toString();
 */
                     String imgSrc = selectedImage.toString();
+
+                    Bitmap selectedImageBitmap = null;
+                    try {
+                        selectedImageBitmap = MediaStore.Images.Media.getBitmap(AddCouponActivity.this.getContentResolver(), selectedImage);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    String imagePath = saveImageToInternalStorage(selectedImageBitmap, AddCouponActivity.this);
                     int companyId = companyFacade.getCompanyID();
                     if (startDate.after(endDate)) {
                         Toast.makeText(AddCouponActivity.this, "end date can not be before start date", Toast.LENGTH_SHORT).show();
 
                     } else {
-                        Coupon newCoupon = new Coupon(companyId, selectedCategory, title, description, startDate, endDate, amount, price, imgSrc);
+                        Coupon newCoupon = new Coupon(companyId, selectedCategory, title, description, startDate, endDate, amount, price, imagePath);
 
                         Intent intent = new Intent();
                         intent.putExtra("coupon", newCoupon);

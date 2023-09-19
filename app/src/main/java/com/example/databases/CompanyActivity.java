@@ -13,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -94,14 +95,24 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(selectedRow != -1)
                 {
-                    bgLayout.setBackgroundColor(bgLineColor);
+
+                    if (bgLayout != null) {
+                    if(bgLayout!= null) {
+                    Drawable borderDrawable = getResources().getDrawable(R.drawable.border);
+                    bgLayout.setBackground(borderDrawable);
                 }
+                    //bgLayout.setBackgroundColor(bgLineColor);
+                }}
                 selectedRow = position;
                 lvCompanyCoupons.setSelection(position);
 
                 bgLayout = (LinearLayout) view.findViewById(R.id.couponLine_layout);
                 bgLineColor = view.getSolidColor();
+
+                Drawable borderDrawable = getResources().getDrawable(R.drawable.border);
+                //bgLayout.setBackground(borderDrawable);
                 bgLayout.setBackgroundColor(Color.rgb(150,150,150));
+
             }
         });
         ButtonsClick buttonsClick = new ButtonsClick();
@@ -203,15 +214,20 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
 
         @Override
         public void onClick(View v) {
-            if(v.getId() == btnAdd.getId()){
+            if(v.getId() == btnAdd.getId()) {
 
                 Intent intent = new Intent(CompanyActivity.this, AddCouponActivity.class);
-                    intent.putExtra("companyid",companyFacade.getCompanyID());
-                 //   intent.putExtra("codeForCompanyActivity",1);
+                intent.putExtra("companyid", companyFacade.getCompanyID());
+                //   intent.putExtra("codeForCompanyActivity",1);
                 launcher.launch(intent);
                 selectedRow = -1;
 
-
+                if (bgLayout != null) {
+                    if(bgLayout!= null) {
+                    Drawable borderDrawable = getResources().getDrawable(R.drawable.border);
+                    bgLayout.setBackground(borderDrawable);
+                }
+                }
             }
             if(v.getId() == btnUpdate.getId()) {
                 if (selectedRow != -1) {
@@ -227,8 +243,12 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
                     intent.putExtra("companyid", companyFacade.getCompanyID());
                     launcher.launch(intent);
                     selectedRow = -1;
-
-                } else {
+                    if (bgLayout != null) {
+                    if(bgLayout!= null) {
+                    Drawable borderDrawable = getResources().getDrawable(R.drawable.border);
+                    bgLayout.setBackground(borderDrawable);
+                }
+                }} else {
                     Toast.makeText(CompanyActivity.this, "please select first the coupon you want to update", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -252,6 +272,12 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
                 intent.putExtra("companyid", companyFacade.getCompanyID());
                 startActivity(intent);
                 selectedRow = -1;
+
+                    if(bgLayout!= null) {
+                    Drawable borderDrawable = getResources().getDrawable(R.drawable.border);
+                    bgLayout.setBackground(borderDrawable);
+
+                }
             }
             if(v.getId() == btnGetByPrice.getId()){
                 Intent intent = new Intent(CompanyActivity.this, CouponsByPriceActivity.class);
@@ -259,6 +285,12 @@ CompanyActivity extends AppCompatActivity implements NavigationView.OnNavigation
                 startActivity(intent);
                 selectedRow = -1;
 
+
+                    if(bgLayout!= null) {
+                    Drawable borderDrawable = getResources().getDrawable(R.drawable.border);
+                    bgLayout.setBackground(borderDrawable);
+
+                }
             }
         }
     }
