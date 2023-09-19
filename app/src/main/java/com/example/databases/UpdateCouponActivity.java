@@ -75,7 +75,7 @@ public class UpdateCouponActivity extends AppCompatActivity {
         etAmount = findViewById(R.id.updateCoupon_etAmount);
 
         btnBack = findViewById(R.id.updateCoupon_btnBack);
-        addImage = findViewById(R.id.updateCoupon_addIm);
+//        addImage = findViewById(R.id.updateCoupon_addIm);
         btnUpdate = findViewById(R.id.updateCoupon_btnUpdate);
         spinner = findViewById(R.id.updateCoupon_spCategory);
         dateFormat = new SimpleDateFormat("dd-MM-yyyy");

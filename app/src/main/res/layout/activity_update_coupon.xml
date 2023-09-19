@@ -22,25 +22,22 @@
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
         app:titleTextColor="#F1EAEA" />
 
-
-    <EditText
-        android:id="@+id/updateCoupon_etPrice"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="Price"
-        android:inputType="number"
-        app:layout_constraintEnd_toEndOf="@+id/updateCoupon_etAmount"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/updateCoupon_etAmount"
-        app:layout_constraintTop_toBottomOf="@+id/updateCoupon_etAmount" />
+    <Spinner
+        android:id="@+id/updateCoupon_spCategory"
+        android:layout_width="350dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="64dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/updateCoupon_toolbar" />
 
     <EditText
         android:id="@+id/updateCoupon_etTitle"
         android:layout_width="350dp"
         android:layout_height="44dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Title"
         android:inputType="text"
@@ -53,7 +50,7 @@
         android:id="@+id/updateCoupon_etDescription"
         android:layout_width="350dp"
         android:layout_height="41dp"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Description"
         android:inputType="text"
@@ -66,48 +63,37 @@
         android:id="@+id/updateCoupon_etStartDate"
         android:layout_width="217dp"
         android:layout_height="40dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
-        android:focusable="false"
         android:hint="Start Date"
         android:inputType="date"
-        android:onClick="onStartDateClick"
         app:layout_constraintEnd_toEndOf="@+id/updateCoupon_etDescription"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/updateCoupon_etDescription"
-        app:layout_constraintTop_toBottomOf="@+id/updateCoupon_etDescription" />
+        app:layout_constraintTop_toBottomOf="@+id/updateCoupon_etDescription"
+        android:focusable="false"
+        android:onClick="onStartDateClick"/>
 
     <EditText
         android:id="@+id/updateCoupon_etEndDate"
         android:layout_width="217dp"
         android:layout_height="40dp"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
-        android:focusable="false"
         android:hint="End Date"
         android:inputType="date"
-        android:onClick="onEndDateClick"
         app:layout_constraintEnd_toEndOf="@+id/updateCoupon_etStartDate"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/updateCoupon_etStartDate"
-        app:layout_constraintTop_toBottomOf="@+id/updateCoupon_etStartDate" />
-
-    <Spinner
-        android:id="@+id/updateCoupon_spCategory"
-        android:layout_width="350dp"
-        android:layout_height="54dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="68dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.901"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updateCoupon_toolbar" />
+        app:layout_constraintTop_toBottomOf="@+id/updateCoupon_etStartDate"
+        android:focusable="false"
+        android:onClick="onEndDateClick"/>
 
     <EditText
         android:id="@+id/updateCoupon_etAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="20dp"
         android:ems="10"
         android:hint="Amount"
         android:inputType="numberDecimal"
@@ -117,18 +103,18 @@
 
         app:layout_constraintTop_toBottomOf="@+id/updateCoupon_etEndDate" />
 
-    <ImageButton
-        android:id="@+id/updateCoupon_addIm"
-        android:layout_width="177dp"
-        android:layout_height="104dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/updateCoupon_btnUpdate"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/add_photo_icon" />
+    <EditText
+        android:id="@+id/updateCoupon_etPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Price"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="@+id/updateCoupon_etAmount"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/updateCoupon_etAmount"
+        app:layout_constraintTop_toBottomOf="@+id/updateCoupon_etAmount" />
 
     <Button
         android:id="@+id/updateCoupon_btnUpdate"
@@ -156,14 +142,15 @@
         app:layout_constraintTop_toBottomOf="@+id/updateCoupon_toolbar"
         app:srcCompat="@drawable/back" />
 
-    <TextView
-        android:id="@+id/textView7"
+    <EditText
+        android:id="@+id/updateCoupon_etImgSrc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="add image"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Image src"
+        android:inputType="text"
         app:layout_constraintEnd_toEndOf="@+id/updateCoupon_etPrice"
         app:layout_constraintStart_toStartOf="@+id/updateCoupon_etPrice"
         app:layout_constraintTop_toBottomOf="@+id/updateCoupon_etPrice" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

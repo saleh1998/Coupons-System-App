@@ -101,7 +101,7 @@
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Maximum Price"
-                android:inputType="numberDecimal" />
+                android:inputType="text" />
 
             <Button
                 android:id="@+id/customer_btnSearch"

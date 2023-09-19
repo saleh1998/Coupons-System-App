@@ -164,4 +164,37 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/addCoupon_etPrice" />
 
+    <ImageButton
+        android:id="@+id/addCoupon_btnCalStart"
+        android:layout_width="49dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#FFFFFF"
+        android:scaleType="fitCenter"
+        android:tint="#A39305"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/addCoupon_etStartDate"
+        app:layout_constraintTop_toBottomOf="@+id/addCoupon_etDescription"
+        app:srcCompat="@drawable/calendar"
+        android:onClick="onStartDateClick"
+
+        />
+
+    <ImageButton
+        android:id="@+id/addCoupon_btnCalEnd"
+        android:layout_width="49dp"
+        android:layout_height="39dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="#FFFFFF"
+        android:scaleType="fitCenter"
+        android:tint="#A39305"
+        app:layout_constraintEnd_toEndOf="@+id/addCoupon_btnCalStart"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/addCoupon_etEndDate"
+        app:layout_constraintTop_toBottomOf="@+id/addCoupon_btnCalStart"
+        app:srcCompat="@drawable/calendar"
+        android:onClick="onEndDateClick"
+       />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
