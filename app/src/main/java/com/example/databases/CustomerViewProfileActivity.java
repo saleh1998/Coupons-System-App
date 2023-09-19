@@ -29,10 +29,10 @@ public class CustomerViewProfileActivity extends AppCompatActivity {
         customerFacade.setCustomerID(customerId);
         Customer customer = customerFacade.getCustomerDetails();
 
-        tvCustID.setText(" ID: "+customer.getId());
-        tvCustName.setText(" Name: " + customer.getFirstName()+" " + customer.getLastName());
-        tvCustEmail.setText(" Email: " + customer.getEmail());
-        tvCustPass.setText(" password: " + customer.getPassword());
+        tvCustID.setText("  "+ customer.getId()+"");
+        tvCustName.setText("  "+customer.getFirstName()+" " + customer.getLastName());
+        tvCustEmail.setText("  "+customer.getEmail()+"");
+        tvCustPass.setText("  "+customer.getPassword()+"");
 
         imBack.setOnClickListener(new View.OnClickListener() {
             @Override

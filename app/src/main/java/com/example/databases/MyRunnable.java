@@ -1,6 +1,7 @@
 package com.example.databases;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
 
 
@@ -14,12 +15,30 @@ public class MyRunnable implements Runnable {
     public void run() {
         while (!quit) {
             try {
-                // Try deleting expired coupons and their purchase history every 24 hours
+                // Get the current time
+                Calendar now = Calendar.getInstance();
+
+                // Get the time for the next midnight
+                Calendar nextMidnight = (Calendar) now.clone();
+                nextMidnight.add(Calendar.DATE, 1);
+                nextMidnight.set(Calendar.HOUR_OF_DAY, 0);
+                nextMidnight.set(Calendar.MINUTE, 0);
+                nextMidnight.set(Calendar.SECOND, 0);
+
+                // Calculate the time to sleep until the next midnight
+                long sleepTimeMillis = nextMidnight.getTimeInMillis() - now.getTimeInMillis();
+
+                // Sleep until the next midnight
+                TimeUnit.MILLISECONDS.sleep(sleepTimeMillis);
+
+                // After waking up (at midnight), delete expired coupons
                 deleteExpiredCoupons();
-                TimeUnit.HOURS.sleep(24);
-            } catch (InterruptedException | myException | ParseException e) {
+
+            } catch (InterruptedException e) {
                 // If the thread was interrupted, stop the job
                 break;
+            } catch (myException | ParseException e) {
+                // Handle the exceptions as per your requirements
             }
         }
     }

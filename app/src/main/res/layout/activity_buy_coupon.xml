@@ -113,7 +113,7 @@ tools:context=".BuyCouponActivity">
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Maximum Price"
-                android:inputType="text"
+                android:inputType="numberDecimal"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
