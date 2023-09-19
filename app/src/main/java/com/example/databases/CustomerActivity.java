@@ -13,6 +13,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -142,8 +143,13 @@ public class CustomerActivity extends AppCompatActivity implements Serializable,
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(selectedRow != -1){
-                    bgLayout.setBackgroundColor(bgLineColor);
+                    if(bgLayout!=null) {
+                    if(bgLayout!= null) {
+                    Drawable borderDrawable = getResources().getDrawable(R.drawable.border);
+                    bgLayout.setBackground(borderDrawable);
                 }
+                    //bgLayout.setBackgroundColor(bgLineColor);
+                }  }
                 selectedRow = position;
                 lvCoupons.setSelection(position);
 
@@ -211,18 +217,25 @@ public class CustomerActivity extends AppCompatActivity implements Serializable,
                 Intent intent = new Intent(CustomerActivity.this, BuyCouponActivity.class);
                 intent.putExtra("customerid", customerFacade.getCustomerID());
                 launcher.launch(intent);
-
-            }
-             if (view.getId() == btnSearch.getId()){
-               double maxPrice = Double.parseDouble(etMaxPrice.getText().toString());
-                try {
-                    ArrayList<Coupon> couponsByPrice = customerFacade.getCustomerCoupons(maxPrice);
-                    adapter = new CompanyCouponsLvAdapter(CustomerActivity.this, R.layout.coupon_line,couponsByPrice);
-                    lvCoupons.setAdapter(adapter);
-                } catch (ParseException e) {
-                    throw new RuntimeException(e);
+                if(bgLayout != null) {
+                    if(bgLayout!= null) {
+                    Drawable borderDrawable = getResources().getDrawable(R.drawable.border);
+                    bgLayout.setBackground(borderDrawable);
                 }
+                }
+            }
+             if (view.getId() == btnSearch.getId()) {
+                 if(!etMaxPrice.getText().toString().trim().isEmpty()) {
+                 double maxPrice = Double.parseDouble(etMaxPrice.getText().toString());
+                 try {
+                     ArrayList<Coupon> couponsByPrice = customerFacade.getCustomerCoupons(maxPrice);
+                     adapter = new CompanyCouponsLvAdapter(CustomerActivity.this, R.layout.coupon_line, couponsByPrice);
+                     lvCoupons.setAdapter(adapter);
+                 } catch (ParseException e) {
+                     throw new RuntimeException(e);
+                 }
              }
+                }
                 if(view.getId() == btnQRCode.getId()){
                     if(selectedRow != -1){
                         String qrCode;
@@ -235,6 +248,11 @@ public class CustomerActivity extends AppCompatActivity implements Serializable,
                             intent.putExtra("coupon",c);
                             intent.putExtra("customerId",customerFacade.getCustomerID()+"");
                             startActivity(intent);
+
+                            if(bgLayout !=null) {
+                                Drawable borderDrawable = getResources().getDrawable(R.drawable.border);
+                                bgLayout.setBackground(borderDrawable);
+                            }
                         } catch (ParseException e) {
                             throw new RuntimeException(e);
                         }

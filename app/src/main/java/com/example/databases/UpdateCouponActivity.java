@@ -1,10 +1,19 @@
 package com.example.databases;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -16,6 +25,12 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toolbar;
 
+import com.squareup.picasso.Picasso;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +40,7 @@ import java.util.Date;
 public class UpdateCouponActivity extends AppCompatActivity {
 
     Spinner categoriesSpin;
+    ImageButton addImage;
     EditText etTitle, etDescription, etStartDate, etEndDate, etAmount, etPrice, etImg;
     ImageButton btnBack;
     Button btnUpdate;
@@ -37,21 +53,18 @@ public class UpdateCouponActivity extends AppCompatActivity {
     Coupon coupon;
     DB_Manager db;
     Spinner spinner;
+    Uri selectedImage;
+    boolean flag;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_coupon);
-
+        flag =false;
         Intent intent = getIntent();
         companyid = intent.getIntExtra("companyid", 0);
         Coupon c = (Coupon) intent.getSerializableExtra("coupon");
         coupon = c;
-        /* we have to get the coupon from the intent */
-/*
-        categoriesSpin = findViewById(R.id.updateCoupon_spCategory);
-*/
-
 
         couponid = c.getId();
         etPrice = findViewById(R.id.updateCoupon_etPrice);
@@ -60,8 +73,9 @@ public class UpdateCouponActivity extends AppCompatActivity {
         etStartDate = findViewById(R.id.updateCoupon_etStartDate);
         etEndDate = findViewById(R.id.updateCoupon_etEndDate);
         etAmount = findViewById(R.id.updateCoupon_etAmount);
+
         btnBack = findViewById(R.id.updateCoupon_btnBack);
-        etImg = findViewById(R.id.updateCoupon_etImgSrc);
+        addImage = findViewById(R.id.updateCoupon_addIm);
         btnUpdate = findViewById(R.id.updateCoupon_btnUpdate);
         spinner = findViewById(R.id.updateCoupon_spCategory);
         dateFormat = new SimpleDateFormat("dd-MM-yyyy");
@@ -84,7 +98,14 @@ public class UpdateCouponActivity extends AppCompatActivity {
         etEndDate.setText(simpleDateFormat.format(end));
         etAmount.setText(c.getAmount()+"");
         etPrice.setText(c.getPrice()+"");
-        etImg.setText(c.getImage());
+
+
+        String imagePathFromDB = c.getImage();
+        Bitmap imageBitmap = loadImageFromInternalStorage(imagePathFromDB);
+        if (imageBitmap != null) {
+            addImage.setImageBitmap(imageBitmap);
+        }
+
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -97,7 +118,51 @@ public class UpdateCouponActivity extends AppCompatActivity {
 
             }
         });
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                launcher.launch(intent);
+
+
+            }
+        });
     }
+
+
+
+
+
+    private Bitmap loadImageFromInternalStorage(String path) {
+        try {
+            File file = new File(path);
+            return BitmapFactory.decodeStream(new FileInputStream(file));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+
+
+
+
+
+    ActivityResultLauncher<Intent> launcher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), new ActivityResultCallback<ActivityResult>() {
+        @Override
+        public void onActivityResult(ActivityResult result) {
+            Intent intent = result.getData();
+            if (intent != null) {
+                if (result.getResultCode() == RESULT_OK ){
+                    selectedImage = Uri.parse(String.valueOf(intent.getData()));
+                    addImage.setImageURI(selectedImage);
+                     flag = true;
+
+
+                }
+            }
+        }
+    });
 
     public void onStartDateClick(View view) {
         showDatePickerDialog(etStartDate);
@@ -132,6 +197,25 @@ public class UpdateCouponActivity extends AppCompatActivity {
         datePickerDialog.show();
     }
 
+
+
+    private String saveImageToInternalStorage(Bitmap bitmap, Context context) {
+        try {
+            // Use the app's private directory.
+            File directory = context.getDir("imageDir", Context.MODE_PRIVATE);
+            // Name the file.
+            File myImageFile = new File(directory, "selectedImage.jpg");
+
+            FileOutputStream fos = new FileOutputStream(myImageFile);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, fos);
+            fos.close();
+
+            return myImageFile.getAbsolutePath();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
     class ButtonsClick implements View.OnClickListener {
 
         @Override
@@ -150,8 +234,6 @@ public class UpdateCouponActivity extends AppCompatActivity {
                 Category cate = Category.values()[row];
                 String title = etTitle.getText().toString();
                 String describtion = etDescription.getText().toString();
-               /* Date startDate = supportClass.getDate(etStartDate.getText().toString());
-                Date endDate = supportClass.getDate(etEndDate.getText().toString());*/
                 if(startDate == null)
                 {
                     startDate = coupon.getStartDate();
@@ -165,7 +247,19 @@ public class UpdateCouponActivity extends AppCompatActivity {
                 }
                 int anount = Integer.parseInt(etAmount.getText().toString());
                 double price = Double.parseDouble(etPrice.getText().toString());
-                String imgSrc = etImg.getText().toString();
+                String imgSrc = coupon.getImage();
+                if(flag)
+                {
+
+                    Bitmap selectedImageBitmap = null;
+                    try {
+                        selectedImageBitmap = MediaStore.Images.Media.getBitmap(UpdateCouponActivity.this.getContentResolver(), selectedImage);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                    imgSrc = saveImageToInternalStorage(selectedImageBitmap, UpdateCouponActivity.this);
+
+                }
 
                 Coupon c = new Coupon(couponid, companyid, cate, title, describtion, startDate, endDate, anount, price, imgSrc);
                 Intent intent = new Intent();

@@ -57,8 +57,8 @@ public class CouponsByPriceActivity extends AppCompatActivity {
                 finish();
             }
             if(v.getId() == btnSearch.getId()){
-                if(!etPrice.getText().toString().trim().isEmpty())
-                price = Double.parseDouble(etPrice.getText().toString());
+                if(!etPrice.getText().toString().trim().isEmpty()) {
+                price = Double.parseDouble(etPrice.getText().toString()); }
                 ArrayList<Coupon> coupons = null;
                 try {
                     coupons = companyFacade.getCompanyCoupons(price);

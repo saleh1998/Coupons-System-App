@@ -88,7 +88,7 @@
             android:layout_marginTop="45dp"
             android:ems="10"
             android:hint="Email"
-            android:inputType="text|textEmailAddress"
+            android:inputType="textEmailAddress"
             app:layout_constraintEnd_toEndOf="@+id/updateCompany_etName"
             app:layout_constraintStart_toStartOf="@+id/updateCompany_etName"
             app:layout_constraintTop_toBottomOf="@+id/updateCompany_etName" />

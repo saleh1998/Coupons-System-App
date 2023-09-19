@@ -22,7 +22,10 @@ import androidx.annotation.Nullable;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CompanyCouponsLvAdapter extends ArrayAdapter {
     Context ctx;
@@ -56,24 +59,43 @@ public class CompanyCouponsLvAdapter extends ArrayAdapter {
         TextView tvCategory = view.findViewById(R.id.copunLine_tvCategory);
         TextView tvDescription = view.findViewById(R.id.copunLine_tvDescription);
 
-/*
+        Date stardate = c.getStartDate();
+        Date endate = c.getEndDate();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yy");
 
-      Uri ImgUri = MediaStore.getMediaUri(getContext(),Uri.parse(c.getImage()));
-      cpnImage.setImageURI(ImgUri);*/
         tvCouponID.setText(c.getId()+"");
         tvCompanyID.setText(c.getCompanyID()+"");
         tvCategory.setText(c.getCategory().toString());
         tvTitle.setText(c.getTitle());
         tvDescription.setText(c.getDescription());
-        tvStartDate.setText(c.getStartDate().toString());
-        tvEndDate.setText(c.getEndDate().toString());
+        tvStartDate.setText(simpleDateFormat.format(stardate));
+        tvEndDate.setText(simpleDateFormat.format(endate));
         tvAmount.setText(c.getAmount()+"");
         tvPrice.setText(c.getPrice()+"");
 
+//        Uri imgUri = Uri.parse(c.getImage());
+//        cpnImage.setImageURI(imgUri);
 
-        Picasso.get().load(c.getImage()).into(cpnImage);
+//        Bitmap bitmap = BitmapFactory.decodeFile(c.getImage());
+//        cpnImage.setImageBitmap(bitmap);
+
+        String imagePathFromDB = c.getImage();
+                Bitmap imageBitmap = loadImageFromInternalStorage(imagePathFromDB);
+        if (imageBitmap != null) {
+            cpnImage.setImageBitmap(imageBitmap);
+        }
+
 
         return view;
+    }
+    private Bitmap loadImageFromInternalStorage(String path) {
+        try {
+            File file = new File(path);
+            return BitmapFactory.decodeStream(new FileInputStream(file));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
     public void refreshAllCoupons(ArrayList<Coupon> coupons)
     {

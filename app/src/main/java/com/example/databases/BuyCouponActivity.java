@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -73,8 +74,13 @@ public class BuyCouponActivity extends AppCompatActivity implements Serializable
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(selectedRow != -1){
-                    bgLayout.setBackgroundColor(bgLineColor);
+                    //bgLayout.setBackgroundColor(bgLineColor);
+                    if(bgLayout!=null) {
+                    if(bgLayout!= null) {
+                    Drawable borderDrawable = getResources().getDrawable(R.drawable.border);
+                    bgLayout.setBackground(borderDrawable);
                 }
+                } }
                 selectedRow = position;
                 lvCoupons.setSelection(position);
 
