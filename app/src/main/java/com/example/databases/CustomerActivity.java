@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -38,7 +39,8 @@ import java.util.Set;
 
 public class CustomerActivity extends AppCompatActivity implements Serializable,NavigationView.OnNavigationItemSelectedListener{
 
-    Button btnSearch,btnBuyCoupon,btnQRCode;
+    Button btnBuyCoupon,btnQRCode;
+    ImageButton btnSearch;
     ListView lvCoupons;
     Spinner spCategory;
     EditText etMaxPrice;

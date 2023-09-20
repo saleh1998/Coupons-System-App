@@ -59,14 +59,13 @@ public class AdminFacade extends  ClientFacade implements Serializable {
     public void deleteCompany(Company company) throws myException {
         int companyIdToDelete = company.getId();
         Company companyExists = companiesDAO.getOneCompany(company.getId());
-
         if (companyExists != null) {
             try {
-                ArrayList<Coupon> companyCoupons = company.getCoupons();
-                if(companyCoupons!=null) { /// without this app will crash!
-                    for (Coupon coupon : companyCoupons)
-                        couponsDAO.deleteCoupon(coupon);
-                }
+//                ArrayList<Coupon> companyCoupons = company.getCoupons();
+//                if(companyCoupons!=null) { /// without this app will crash!
+//                    for (Coupon coupon : companyCoupons)
+//                        couponsDAO.deleteCoupon(coupon);
+//                }
                 companiesDAO.deleteCompany(companyIdToDelete);
             } catch (myException e) {
                 throw new myException("Error deleting the company.");
@@ -129,10 +128,10 @@ public class AdminFacade extends  ClientFacade implements Serializable {
 
         if (customer != null) {
             try {
-                ArrayList<Coupon> customerCoupons = customer.getCoupons();
-                if(customerCoupons!=null){
-                    customerCoupons.clear();
-                }
+//                ArrayList<Coupon> customerCoupons = customer.getCoupons();
+//                if(customerCoupons!=null){
+//                    customerCoupons.clear();
+//                }
                 customersDAO.deleteCustomer(customerID);
             } catch (myException e) {
                 throw new myException("Error deleting the customer.");

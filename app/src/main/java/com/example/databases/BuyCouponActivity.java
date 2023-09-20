@@ -23,7 +23,7 @@ import java.text.ParseException;
 import java.util.ArrayList;
 
 public class BuyCouponActivity extends AppCompatActivity implements Serializable {
-    Button search;
+    ImageButton search;
     int selectedRow = -1;
     int bgLineColor;
     LinearLayout bgLayout;
