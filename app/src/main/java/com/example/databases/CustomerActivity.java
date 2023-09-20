@@ -101,16 +101,10 @@ public class CustomerActivity extends AppCompatActivity implements Serializable,
 
 
 
-        ArrayAdapter<String> categoryAdapter;
-        ArrayList<String> items = new ArrayList<>();
-        items.add(Category.Food.toString());
-        items.add(Category.Electricity.name());
-        items.add(Category.Restaurant.name());
-        items.add(Category.Vacation.name());
-        categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
+
+        ArrayAdapter categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCategory.setAdapter(categoryAdapter);
-
 
 
         ButtonsClick buttonsClick = new ButtonsClick();
@@ -122,7 +116,7 @@ public class CustomerActivity extends AppCompatActivity implements Serializable,
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != -1) {
-                    Category category = Category.valueOf(items.get(position));
+                    Category category = (Category) spCategory.getSelectedItem();
                     try {
                         ArrayList<Coupon> couponsByCat = customerFacade.getCustomerCoupons(category);
                         adapter = new CompanyCouponsLvAdapter(CustomerActivity.this, R.layout.coupon_line, couponsByCat);

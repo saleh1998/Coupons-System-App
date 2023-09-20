@@ -32,6 +32,8 @@ public class CompanyCouponsLvAdapter extends ArrayAdapter {
     int res;
     ArrayList<Coupon> companyCoupons;
 
+    CompanyFacade companyFacade;
+
     public CompanyCouponsLvAdapter(@NonNull Context context, int resource, ArrayList<Coupon> companyCoupons) {
         super(context, resource,companyCoupons);
 
@@ -64,7 +66,11 @@ public class CompanyCouponsLvAdapter extends ArrayAdapter {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yy");
 
         tvCouponID.setText(c.getId()+"");
-        tvCompanyID.setText(c.getCompanyID()+"");
+        companyFacade = new CompanyFacade(c.getCompanyID(),ctx);
+        Company company = companyFacade.getCompanyDetails(c.getCompanyID());
+
+if(company!=null)
+{tvCompanyID.setText(company.getName());  }
         tvCategory.setText(c.getCategory().toString());
         tvTitle.setText(c.getTitle());
         tvDescription.setText(c.getDescription());

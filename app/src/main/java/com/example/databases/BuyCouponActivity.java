@@ -71,11 +71,9 @@ public class BuyCouponActivity extends AppCompatActivity implements Serializable
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if(selectedRow != -1){
                     //bgLayout.setBackgroundColor(bgLineColor);
-                    if(bgLayout!=null) {
                     if(bgLayout!= null) {
                     Drawable borderDrawable = getResources().getDrawable(R.drawable.border);
                     bgLayout.setBackground(borderDrawable);
-                }
                 } }
                 selectedRow = position;
                 lvCoupons.setSelection(position);
@@ -85,15 +83,11 @@ public class BuyCouponActivity extends AppCompatActivity implements Serializable
                 bgLayout.setBackgroundColor(Color.rgb(150,150,150));
             }
         });
-        ArrayAdapter<String> categoryAdapter;
-        ArrayList<String> items = new ArrayList<>();
-        items.add(Category.Food.toString());
-        items.add(Category.Electricity.name());
-        items.add(Category.Restaurant.name());
-        items.add(Category.Vacation.name());
-        categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, items);
+
+        ArrayAdapter categoryAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, Category.values());
         categoryAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spCategory.setAdapter(categoryAdapter);
+
         ButtonsClick buttonsClick = new ButtonsClick();
         btnBuy.setOnClickListener(buttonsClick);
         imBack.setOnClickListener(buttonsClick);
@@ -103,8 +97,7 @@ public class BuyCouponActivity extends AppCompatActivity implements Serializable
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != -1) {
-
-                    Category category = Category.valueOf(items.get(position));
+                    Category category = (Category) spCategory.getSelectedItem();
                     ArrayList<Coupon> requested = new ArrayList<>();
                     try {
                         ArrayList<Coupon> couponsByCat =  couponsDBDAO.getAllCoupons();

@@ -246,11 +246,11 @@ public class DB_Manager extends SQLiteOpenHelper{
             }
         }
         if (flag) {
-            if(tobeDeleted!=null && tobeDeleted.getCoupons()!=null) {
+          /*  if(tobeDeleted!=null && tobeDeleted.getCoupons()!=null) {
                 for (Coupon c : tobeDeleted.getCoupons()) {
                     deleteCoupon(c);
                 }
-            }
+            }*/
             companies.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are references
             SQLiteDatabase db = getWritableDatabase();
             db.delete(TBL_COMPANIES, COMPANY_ID + "= ?", new String[]{(companyID+"")});
@@ -492,7 +492,8 @@ public class DB_Manager extends SQLiteOpenHelper{
 
         Coupon tobeDeleted = null;
         boolean flag = false;
-        for (Coupon c : coupons) {
+        ArrayList<Coupon> allCoupons = getAllCoupons();
+        for (Coupon c : allCoupons) {
             if (c.getId() == (coupon.getId())) {
                 tobeDeleted = c;
                 flag = true;
@@ -501,8 +502,8 @@ public class DB_Manager extends SQLiteOpenHelper{
         }
         if (flag) {
             // Moaad func to delete also from customer vs coupons
-            customers = getAllCustomers();
-            companies = getAllCompanies();
+//            customers = getAllCustomers();
+//            companies = getAllCompanies();
 //            for(Customer customer: customers) {
 //                if (customer.getCoupons().contains(coupon)) {
 //                    customer.getCoupons().remove(coupon);
@@ -516,8 +517,8 @@ public class DB_Manager extends SQLiteOpenHelper{
             deleteCustomerVsCouponCouponForAllCustomersByCouponId(coupon.getId());
             SQLiteDatabase db = getWritableDatabase();
             db.delete(TBL_COUPONS, COUPON_ID + "= ?", new String[]{(Integer.toString(coupon.getId()))});
-            coupons.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are references
-            coupons = getAllCoupons();
+//            coupons.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are references
+//            coupons = getAllCoupons();
         } else
             throw new myException("Delete failed No coupon found with id =" + coupon.getId() + "!");
     }
@@ -770,6 +771,7 @@ public class DB_Manager extends SQLiteOpenHelper{
         db.delete(TBL_CUSTOMERS_VS_COUPONS, selection, selectionArgs);
         db.close();
     }
+
     public void deleteCustomerVsCouponCouponForAllCouponsByCustomerId(int customerId) {
         SQLiteDatabase db = getWritableDatabase();
 

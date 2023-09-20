@@ -34,6 +34,7 @@ public class CouponsDBDAO implements CouponsDAO, Serializable {
     @Override
     public void deleteCoupon(Coupon coupon) throws ParseException, myException {
         mydb.deleteCoupon(coupon);
+//        mydb.deleteCustomerVsCouponCouponForAllCustomersByCouponId(coupon.getId());
     }
 
     @Override
