@@ -59,7 +59,7 @@ public class CustomersDBDAO implements CustomersDAO, Serializable {
     public ArrayList<Coupon> getCustomerCoupons(int customerID) throws ParseException {
     ArrayList<Integer> couponsids =  mydb.getAllCouponsForSpecificCustomer(customerID);
     ArrayList<Coupon> coupons = mydb.getAllCoupons();
-        ArrayList<Coupon> reqCoupons = new ArrayList<>();
+    ArrayList<Coupon> reqCoupons = new ArrayList<>();
     if(couponsids!=null) {
         for (Integer i : couponsids) {
             for (Coupon c : coupons) {
