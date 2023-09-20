@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".BuyCouponActivity">
-
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".BuyCouponActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/buyCpn_toolBar"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#A57E0A"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:title="Buy New Coupon"
         app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
@@ -22,10 +22,10 @@ tools:context=".BuyCouponActivity">
 
     <LinearLayout
         android:id="@+id/buyCpn_layoutH"
-        android:layout_width="385dp"
-        android:layout_height="62dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="10dp"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -33,125 +33,91 @@ tools:context=".BuyCouponActivity">
 
         <ImageButton
             android:id="@+id/buyCpn_btnBack"
-            android:layout_width="78dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_weight="1"
             android:backgroundTint="#FFFFFF"
             android:scaleType="fitCenter"
             app:srcCompat="@drawable/back" />
 
         <Space
-            android:layout_width="380dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
 
         <Button
             android:id="@+id/buyCpn_btnbuy"
-            android:layout_width="136dp"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
+            android:layout_weight="1"
             android:backgroundTint="#A39305"
             android:text="buy"
             android:textSize="20sp"
             android:textStyle="bold" />
-
     </LinearLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
-        android:layout_width="381dp"
-        android:layout_height="146dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginEnd="10dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buyCpn_layoutH">
 
         <TextView
             android:id="@+id/textView4"
-            android:layout_width="325dp"
-            android:layout_height="32dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:text="choose category"
             android:textSize="24sp"
-            app:layout_constraintBottom_toTopOf="@+id/buyCpn_categorySpinner"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.154"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Spinner
             android:id="@+id/buyCpn_categorySpinner"
-            android:layout_width="348dp"
-            android:layout_height="45dp"
-            android:layout_weight="1"
-            app:layout_constraintBottom_toTopOf="@+id/space"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.213"
-            app:layout_constraintStart_toStartOf="parent" />
-
-        <Space
-            android:id="@+id/space"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@+id/linearLayout" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="383dp"
-            android:layout_height="55dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-            <EditText
-                android:id="@+id/buyCpn_etMaxPrice"
-                android:layout_width="199dp"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="Maximum Price"
-                android:inputType="numberDecimal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+        <EditText
+            android:id="@+id/buyCpn_etMaxPrice"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:ems="10"
+            android:hint="Maximum Price"
+            android:inputType="numberDecimal"
+            app:layout_constraintEnd_toStartOf="@+id/buyCpn_btnSearch"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buyCpn_categorySpinner" />
 
-            <Space
-                android:layout_width="58dp"
-                android:layout_height="58dp"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/buyCpn_btnSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:backgroundTint="#A39305"
-                android:text="Search"
-                android:textSize="20sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
-
-        </LinearLayout>
-
-
+        <Button
+            android:id="@+id/buyCpn_btnSearch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#A39305"
+            android:text="Search"
+            android:textSize="20sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/buyCpn_categorySpinner" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <ListView
         android:id="@+id/buyCpn_lvCoupons"
-        android:layout_width="370dp"
-        android:layout_height="443dp"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginBottom="16dp"
         android:background="@drawable/border"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.388"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout"
-        app:layout_constraintVertical_bias="0.0" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
 </androidx.constraintlayout.widget.ConstraintLayout>

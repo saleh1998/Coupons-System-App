@@ -96,9 +96,11 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
         public void onClick(View view) {
             if (view.getId() == btnSave.getId()) {
                 ///Update Company
+                boolean emailchanged =false;
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
-
+                if(!email.equals(company.getEmail()))
+                    emailchanged =true;
                 company.setEmail(email);
                 company.setPassword(password);
 
@@ -106,24 +108,37 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
                 if (!email.isEmpty() && !password.isEmpty()) {
                     ///// added by rashad with advice from bayan
                     AdminFacade adminFacade = new AdminFacade(UpdateCompanyActivity.this);
-                    if (!adminFacade.CompanyNameExists(company)) {
-                        if (!adminFacade.CompanyEmailExists(company)) {
-                            try {
-                                adminFacade.updateCompany(company);
-                                Intent intent = getIntent();
-                                intent.putExtra("company", company);
-                                intent.putExtra("requestCode", 4);
-                                setResult(RESULT_OK, intent);
-                                finish();
-                            } catch (myException e) {
-                                throw new RuntimeException(e);
-                            }
-                        } else {
-                            Toast.makeText(UpdateCompanyActivity.this, "Email is already taken", Toast.LENGTH_SHORT).show();
-                        }
-                    } else {
-                        Toast.makeText(UpdateCompanyActivity.this, "Name is already taken", Toast.LENGTH_SHORT).show();
+
+                       if(emailchanged) {
+                           if (!adminFacade.CompanyEmailExists(company)) {
+                               try {
+                                   adminFacade.updateCompany(company);
+                                   Intent intent = getIntent();
+                                   intent.putExtra("company", company);
+                                   intent.putExtra("requestCode", 4);
+                                   setResult(RESULT_OK, intent);
+                                   finish();
+                               } catch (myException e) {
+                                   throw new RuntimeException(e);
+                               }
+                           } else {
+                               Toast.makeText(UpdateCompanyActivity.this, "Email is already taken", Toast.LENGTH_SHORT).show();
+                           }
+                       }
+                       else
+                       {
+                           try {
+                           adminFacade.updateCompany(company);
+                           Intent intent = getIntent();
+                           intent.putExtra("company", company);
+                           intent.putExtra("requestCode", 4);
+                           setResult(RESULT_OK, intent);
+                           finish();
+                       } catch (myException e) {
+                        throw new RuntimeException(e);
                     }
+
+                       }
                     /////
                 /*Intent intent = getIntent();
                 intent.putExtra("company", company);
