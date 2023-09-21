@@ -12,11 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/company_toolBar"
-            android:layout_width="match_parent"
-            android:layout_height="71dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:background="#F3C84A"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
@@ -27,117 +26,93 @@
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
             app:titleTextColor="#080909" />
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linearLayout2"
-            android:layout_width="373dp"
-            android:layout_height="104dp"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="20dp"
             android:layout_marginEnd="10dp"
-            android:orientation="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/company_toolBar">
 
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/company_btnAdd"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:orientation="horizontal">
+                android:backgroundTint="#A39305"
+                android:text="Add"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/company_btnUpdate"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <Button
-                    android:id="@+id/company_btnAdd"
-                    android:layout_width="107dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:backgroundTint="#A39305"
-                    android:text="Add"
-                    android:textSize="20sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <Button
-                    android:id="@+id/company_btnUpdate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="#A39305"
-                    android:text="Update"
-                    android:textSize="20sp" />
-
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-                <Button
-                    android:id="@+id/company_btnDelete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="#A39305"
-                    android:text="Delete"
-                    android:textSize="20sp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/company_btnUpdate"
+                android:layout_width="0dp"
                 android:layout_height="50dp"
-                android:orientation="horizontal">
+                android:backgroundTint="#A39305"
+                android:text="Update"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/company_btnDelete"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@+id/company_btnAdd"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <Button
-                    android:id="@+id/company_btnCategories"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="#A39305"
-                    android:text="Categories"
-                    android:textSize="20sp" />
+            <Button
+                android:id="@+id/company_btnDelete"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:backgroundTint="#A39305"
+                android:text="Delete"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toEndOf="@+id/company_btnUpdate"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
+            <Button
+                android:id="@+id/company_btnCategories"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:backgroundTint="#A39305"
+                android:text="Categories"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toStartOf="@+id/company_btnByPrice"
+                app:layout_constraintHorizontal_weight="1"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/company_btnAdd" />
 
-                <Button
-                    android:id="@+id/company_btnByPrice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:backgroundTint="#A39305"
-                    android:text="Coupons By Price"
-                    android:textSize="20sp" />
+            <Button
+                android:id="@+id/company_btnByPrice"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:backgroundTint="#A39305"
+                android:text="Coupons By Price"
+                android:textSize="20sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_weight="2"
+                app:layout_constraintStart_toEndOf="@+id/company_btnCategories"
+                app:layout_constraintTop_toBottomOf="@+id/company_btnUpdate" />
 
-                <Space
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-        </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ListView
             android:id="@+id/company_lvCoupons"
-            android:layout_width="367dp"
-            android:layout_height="496dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:layout_marginStart="10dp"
-            android:layout_marginTop="44dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="10dp"
-            android:layout_marginBottom="5dp"
+            android:layout_marginBottom="10dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
-
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-
-
 
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/company_nv"

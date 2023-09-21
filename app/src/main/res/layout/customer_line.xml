@@ -9,69 +9,84 @@
 
     <LinearLayout
         android:id="@+id/customerLine_ll"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="3dp">
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
+        <!-- First Row -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="6">
 
             <TextView
                 android:id="@+id/customerLine_tvCustomerCode"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
+                android:layout_weight="2"
                 android:background="@android:drawable/editbox_background_normal"
                 android:gravity="center|start"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/customerLine_tvFName"
-                android:layout_width="150dp"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="2"
                 android:background="@android:drawable/editbox_background_normal"
                 android:gravity="center|start"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/customerLine_tvLName"
-                android:layout_width="173dp"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_weight="2"
                 android:background="@android:drawable/editbox_background_normal"
                 android:gravity="center|start"
                 android:textSize="20sp" />
+
         </LinearLayout>
 
+        <!-- Second Row -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="4">
 
             <TextView
                 android:id="@+id/customerLine_tvEmail"
-                android:layout_width="200dp"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="12dp"
+                android:layout_weight="2.2"
                 android:background="@android:drawable/editbox_background_normal"
                 android:gravity="center|start"
                 android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/customerLine_tvPassword"
-                android:layout_width="175dp"
-                android:layout_height="match_parent"
+                android:layout_width="92dp"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:layout_weight="1"
                 android:background="@android:drawable/editbox_background_normal"
                 android:gravity="center|start"
                 android:textSize="20sp" />
+
         </LinearLayout>
     </LinearLayout>
 

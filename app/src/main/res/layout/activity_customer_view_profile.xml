@@ -50,8 +50,8 @@ tools:context=".CustomerViewProfileActivity">
 
     <TextView
         android:id="@+id/fragCustViewProfile_tvCustEmail"
-        android:layout_width="252dp"
-        android:layout_height="46dp"
+        android:layout_width="232dp"
+        android:layout_height="43dp"
         android:layout_marginTop="44dp"
         android:background="@drawable/border"
         android:gravity="center|start"
@@ -63,7 +63,7 @@ tools:context=".CustomerViewProfileActivity">
 
     <TextView
         android:id="@+id/fragCustViewProfile_tvCustPassword"
-        android:layout_width="243dp"
+        android:layout_width="234dp"
         android:layout_height="43dp"
         android:layout_marginTop="44dp"
         android:background="@drawable/border"

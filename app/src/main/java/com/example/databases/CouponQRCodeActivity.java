@@ -40,7 +40,7 @@ public class CouponQRCodeActivity extends AppCompatActivity {
             Coupon coupon =(Coupon) intent.getSerializableExtra("coupon");
             String cusId = intent.getIntExtra("customerId",0)+"";
             generateQRCode(qrCode);
-
+            generateBarcode(qrCode);
 
         } else {
             try {
@@ -50,6 +50,26 @@ public class CouponQRCodeActivity extends AppCompatActivity {
             }
         }
     }
+
+    public void generateBarcode(String value) {
+        MultiFormatWriter multiFormatWriter = new MultiFormatWriter();
+        try {
+            BitMatrix bitMatrix = multiFormatWriter.encode(value, BarcodeFormat.CODE_128, 500, 200);
+            Bitmap bitmap = Bitmap.createBitmap(500, 200, Bitmap.Config.RGB_565);
+
+            for (int x = 0; x < 500; x++) {
+                for (int y = 0; y < 200; y++) {
+                    bitmap.setPixel(x, y, bitMatrix.get(x, y) ? Color.BLACK : Color.WHITE);
+                }
+            }
+
+            ImageView imageView = findViewById(R.id.barCode_imageView);
+            imageView.setImageBitmap(bitmap);
+        } catch (WriterException e) {
+            e.printStackTrace();
+        }
+    }
+
 
     public void generateQRCode(String value) {
         MultiFormatWriter multiFormatWriter = new MultiFormatWriter();

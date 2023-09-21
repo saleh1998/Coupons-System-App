@@ -20,12 +20,23 @@
 
     <ImageView
         android:id="@+id/qrCode_imageView"
-        android:layout_width="409dp"
-        android:layout_height="439dp"
+        android:layout_width="392dp"
+        android:layout_height="435dp"
         android:layout_marginTop="164dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_foreground" />
+
+    <ImageView
+        android:id="@+id/barCode_imageView"
+        android:layout_width="365dp"
+        android:layout_height="128dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/qrCode_imageView"
+        app:srcCompat="@android:drawable/bottom_bar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
