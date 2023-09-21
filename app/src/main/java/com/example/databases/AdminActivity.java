@@ -121,7 +121,7 @@ public class AdminActivity extends AppCompatActivity implements NavigationView.O
         @Override
         public void onClick(View view) {
             if(view.getId() == btnCompaniesManagment.getId()){
-                Toast.makeText(AdminActivity.this, "Yalla", Toast.LENGTH_SHORT).show();
+           //     Toast.makeText(AdminActivity.this, "Yalla", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(AdminActivity.this,ManageCompaniesActivity.class);
                 //intent.putExtra("AdminFacade",adminFacade);
                 launcher.launch(intent);

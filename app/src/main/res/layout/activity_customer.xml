@@ -12,13 +12,13 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <!-- Toolbar -->
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/customer_toolBar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#F3C84A"
             android:minHeight="?attr/actionBarSize"
-            android:theme="?attr/actionBarTheme"
             app:title="Customer Coupons"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
             app:titleTextColor="#080909" />
@@ -27,27 +27,28 @@
             android:layout_width="match_parent"
             android:layout_height="11dp" />
 
+        <!-- Buy new Coupon Button -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <Space
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <Button
                 android:id="@+id/customer_btnBuy"
-                android:layout_width="262dp"
+                android:layout_width="345dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
+                android:layout_weight="2"
                 android:backgroundTint="#A39305"
                 android:text="Buy new Coupon"
                 android:textSize="24sp" />
 
             <Space
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
@@ -57,110 +58,71 @@
             android:layout_width="match_parent"
             android:layout_height="20dp" />
 
+        <!-- Category Selection -->
+
         <TextView
             android:id="@+id/textView3"
-            android:layout_width="381dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="   choose category"
             android:textSize="24sp" />
 
-        <LinearLayout
+        <Spinner
+            android:id="@+id/customer_categorySpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="15dp"
-                android:layout_height="match_parent" />
-            <Spinner
-                android:id="@+id/customer_categorySpinner"
-                android:layout_width="348dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-
+            android:layout_marginStart="15dp" />
 
         <Space
             android:layout_width="match_parent"
             android:layout_height="11dp" />
 
+        <!-- Search by Price -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
 
-            <Space
-                android:layout_width="15dp"
-                android:layout_height="match_parent" />
-
             <EditText
                 android:id="@+id/customer_etMaxPrice"
-                android:layout_width="227dp"
+                android:layout_width="0dp"
+                android:layout_weight="3"
                 android:layout_height="wrap_content"
                 android:ems="10"
                 android:hint="Maximum Price"
                 android:inputType="numberDecimal" />
 
             <Space
-                android:layout_width="58dp"
-                android:layout_height="58dp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1" />
 
             <ImageButton
                 android:id="@+id/customer_btnSearch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
                 android:layout_weight="1"
+                android:layout_height="wrap_content"
                 android:backgroundTint="#A39305"
-                android:text="Search"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/cpnByCategory_sp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/cpnByCategory_sp"
-                app:layout_constraintTop_toTopOf="@+id/cpnByCategory_sp"
                 app:srcCompat="@android:drawable/ic_menu_search" />
 
         </LinearLayout>
 
-        <LinearLayout
+        <!-- QR Code Button -->
+        <Button
+            android:id="@+id/customer_btnQRCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#A39305"
+            android:text="Show QR Code"
+            android:textSize="20sp" />
 
-            <Space
-                android:layout_width="15dp"
-                android:layout_height="match_parent" />
-
-            <Button
-                android:id="@+id/customer_btnQRCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:backgroundTint="#A39305"
-                android:text="Show QR Code"
-                android:textSize="20sp" />
-
-        </LinearLayout>
-
-
-        <LinearLayout
+        <!-- ListView -->
+        <ListView
+            android:id="@+id/customer_lvCoupons"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="15dp"
-                android:layout_height="match_parent" />
-
-            <ListView
-                android:id="@+id/customer_lvCoupons"
-                android:layout_width="match_parent"
-                android:layout_height="411dp" />
-
-        </LinearLayout>
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
     </LinearLayout>
 

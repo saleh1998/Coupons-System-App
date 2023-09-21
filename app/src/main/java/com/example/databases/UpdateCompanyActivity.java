@@ -40,7 +40,7 @@ public class UpdateCompanyActivity extends AppCompatActivity implements Navigati
 
         btnSave = findViewById(R.id.updateCompany_btnSave);
         btnCancel = findViewById(R.id.updateCompany_btnCancel);
-        TextView etName = findViewById(R.id.updateCompany_etName); // CHANGE THIS TO TEXTVIEW CAUSE NOT ALLOWED TO CHANGE COMPANY'S NAME
+        TextView etName = findViewById(R.id.updateCompany_tvName); // CHANGE THIS TO TEXTVIEW CAUSE NOT ALLOWED TO CHANGE COMPANY'S NAME
         etEmail = findViewById(R.id.updateCompany_etEmail);
         etPassword = findViewById(R.id.updateCompany_etPassword);
 

@@ -6,41 +6,58 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        app:layout_constraintWidth_percent="0.8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/mylogo" />
+
     <EditText
         android:id="@+id/main_etUserName"
-        android:layout_width="300dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="72dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:background="@drawable/edit_text_boarder"
-        android:ems="10"
         android:hint=" User Name"
         android:inputType="textEmailAddress"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:textSize="20sp"
+        app:layout_constraintWidth_percent="0.7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <EditText
         android:id="@+id/main_etPassword"
-        android:layout_width="300dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="32dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:background="@drawable/edit_text_boarder"
-        android:ems="10"
         android:hint=" Password"
         android:inputType="textPassword"
+        android:paddingStart="8dp"
+        android:paddingEnd="8dp"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="@+id/main_etUserName"
+        app:layout_constraintWidth_percent="0.7"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_etUserName" />
 
     <RadioGroup
         android:id="@+id/main_rg"
-        android:layout_width="270dp"
-        android:layout_height="135dp"
-        android:layout_marginTop="50dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:background="@drawable/edit_text_boarder"
-        app:layout_constraintStart_toStartOf="@+id/main_etPassword"
+        app:layout_constraintWidth_percent="0.65"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/main_etPassword">
 
         <RadioButton
@@ -76,29 +93,16 @@
 
     <Button
         android:id="@+id/main_btnSignIn"
-        android:layout_width="176dp"
-        android:layout_height="52dp"
-        android:layout_marginTop="56dp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:backgroundTint="#A39305"
         android:text="Log In"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/main_rg"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/main_rg"
-        app:layout_constraintTop_toBottomOf="@+id/main_rg"
-        app:layout_constraintVertical_bias="0.0" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="411dp"
-        android:layout_height="113dp"
-        android:layout_marginTop="40dp"
+        app:layout_constraintWidth_percent="0.5"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/mylogo" />
+        app:layout_constraintTop_toBottomOf="@+id/main_rg" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

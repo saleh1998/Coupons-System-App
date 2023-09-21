@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout  xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/updateCompany_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:fitsSystemWindows="true"
     tools:context=".UpdateCompanyActivity"
     tools:openDrawer="start">
@@ -14,10 +13,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/updateCompany_toolbar"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:background="#A57E0A"
             android:minHeight="?attr/actionBarSize"
@@ -28,83 +26,71 @@
             app:title="   Update Company"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1" />
 
-        <LinearLayout
-            android:id="@+id/linearLayout7"
-            android:layout_width="match_parent"
-            android:layout_height="66dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="50dp"
-            android:layout_marginEnd="15dp"
-            android:orientation="horizontal"
-            app:layout_constraintEnd_toEndOf="parent"
+        <Button
+            android:id="@+id/updateCompany_btnSave"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:backgroundTint="#A39305"
+            android:text="Save"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/updateCompany_btnCancel"
+            app:layout_constraintHorizontal_chainStyle="spread"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/updateCompany_toolbar">
+            app:layout_constraintTop_toBottomOf="@+id/updateCompany_toolbar" />
 
-            <Button
-                android:id="@+id/updateCompany_btnSave"
-                android:layout_width="150dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:backgroundTint="#A39305"
-                android:text="Save"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-
-            <Space
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <Button
-                android:id="@+id/updateCompany_btnCancel"
-                android:layout_width="150dp"
-                android:layout_height="60dp"
-                android:layout_weight="1"
-                android:backgroundTint="#A39305"
-                android:text="Cancel"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-        </LinearLayout>
-
+        <Button
+            android:id="@+id/updateCompany_btnCancel"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:backgroundTint="#A39305"
+            android:text="Cancel"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/updateCompany_btnSave"
+            app:layout_constraintTop_toBottomOf="@+id/updateCompany_toolbar" />
 
         <TextView
-            android:id="@+id/updateCompany_etName"
-            android:layout_width="350dp"
+            android:id="@+id/updateCompany_tvName"
+            android:layout_width="0dp"
             android:layout_height="55dp"
-            android:layout_marginTop="144dp"
-            android:ems="10"
-            android:hint="Enter Company Name"
-            android:inputType="text"
-            app:layout_constraintEnd_toEndOf="@+id/linearLayout7"
-            app:layout_constraintHorizontal_bias="0.468"
-            app:layout_constraintStart_toStartOf="@+id/linearLayout7"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout7" />
+            android:layout_marginTop="16dp"
+
+            android:gravity="center"
+            android:text="Company Name"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/updateCompany_btnSave" />
 
         <EditText
             android:id="@+id/updateCompany_etEmail"
-            android:layout_width="350dp"
+            android:layout_width="0dp"
             android:layout_height="55dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:ems="10"
             android:hint="Email"
             android:inputType="text|textEmailAddress"
-            app:layout_constraintEnd_toEndOf="@+id/updateCompany_etName"
-            app:layout_constraintStart_toStartOf="@+id/updateCompany_etName"
-            app:layout_constraintTop_toBottomOf="@+id/updateCompany_etName" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/updateCompany_tvName" />
 
         <EditText
             android:id="@+id/updateCompany_etPassword"
-            android:layout_width="350dp"
+            android:layout_width="0dp"
             android:layout_height="55dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp"
             android:ems="10"
             android:hint="Enter Password"
             android:inputType="text"
-            app:layout_constraintEnd_toEndOf="@+id/updateCompany_etEmail"
-            app:layout_constraintStart_toStartOf="@+id/updateCompany_etEmail"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/updateCompany_etEmail" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -113,6 +99,5 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-
         app:menu="@menu/nav_menu" />
 </androidx.drawerlayout.widget.DrawerLayout>

@@ -4,22 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UpdateCouponActivity"
-    >
+    tools:context=".UpdateCouponActivity">
 
     <ImageView
         android:id="@+id/updateCoupon_imEnddate"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginEnd="72dp"
+        android:onClick="onEndDateClick"
         app:layout_constraintBottom_toBottomOf="@+id/updateCoupon_etEndDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/updateCoupon_etEndDate"
         app:layout_constraintTop_toTopOf="@+id/updateCoupon_etEndDate"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/calendar"
-        android:onClick="onEndDateClick"/>
+        app:srcCompat="@drawable/calendar" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/updateCoupon_toolbar"
@@ -133,15 +132,13 @@
 
     <ImageButton
         android:id="@+id/updateCoupon_addIm"
-        android:layout_width="177dp"
-        android:layout_height="104dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/updateCoupon_btnUpdate"
-        app:layout_constraintHorizontal_bias="0.533"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_width="306dp"
+        android:layout_height="121dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/textView7"
+        app:layout_constraintHorizontal_bias="0.301"
+        app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
-        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/add_photo_icon" />
 
     <Button
@@ -154,7 +151,11 @@
         android:text="Update"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="@+id/updateCoupon_addIm"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="@+id/updateCoupon_addIm"
+        app:layout_constraintTop_toBottomOf="@+id/updateCoupon_addIm"
+        app:layout_constraintVertical_bias="0.773" />
 
     <ImageButton
         android:id="@+id/updateCoupon_btnBack"
@@ -172,11 +173,12 @@
 
     <TextView
         android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="add image"
+        android:layout_width="140dp"
+        android:layout_height="21dp"
+        android:layout_marginTop="32dp"
+        android:text="Update image"
         app:layout_constraintEnd_toEndOf="@+id/updateCoupon_etPrice"
+        app:layout_constraintHorizontal_bias="0.52"
         app:layout_constraintStart_toStartOf="@+id/updateCoupon_etPrice"
         app:layout_constraintTop_toBottomOf="@+id/updateCoupon_etPrice" />
 
@@ -184,13 +186,13 @@
         android:id="@+id/updateCoupon_imstartdate"
         android:layout_width="40dp"
         android:layout_height="40dp"
+        android:onClick="onStartDateClick"
         app:layout_constraintBottom_toBottomOf="@+id/updateCoupon_etStartDate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.01"
         app:layout_constraintStart_toEndOf="@+id/updateCoupon_etStartDate"
         app:layout_constraintTop_toTopOf="@+id/updateCoupon_etStartDate"
         app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/calendar"
-        android:onClick="onStartDateClick"/>
+        app:srcCompat="@drawable/calendar" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
