@@ -87,8 +87,8 @@
 
             <Button
                 android:id="@+id/company_btnByPrice"
-                android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_width="225dp"
+                android:layout_height="49dp"
                 android:backgroundTint="#A39305"
                 android:text="Coupons By Price"
                 android:textSize="20sp"

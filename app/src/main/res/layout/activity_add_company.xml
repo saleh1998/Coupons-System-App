@@ -20,7 +20,7 @@
             android:background="#A57E0A"
             android:minHeight="?attr/actionBarSize"
             android:theme="?attr/actionBarTheme"
-            app:title="  Add New Company"
+            app:title="  New Company"
             app:titleTextAppearance="@style/TextAppearance.AppCompat.Display1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

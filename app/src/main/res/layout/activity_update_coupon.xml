@@ -110,9 +110,9 @@
         android:layout_width="350dp"
         android:layout_height="54dp"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="68dp"
+        android:layout_marginTop="72dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.901"
+        app:layout_constraintHorizontal_bias="0.392"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/updateCoupon_toolbar" />
 
@@ -132,11 +132,11 @@
 
     <ImageButton
         android:id="@+id/updateCoupon_addIm"
-        android:layout_width="306dp"
-        android:layout_height="121dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="194dp"
+        android:layout_height="95dp"
+        android:layout_marginTop="12dp"
         app:layout_constraintEnd_toEndOf="@+id/textView7"
-        app:layout_constraintHorizontal_bias="0.301"
+        app:layout_constraintHorizontal_bias="0.462"
         app:layout_constraintStart_toStartOf="@+id/textView7"
         app:layout_constraintTop_toBottomOf="@+id/textView7"
         app:srcCompat="@drawable/add_photo_icon" />
@@ -145,17 +145,16 @@
         android:id="@+id/updateCoupon_btnUpdate"
         android:layout_width="143dp"
         android:layout_height="68dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="28dp"
+        android:layout_marginStart="32dp"
         android:backgroundTint="#A39305"
         android:text="Update"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/updateCoupon_addIm"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/updateCoupon_addIm"
-        app:layout_constraintTop_toBottomOf="@+id/updateCoupon_addIm"
-        app:layout_constraintVertical_bias="0.773" />
+        app:layout_constraintBottom_toBottomOf="@+id/updateCoupon_addIm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/updateCoupon_addIm"
+        app:layout_constraintTop_toTopOf="@+id/updateCoupon_addIm"
+        app:layout_constraintVertical_bias="0.518" />
 
     <ImageButton
         android:id="@+id/updateCoupon_btnBack"
@@ -175,10 +174,10 @@
         android:id="@+id/textView7"
         android:layout_width="140dp"
         android:layout_height="21dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="12dp"
         android:text="Update image"
         app:layout_constraintEnd_toEndOf="@+id/updateCoupon_etPrice"
-        app:layout_constraintHorizontal_bias="0.52"
+        app:layout_constraintHorizontal_bias="0.357"
         app:layout_constraintStart_toStartOf="@+id/updateCoupon_etPrice"
         app:layout_constraintTop_toBottomOf="@+id/updateCoupon_etPrice" />
 
