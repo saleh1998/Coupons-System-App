@@ -35,22 +35,25 @@
         android:layout_width="310dp"
         android:layout_height="32dp"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:gravity="center|start"
         android:text="choose category "
         android:textSize="20sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/cpnByCategory_btnBack"
         app:layout_constraintTop_toBottomOf="@+id/cpnByCategory_toolBar" />
 
     <Spinner
         android:id="@+id/cpnByCategory_sp"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_width="342dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintEnd_toStartOf="@+id/cpnByCategory_btnSearch"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
@@ -69,14 +72,14 @@
 
     <ListView
         android:id="@+id/cpnByCategory_lv"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_width="407dp"
+        android:layout_height="708dp"
         android:layout_marginTop="12dp"
         android:layout_marginBottom="12dp"
         android:background="@drawable/border"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cpnByCategory_sp"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/cpnByCategory_sp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -45,11 +45,6 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
-            <Space
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
             <Button
                 android:id="@+id/manageCustomers_btnUpadate"
                 android:layout_width="150dp"
@@ -59,11 +54,6 @@
                 android:text="Update"
                 android:textSize="20sp"
                 android:textStyle="bold" />
-
-            <Space
-                android:layout_width="30dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
 
             <Button
                 android:id="@+id/manageCustomers_btnDelete"

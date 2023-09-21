@@ -37,12 +37,15 @@
                     android:layout_height="0dp"
                     android:backgroundTint="#A39305"
                     android:text="Manage Companies"
-                    android:textSize="40sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
+                    app:layout_constraintHeight_percent="0.2"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@+id/admin_btnCustomersMang"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:layout_constraintVertical_bias="0.5" />
 
                 <Button
                     android:id="@+id/admin_btnCustomersMang"
@@ -50,15 +53,17 @@
                     android:layout_height="0dp"
                     android:backgroundTint="#A39305"
                     android:text="Manage Customers"
-                    android:textSize="40sp"
+                    android:textSize="20sp"
                     android:textStyle="bold"
+                    app:layout_constraintHeight_percent="0.2"
                     app:layout_constraintTop_toBottomOf="@+id/admin_btnCompaniesMang"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent" />
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed"
+                    app:layout_constraintVertical_bias="0.5" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
-
 
         </FrameLayout>
     </LinearLayout>
