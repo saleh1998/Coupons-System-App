@@ -251,7 +251,7 @@ public class DB_Manager extends SQLiteOpenHelper{
                     deleteCoupon(c);
                 }
             }*/
-            ArrayList<Coupon> companyCoupons = getAllCoupons();
+            ArrayList<Coupon> companyCoupons = getCompanyCouponsbyID(companyID);
             for (Coupon c :companyCoupons)
                 deleteCoupon(c);
             companies.remove(tobeDeleted); // deleting it from the arraylist because all object in the list are references

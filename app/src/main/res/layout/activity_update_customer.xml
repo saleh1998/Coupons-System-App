@@ -116,19 +116,6 @@
             app:layout_constraintStart_toStartOf="@+id/updateCustomer_etEmail"
             app:layout_constraintTop_toBottomOf="@+id/updateCustomer_etEmail" />
 
-        <EditText
-            android:id="@+id/updateCustomer_etConfirmPassword"
-            android:layout_width="343dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="45dp"
-            android:ems="10"
-            android:hint="Confirm Password"
-            android:inputType="text|textPassword"
-            app:layout_constraintEnd_toEndOf="@+id/updateCustomer_etPassword"
-            app:layout_constraintStart_toStartOf="@+id/updateCustomer_etPassword"
-            app:layout_constraintTop_toBottomOf="@+id/updateCustomer_etPassword" />
-
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
