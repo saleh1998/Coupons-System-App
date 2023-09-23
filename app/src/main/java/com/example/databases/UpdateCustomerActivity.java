@@ -21,7 +21,7 @@ public class UpdateCustomerActivity extends AppCompatActivity implements Navigat
 
     private DrawerLayout drawerLayout;
     Button btnSave, btnCancel;
-    EditText etFName, etLName, etEmail, etPassword, etConfirmPassword;
+    EditText etFName, etLName, etEmail, etPassword;
     Toolbar toolbar;
     NavigationView navigationView;
     Customer customer;
@@ -37,7 +37,7 @@ public class UpdateCustomerActivity extends AppCompatActivity implements Navigat
         etLName = findViewById(R.id.updateCustomer_etLName);
         etEmail = findViewById(R.id.updateCustomer_etEmail);
         etPassword = findViewById(R.id.updateCustomer_etPassword);
-        etConfirmPassword = findViewById(R.id.updateCustomer_etConfirmPassword);
+
 
 
         Intent intent = getIntent();
@@ -47,7 +47,7 @@ public class UpdateCustomerActivity extends AppCompatActivity implements Navigat
         etLName.setText(customer.getLastName());
         etEmail.setText(customer.getEmail());
         etPassword.setText(customer.getPassword());
-        etConfirmPassword.setText("");
+
 
         ButtonsClick buttonsClick = new ButtonsClick();
         btnSave.setOnClickListener(buttonsClick);
@@ -96,18 +96,16 @@ public class UpdateCustomerActivity extends AppCompatActivity implements Navigat
                 String l_name = etLName.getText().toString();
                 String email = etEmail.getText().toString();
                 String password = etPassword.getText().toString();
-                String confirmPassword = etConfirmPassword.getText().toString();
-                if (!f_name.isEmpty() && !l_name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
-                    if (password.equals(confirmPassword)) {
 
+                if (!f_name.isEmpty() && !l_name.isEmpty() && !email.isEmpty() && !password.isEmpty()) {
+                        String originalEmail = customer.getEmail();
                         customer.setFirstName(f_name);
                         customer.setLastName(l_name);
                         customer.setEmail(email);
                         customer.setPassword(password);
-
                         ///// added by rashad with advice from bayan
                         AdminFacade adminFacade = new AdminFacade(UpdateCustomerActivity.this);
-                        if (!adminFacade.CustomerEmailExists(customer)) {
+                        if (email.equals(originalEmail) || !adminFacade.CustomerEmailExists(customer)) {
                             try {
                                 adminFacade.updateCustomer(customer);
                                 Intent intent = getIntent();
@@ -121,11 +119,7 @@ public class UpdateCustomerActivity extends AppCompatActivity implements Navigat
                         } else {
                             Toast.makeText(UpdateCustomerActivity.this, "Email is already taken", Toast.LENGTH_SHORT).show();
                         }
-                    } else {
-                        etPassword.setText("");
-                        etConfirmPassword.setText("");
-                        Toast.makeText(UpdateCustomerActivity.this, "Please insert correct password confirmation!!", Toast.LENGTH_SHORT).show();
-                    }
+
                     /////
 
                     /*Intent intent = getIntent();
