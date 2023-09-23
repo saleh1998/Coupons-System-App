@@ -36,6 +36,8 @@ public class BuyCouponActivity extends AppCompatActivity implements Serializable
     CompanyCouponsLvAdapter adapter;
     EditText etMaxPrice;
     CouponsDBDAO couponsDBDAO;
+    ArrayList<Coupon> requested = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,13 +95,14 @@ public class BuyCouponActivity extends AppCompatActivity implements Serializable
         imBack.setOnClickListener(buttonsClick);
         search.setOnClickListener(buttonsClick);
 
+
         spCategory.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if (position != -1) {
                     Category category = (Category) spCategory.getSelectedItem();
-                    ArrayList<Coupon> requested = new ArrayList<>();
                     try {
+                        requested.clear();
                         ArrayList<Coupon> couponsByCat =  couponsDBDAO.getAllCoupons();
                         for (Coupon c:couponsByCat) {
                             if(c.getCategory()==(category))
@@ -132,7 +135,7 @@ public class BuyCouponActivity extends AppCompatActivity implements Serializable
                 if(selectedRow != -1) {
                     Intent intent = getIntent();
                     Coupon c = null;
-                    c = allCoupons.get(selectedRow);
+                    c = requested.get(selectedRow);
                     if (c != null) {
                         intent.putExtra("coupon", (Serializable) c);
                         intent.putExtra("requestCode", 1);
