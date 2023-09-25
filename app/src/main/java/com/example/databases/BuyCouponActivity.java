@@ -152,7 +152,7 @@ public class BuyCouponActivity extends AppCompatActivity implements Serializable
                 if(!etMaxPrice.getText().toString().trim().isEmpty()) {
                     double maxPrice = Double.parseDouble(etMaxPrice.getText().toString());
                     try {
-                        ArrayList<Coupon> couponsByPrice = customerFacade.getCustomerCoupons(maxPrice);
+                        ArrayList<Coupon> couponsByPrice = customerFacade.getAllCouponsbyprice(maxPrice);
                         adapter = new CompanyCouponsLvAdapter(BuyCouponActivity.this, R.layout.coupon_line, couponsByPrice);
                         if (couponsByPrice != null)
                             lvCoupons.setAdapter(adapter);
