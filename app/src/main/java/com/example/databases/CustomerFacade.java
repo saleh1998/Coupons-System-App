@@ -85,6 +85,15 @@ public class CustomerFacade extends ClientFacade {
         return customerCouponsByCategory;
     }
 
+    public ArrayList<Coupon> getAllCouponsbyprice(double maxPrice) throws ParseException {
+        ArrayList<Coupon> customerCoupons = DB_Manager.getInstance(context).getAllCoupons();
+        ArrayList<Coupon> customerCouponsByCategory = new ArrayList<>();
+        for(Coupon coupon : customerCoupons)
+            if(coupon.getPrice() <= maxPrice)
+                customerCouponsByCategory.add(coupon);
+        return customerCouponsByCategory;
+    }
+
     public Customer getCustomerDetails() {
         return(customersDAO.getOneCustomer(customerID));
     }
