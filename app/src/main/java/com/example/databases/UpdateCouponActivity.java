@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.Toolbar;
 
 import com.squareup.picasso.Picasso;
@@ -225,6 +226,10 @@ public class UpdateCouponActivity extends AppCompatActivity {
                 finish();
             }
             if (v.getId() == btnUpdate.getId()) {
+                if (startDate.after(endDate)) {
+                    Toast.makeText(UpdateCouponActivity.this, "end date can not be before start date", Toast.LENGTH_SHORT).show();
+
+                }
                 ArrayList<Category> categories = null;
                 try {
                     categories = db.getAllCategories();
